@@ -43,4 +43,10 @@
     CGRect frame = [label.text boundingRectWithSize:CGSizeMake(CGFLOAT_MAX, label.frame.size.height) options:NSStringDrawingUsesLineFragmentOrigin attributes:dic context:nil];
     label.frame = CGRectMake([UIScreen mainScreen].bounds.size.width - frame.size.width - 10, label.frame.origin.y, frame.size.width, label.frame.size.height);
 }
+// 无网络
++ (void)NoNetWorkInVC:(UIViewController *)VC{
+    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 70, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height - 70)];
+    imageView.image = [UIImage imageNamed:@"NoNet.png"];
+    [VC.view addSubview:imageView];
+}
 @end

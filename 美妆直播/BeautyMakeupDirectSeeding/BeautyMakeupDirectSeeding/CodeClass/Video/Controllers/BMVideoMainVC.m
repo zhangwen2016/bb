@@ -8,6 +8,7 @@
 
 #import "BMVideoMainVC.h"
 #import "BMVideoRecommendViewController.h"
+#import "BMVideoHotViewController.h"
 @interface BMVideoMainVC ()
 
 @end
@@ -20,10 +21,23 @@
     
     [self.navigationView.topToLeftButton setTitle:@"推荐" forState:(UIControlStateNormal)];
     [self.navigationView.topToRightButton setTitle:@"热门" forState:(UIControlStateNormal)];
+    [self loadRecommendVC];
+    [self loadHotVC];
+  
+}
+- (void)loadRecommendVC{
+    
     BMVideoRecommendViewController *recommendVC = [[BMVideoRecommendViewController alloc] init];
-    recommendVC.view.frame = CGRectMake(0, 70, [UIScreen mainScreen].bounds.size.width, self.view.frame.size.height - 64);
-    [self.view addSubview:recommendVC.view];
+    recommendVC.view.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, self.view.frame.size.height - 70);
+    [self.mainScroll addSubview:recommendVC.view];
     [self addChildViewController:recommendVC];
+    
+}
+- (void)loadHotVC{
+    BMVideoHotViewController *hotVC = [[BMVideoHotViewController alloc] init];
+    hotVC.view.frame = CGRectMake([UIScreen mainScreen].bounds.size.width, 0, [UIScreen mainScreen].bounds.size.width, self.view.frame.size.height - 70);
+    [self.mainScroll addSubview:hotVC.view];
+    [self addChildViewController:hotVC];
 }
 
 - (void)didReceiveMemoryWarning {
