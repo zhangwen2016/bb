@@ -12,4 +12,5 @@
 + (void)autoAdjustHeightLabel:(UILabel *)label labelFontSize:(NSInteger)fontSize;
 + (void)autoAdjustLeftWidthLabel:(UILabel *)label labelFontSize:(NSInteger)fontSize;
 + (void)autoAdjustRightWidthLabel:(UILabel *)label labelFontSize:(NSInteger)fontSize;
++ (void)NoNetWorkInVC:(UIViewController *)VC;
 @end

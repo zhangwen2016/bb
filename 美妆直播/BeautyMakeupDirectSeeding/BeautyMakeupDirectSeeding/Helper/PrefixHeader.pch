@@ -18,7 +18,7 @@
 
 #define kLargeFont 16
 #define kSmallFont 12
-
+#define kPinkColor [UIColor colorWithRed:255/255.0 green:75 / 255.0 blue:124 / 255.0 alpha:1]
 #endif /* PrefixHeader_pch */
 #import "UIView+ZYFrame.h"
 #import "BMRequestManager.h"

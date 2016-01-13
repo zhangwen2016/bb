@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface BMSearchViewController : UIViewController
-
+@property (nonatomic, strong) UISearchController *searchController; // searchBar
 @end

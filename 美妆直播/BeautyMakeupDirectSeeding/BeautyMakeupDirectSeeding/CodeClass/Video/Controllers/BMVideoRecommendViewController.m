@@ -10,7 +10,7 @@
 #import "BMVideoMainTableViewCell.h"
 #import "BMSearchViewController.h"
 #define kVideoRecommendApi @"http://app.meilihuli.com/api/videodemand/firstcommend/count/20/page/1/?lang=zh-cn&version=ios2.0.0&cid=asXoHoWV7R9iVVx6r8CwK8"
-@interface BMVideoRecommendViewController () <UITableViewDataSource, UITableViewDelegate, UISearchResultsUpdating>
+@interface BMVideoRecommendViewController () <UITableViewDataSource, UITableViewDelegate>
 @property (nonatomic, strong) UITableView *listTableView;
 @property (nonatomic, strong) NSMutableArray *dataSourceArray;
 @end
@@ -42,14 +42,8 @@
     UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 40)];
     headerView.backgroundColor = [UIColor whiteColor];
     
-    // BMSearchViewController *searchVC = [[BMSearchViewController alloc] init];
-    
     UISearchController *searchController = [[UISearchController alloc] initWithSearchResultsController:nil];
     searchController.searchBar.placeholder = @"搜索主播/视频";
-    searchController.searchResultsUpdater = self;
-    searchController.searchBar.tintColor= [UIColor whiteColor];
-    searchController.searchBar.searchBarStyle = UISearchBarStyleMinimal;
-    searchController.searchBar.backgroundColor = [UIColor whiteColor];
     [searchController.searchBar sizeToFit];
     [headerView addSubview:searchController.searchBar];
     
@@ -58,16 +52,7 @@
     headerBtn.frame = headerView.frame;
     [headerBtn addTarget:self action:@selector(headerButtonAction:) forControlEvents:(UIControlEventTouchUpInside)];
     [headerView addSubview:headerBtn];
-    
-  //  _listTableView.tableHeaderView = searchController.searchBar;
     _listTableView.tableHeaderView = headerView;
-}
-- (void)updateSearchResultsForSearchController:(UISearchController *)searchController
-{
-   // NSLog(@"11");
-    BMSearchViewController *searchVC = [[BMSearchViewController alloc] init];
-    [self.navigationController pushViewController:searchVC animated:YES];
-    
 }
 - (void)headerButtonAction:(UIButton *)button{
     BMSearchViewController *searchVC = [[BMSearchViewController alloc] init];
@@ -89,7 +74,7 @@
         [_listTableView reloadData];
         
     } erro:^(NSError *erro) {
-        NSLog(@"请求失败");
+        [BMCommonMethod NoNetWorkInVC:self];
     }];
 }
 
