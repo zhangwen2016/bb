@@ -8,9 +8,11 @@
 
 #import "BMDirectSedingMainVC.h"
 #import "BMDirectSeedingLeftVC.h"
+#import "BMDirectSeedingRightVC.h"
 
 @interface BMDirectSedingMainVC ()
 @property (nonatomic,strong) BMDirectSeedingLeftVC *leftVC;
+@property (nonatomic,strong) BMDirectSeedingRightVC *rightVC;
 
 @end
 
@@ -26,10 +28,14 @@
     
     
     _leftVC = [[BMDirectSeedingLeftVC alloc] init];
-    
+    _leftVC.view.frame = CGRectMake(0, 0, kScreenWidth, self.mainScroll.height);
     [self.mainScroll addSubview:_leftVC.view];
 
+    _rightVC = [[BMDirectSeedingRightVC alloc] init];
     
+    _rightVC.view.frame = CGRectMake(kScreenWidth, 0, kScreenWidth, self.mainScroll.height);
+    [self.mainScroll addSubview:_rightVC.view];
+
     
     
 }

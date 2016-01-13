@@ -70,6 +70,9 @@
     BMDirectSeedingCollectionCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"BMDirectSeedingCollectionCell" forIndexPath:indexPath];
     
     cell.model = _dataArray[indexPath.row];
+    
+    cell.live_coverButton.tag = 20 + indexPath.row;
+    [cell.live_coverButton addTarget:self action:@selector(live_coverButtonAction:) forControlEvents:(UIControlEventTouchUpInside)];
     return cell;
 }
 
@@ -83,6 +86,16 @@
     
 }
 
+// 点击item的方法
+- (void)live_coverButtonAction:(UIButton *)sender
+{
+    BMDsLiveAndPreviewModel *model = _dataArray[sender.tag - 20];
+    if (_delegate && [_delegate respondsToSelector:@selector(popupTimeViewWithModel:)]) {
+        [_delegate popupTimeViewWithModel:model];
+    }
+    
+    
+}
 
 
 - (void)awakeFromNib {

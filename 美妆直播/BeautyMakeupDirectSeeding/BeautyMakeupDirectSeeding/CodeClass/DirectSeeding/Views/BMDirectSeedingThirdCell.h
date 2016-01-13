@@ -7,11 +7,19 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BMDsLiveAndPreviewModel.h"
+@protocol liveButtonDelegate <NSObject>
+
+- (void)popupTimeViewWithModel:(BMDsLiveAndPreviewModel *)model;
+
+@end
+
 
 @interface BMDirectSeedingThirdCell : UITableViewCell
 
 /*第三个分区的cell*/
 
+@property (nonatomic,assign) id<liveButtonDelegate>delegate;
 
 @property (nonatomic,strong) NSArray *dataArray;
 
