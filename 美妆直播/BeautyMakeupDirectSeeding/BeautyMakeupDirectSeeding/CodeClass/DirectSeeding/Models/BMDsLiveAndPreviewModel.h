@@ -25,5 +25,7 @@
 @property (nonatomic,strong) NSString *view_count;
 @property (nonatomic,strong) NSString *subscribe_count;
 @property (nonatomic,strong) NSString *signature;
+@property (nonatomic,strong) NSString *subscribe_status;
+@property (nonatomic,strong) NSString *ID;
 
 @end

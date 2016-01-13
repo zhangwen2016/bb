@@ -14,11 +14,11 @@
 #import "BMRequestManager.h"
 #import "BMDirectSeedingHeaderView.h"
 #import "BMDsLiveAndPreviewModel.h"
-
+#import "BMToBeginPlayTimeView.h"
 #define kDirectSeedingUrl @"http://app.meilihuli.com/api/channel/index/?lang=zh-cn&version=ios2.0.0&cid=asXoHoWV7R9iVVx6r8CwK8"
 
 
-@interface BMDirectSeedingLeftVC ()<UITableViewDelegate,UITableViewDataSource>
+@interface BMDirectSeedingLeftVC ()<UITableViewDelegate,UITableViewDataSource,liveButtonDelegate>
 @property (nonatomic,strong) UITableView *tableView;
 
 // 保存图片网址的数组
@@ -38,12 +38,14 @@
 // 保存近期预告的model
 @property (nonatomic,strong) NSMutableArray *recentDataArray;
 
+// 弹窗视图
+@property (nonatomic,strong) BMToBeginPlayTimeView *timeView;
+
 
 
 @end
 
 @implementation BMDirectSeedingLeftVC
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
@@ -53,6 +55,7 @@
     _todayDataArray = [NSMutableArray array];
     _attentionDataArray = [NSMutableArray array];
     _recentDataArray = [NSMutableArray array];
+    
     
     [self addTableView];
     
@@ -90,6 +93,7 @@
             [_dsDataArray addObject:model];
             
         }
+        
         
         // 预告
         _preview_title = dic[@"data"][@"preview_title"];
@@ -132,7 +136,7 @@
         NSLog(@"请求失败");
     }];
     
-
+    
     
     
     
@@ -178,27 +182,25 @@
         
         if (section == 0) {
             // 直播分区
-            
+            return _dsDataArray.count + 1;
             
         }else if (section == 1) {
             // 预告
             return _todayDataArray.count + 1;
             
         }else if (section == 2){
-            
-            // 关注分区
+            // 关注
             return _attentionDataArray.count + 1;
             
         }else if (section == 3){
-            // 近期预告分区
+            // 近期预告
             return 2;
         }
         
-    }
-    
-    
-    
-    if (section == 0) {
+        
+        
+        
+    }else if (section == 0) {
         // 预告
         return _todayDataArray.count + 1;
         
@@ -206,6 +208,9 @@
         // 关注
         return _attentionDataArray.count + 1;
         
+    }else if (section == 2){
+        // 近期预告
+        return 2;
     }
     
     return 2;
@@ -214,21 +219,18 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     //======================如果有直播
-    
     if (_dsDataArray.count != 0) {
-        
         // 设置各个分区第一个cell
-        if (indexPath.row == 0 && indexPath.section == 1) {
+        if (indexPath.row == 0 && indexPath.section == 0) {
             // 设置第一个直播分区
             BMDirectSeedingCellToOne *cell = [tableView dequeueReusableCellWithIdentifier:@"BMDirectSeedingCellToOne"];
             
-            cell.imageLabelV.imageView.image = [UIImage imageNamed:@"jin"];
-            cell.imageLabelV.label.text = _preview_title;
+            cell.imageLabelV.imageView.image = [UIImage imageNamed:@"zhibo02"];
+            cell.imageLabelV.label.text = @"正在直播";
             
             if ([_preview_title isEqualToString:@"直播"]) {
                 
                 cell.imageLabelV.imageView.image = [UIImage imageNamed:@"ye"];
-                
             }
             
             return cell;
@@ -246,6 +248,8 @@
                 cell.imageLabelV.imageView.image = [UIImage imageNamed:@"ye"];
                 
             }
+            
+            
             
             return cell;
             
@@ -293,6 +297,7 @@
         }else if (indexPath.section == 3){
             
             BMDirectSeedingThirdCell *cell = [tableView dequeueReusableCellWithIdentifier:@"BMDirectSeedingThirdCell"];
+            cell.delegate = self;
             cell.tag = 10;
             
             cell.dataArray = _recentDataArray;
@@ -359,6 +364,8 @@
     }else if (indexPath.section == 2){
         
         BMDirectSeedingThirdCell *cell = [tableView dequeueReusableCellWithIdentifier:@"BMDirectSeedingThirdCell"];
+        cell.delegate = self;
+        
         cell.tag = 10;
         
         cell.dataArray = _recentDataArray;
@@ -405,7 +412,7 @@
             return 660;
         }
         
-        
+        return 50;
     }
     
     // 如果没有在直播
@@ -422,12 +429,139 @@
     return 50;
 }
 
+// collection代理方法
+- (void)popupTimeViewWithModel:(BMDsLiveAndPreviewModel *)model
+{
+    
+    _timeView = [[BMToBeginPlayTimeView alloc] initWithFrame:CGRectMake(60, kScreenHeight, kScreenWidth - 120,kScreenHeight/2)];
+    _timeView.autoresizesSubviews = YES;
+    _timeView.backgroundColor = [UIColor whiteColor];
+    _timeView.model = model;
+    
+    [_timeView.closeButton addTarget:self action:@selector(closeButtonAction:) forControlEvents:(UIControlEventTouchUpInside)];
+    
+    [self.view addSubview:_timeView];
+    
+    [UIView animateWithDuration:.5 animations:^{
+        
+        CGRect newFrame = _timeView.frame;
+        newFrame.origin.y = 80;
+        _timeView.frame = newFrame;
+        _tableView.userInteractionEnabled = NO;
+        
+    }];
+    
+    
+    
+}
 
+
+// 分区表头高度
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
     return 0.000001;
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    
+    
+    // 排数第一行
+    if (indexPath.row == 0) {
+        
+        return;
+    }
+    
+    
+    
+    if (indexPath.section == 0 && _dsDataArray.count == 0){
+        
+        // 第一个分区(直播)
+        
+        _timeView = [[BMToBeginPlayTimeView alloc] initWithFrame:CGRectMake(60, kScreenHeight, kScreenWidth - 120,kScreenHeight/2)];
+        _timeView.autoresizesSubviews = YES;
+        _timeView.backgroundColor = [UIColor whiteColor];
+        _timeView.model = _todayDataArray[indexPath.row - 1];
+        
+        [_timeView.closeButton addTarget:self action:@selector(closeButtonAction:) forControlEvents:(UIControlEventTouchUpInside)];
+        
+        [self.view addSubview:_timeView];
+        
+        [UIView animateWithDuration:.5 animations:^{
+            
+            CGRect newFrame = _timeView.frame;
+            newFrame.origin.y = 80;
+            _timeView.frame = newFrame;
+            _tableView.userInteractionEnabled = NO;
+            
+        }];
+        
+    }else if (_dsDataArray.count != 0 && indexPath.section == 0){
+        
+        _timeView = [[BMToBeginPlayTimeView alloc] initWithFrame:CGRectMake(60, kScreenHeight, kScreenWidth - 120,kScreenHeight/2)];
+        _timeView.autoresizesSubviews = YES;
+        _timeView.backgroundColor = [UIColor whiteColor];
+        _timeView.model = _dsDataArray[indexPath.row - 1];
+        
+        [_timeView.closeButton addTarget:self action:@selector(closeButtonAction:) forControlEvents:(UIControlEventTouchUpInside)];
+        
+        [self.view addSubview:_timeView];
+        
+        [UIView animateWithDuration:.5 animations:^{
+            
+            CGRect newFrame = _timeView.frame;
+            newFrame.origin.y = 80;
+            _timeView.frame = newFrame;
+            _tableView.userInteractionEnabled = NO;
+            
+        }];
+        
+        
+    }else if (_dsDataArray.count != 0 && indexPath.section == 1){
+        
+        // 第二个分区
+        _timeView = [[BMToBeginPlayTimeView alloc] initWithFrame:CGRectMake(60, kScreenHeight, kScreenWidth - 120,kScreenHeight/2)];
+        _timeView.autoresizesSubviews = YES;
+        _timeView.backgroundColor = [UIColor whiteColor];
+        _timeView.model = _todayDataArray[indexPath.row - 1];
+        
+        [_timeView.closeButton addTarget:self action:@selector(closeButtonAction:) forControlEvents:(UIControlEventTouchUpInside)];
+        
+        [self.view addSubview:_timeView];
+        
+        [UIView animateWithDuration:.5 animations:^{
+            
+            CGRect newFrame = _timeView.frame;
+            newFrame.origin.y = 80;
+            _timeView.frame = newFrame;
+            _tableView.userInteractionEnabled = NO;
+            
+        }];
+        
+        
+        
+    }
+    
+    
+    
+    
+}
+
+
+
+// 关闭按钮
+- (void)closeButtonAction:(UIButton *)sender
+{
+    [UIView animateWithDuration:.5 animations:^{
+        
+        CGRect newFrame = _timeView.frame;
+        newFrame.origin.y = kScreenHeight;
+        _timeView.frame = newFrame;
+        _timeView = nil;
+        _tableView.userInteractionEnabled = YES;
+        
+    }];
+}
 
 
 - (void)didReceiveMemoryWarning {
