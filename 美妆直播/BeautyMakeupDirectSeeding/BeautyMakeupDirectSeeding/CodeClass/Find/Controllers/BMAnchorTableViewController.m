@@ -177,9 +177,13 @@
         cell.titleLable.font = [UIFont systemFontOfSize:kLargeFont];
         if (indexPath.row == 0) {
             cell.titleLable.text = @"人气排行榜";
+            NSString *popularPath = [[NSBundle mainBundle] pathForResource:@"popularImg" ofType:@"png"];
+            cell.logoImg.image = [UIImage imageWithContentsOfFile:popularPath];
             cell.dataArr = (NSArray *)_honerListArr[0];
         }else{
             cell.titleLable.text = @"收益排行榜";
+            NSString *walletImgPath = [[NSBundle mainBundle] pathForResource:@"walletImg" ofType:@"png"];
+            cell.logoImg.image = [UIImage imageWithContentsOfFile:walletImgPath];
             cell.dataArr = _honerListArr[1];
         }
         return cell;

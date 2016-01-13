@@ -45,6 +45,9 @@
 		798B6F771C463B9A002A5FCE /* SmallCmtImg.png in Resources */ = {isa = PBXBuildFile; fileRef = 798B6F761C463B9A002A5FCE /* SmallCmtImg.png */; };
 		798B6F7A1C463D7F002A5FCE /* BMMeiliFamilyCmtModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 798B6F791C463D7F002A5FCE /* BMMeiliFamilyCmtModel.m */; };
 		798E1E451C44AA47001FB08B /* BMAnchorRankChildViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 798E1E441C44AA47001FB08B /* BMAnchorRankChildViewController.m */; };
+		799B60DD1C46984000958A43 /* popularImg.png in Resources */ = {isa = PBXBuildFile; fileRef = 799B60DC1C46984000958A43 /* popularImg.png */; };
+		799B60DF1C46984A00958A43 /* walletImg.png in Resources */ = {isa = PBXBuildFile; fileRef = 799B60DE1C46984A00958A43 /* walletImg.png */; };
+		799B60E11C46985600958A43 /* applyAnchor.png in Resources */ = {isa = PBXBuildFile; fileRef = 799B60E01C46985600958A43 /* applyAnchor.png */; };
 		799F22401C43503D00F03EA5 /* BMCommonMethod.m in Sources */ = {isa = PBXBuildFile; fileRef = 799F223F1C43503D00F03EA5 /* BMCommonMethod.m */; };
 		79BBA9801C43413100BB79E4 /* BMRequestManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 79BBA97F1C43413100BB79E4 /* BMRequestManager.m */; };
 		79BBA9AE1C43445500BB79E4 /* MJRefreshAutoFooter.m in Sources */ = {isa = PBXBuildFile; fileRef = 79BBA9841C43445400BB79E4 /* MJRefreshAutoFooter.m */; };
@@ -262,6 +265,9 @@
 		798B6F791C463D7F002A5FCE /* BMMeiliFamilyCmtModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BMMeiliFamilyCmtModel.m; sourceTree = "<group>"; };
 		798E1E431C44AA47001FB08B /* BMAnchorRankChildViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMAnchorRankChildViewController.h; sourceTree = "<group>"; };
 		798E1E441C44AA47001FB08B /* BMAnchorRankChildViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BMAnchorRankChildViewController.m; sourceTree = "<group>"; };
+		799B60DC1C46984000958A43 /* popularImg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = popularImg.png; sourceTree = "<group>"; };
+		799B60DE1C46984A00958A43 /* walletImg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = walletImg.png; sourceTree = "<group>"; };
+		799B60E01C46985600958A43 /* applyAnchor.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = applyAnchor.png; sourceTree = "<group>"; };
 		799F223E1C43503D00F03EA5 /* BMCommonMethod.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMCommonMethod.h; sourceTree = "<group>"; };
 		799F223F1C43503D00F03EA5 /* BMCommonMethod.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BMCommonMethod.m; sourceTree = "<group>"; };
 		79BBA97E1C43413100BB79E4 /* BMRequestManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMRequestManager.h; sourceTree = "<group>"; };
@@ -878,6 +884,9 @@
 		C60909201C410A3600DF0B8B /* Picture */ = {
 			isa = PBXGroup;
 			children = (
+				799B60DC1C46984000958A43 /* popularImg.png */,
+				799B60DE1C46984A00958A43 /* walletImg.png */,
+				799B60E01C46985600958A43 /* applyAnchor.png */,
 				798B6F761C463B9A002A5FCE /* SmallCmtImg.png */,
 				C659446C1C45E4DC00CEFECA /* zhibo02.png */,
 				C659446D1C45E4DC00CEFECA /* guanzhu.png */,
@@ -1234,6 +1243,7 @@
 				79CFDAC81C44F89C00DAE970 /* meiliFamilyView.png in Resources */,
 				C60909661C410A3600DF0B8B /* pba.db in Resources */,
 				C62C5E111C43438E00C0CBD6 /* video.png in Resources */,
+				799B60DF1C46984A00958A43 /* walletImg.png in Resources */,
 				C609096D1C410A3600DF0B8B /* zbar-helpicons.png in Resources */,
 				C609096C1C410A3600DF0B8B /* zbar-help.html in Resources */,
 				79CFDAC61C44F76100DAE970 /* MeiliFamilyCmt.png in Resources */,
@@ -1247,7 +1257,9 @@
 				C60909551C410A3600DF0B8B /* banner_close@2x.png in Resources */,
 				798B6F771C463B9A002A5FCE /* SmallCmtImg.png in Resources */,
 				C64954B11C40EF3C00A7F89E /* Assets.xcassets in Resources */,
+				799B60DD1C46984000958A43 /* popularImg.png in Resources */,
 				C60909481C410A3600DF0B8B /* all_topback.png in Resources */,
+				799B60E11C46985600958A43 /* applyAnchor.png in Resources */,
 				C609095F1C410A3600DF0B8B /* LaunchImage-700-568h@2x.png in Resources */,
 				C609095E1C410A3600DF0B8B /* LaunchImage-568h@2x.png in Resources */,
 				C60909591C410A3600DF0B8B /* image_chose.png in Resources */,
