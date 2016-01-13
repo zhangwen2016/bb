@@ -21,20 +21,19 @@
 @property (nonatomic, strong) NSString *is_subscribe;
 
 
+// 进入个人主页
+@property (nonatomic, strong) NSString *vip;
+@property (nonatomic, strong) NSString *fans_count;
+@property (nonatomic, strong) NSString *subscribe_count;
+@property (nonatomic, strong) NSString *age;
+ // @property (nonatomic, strong) NSString *is_signed;
 
 // course 和MainMModel一样
-//@property (nonatomic, strong) NSString *course_id;
-//// @property (nonatomic, strong) NSString *uid;
-//@property (nonatomic, strong) NSString *course_title;
-//@property (nonatomic, strong) NSString *course_video;
-//@property (nonatomic, strong) NSString *video_time;
-//@property (nonatomic, strong) NSString *course_cover;
-//// @property (nonatomic, strong) NSString *nickname;
-//// @property (nonatomic, strong) NSString *avatar;
-//@property (nonatomic, strong) NSString *subscribe_count;
-//@property (nonatomic, strong) NSString *see_count;
-//@property (nonatomic, strong) NSString *add_time;
-//@property (nonatomic, strong) NSString *praise_count;
+@property (nonatomic, strong) NSString *course_video;
+@property (nonatomic, strong) NSString *video_time;
+@property (nonatomic, strong) NSString *see_count;
+@property (nonatomic, strong) NSString *add_time;
+@property (nonatomic, strong) NSString *praise_count;
 
 // live
 @property (nonatomic, strong) NSString *live_id;

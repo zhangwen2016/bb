@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "BMSearchTeacherModel.h"
 @interface BMVideoLiveTableViewCell : UITableViewCell <UICollectionViewDelegate, UICollectionViewDataSource>
 @property (nonatomic, strong) UICollectionView *liveCollectionView;
 @property (nonatomic, strong) NSArray *liveArray;

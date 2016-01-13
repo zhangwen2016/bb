@@ -11,6 +11,7 @@
 @implementation BMVideoLiveTableViewCell
 
 - (void)setLiveArray:(NSArray *)liveArray{
+//    self.contentView.backgroundColor = [UIColor orangeColor];
     _liveArray = liveArray;
     [self loadLiveCollectionView];
 }
@@ -21,7 +22,7 @@
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
     layout.minimumLineSpacing = 5;
     layout.minimumInteritemSpacing = 5;
-    layout.itemSize = CGSizeMake([UIScreen mainScreen].bounds.size.width / 2 - 20, 150);
+    layout.itemSize = CGSizeMake([UIScreen mainScreen].bounds.size.width / 2 - 10, 150);
     layout.sectionInset = UIEdgeInsetsMake(5, 5, 5, 10);
     CGFloat height = 0;
     if (_liveArray.count % 2 == 1) {
