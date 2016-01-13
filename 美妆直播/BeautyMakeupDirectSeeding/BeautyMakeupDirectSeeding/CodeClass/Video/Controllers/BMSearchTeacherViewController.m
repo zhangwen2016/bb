@@ -47,8 +47,8 @@
     parDic[@"course_count"] = @"5";
     parDic[@"keyword"] = _keyWordString;
     parDic[@"teacher_count"] = @"5";
-    NSLog(@"%@", _keyWordString);
-    NSLog(@"%@", parDic);
+//    NSLog(@"%@", _keyWordString);
+//    NSLog(@"%@", parDic);
     [BMRequestManager requsetWithUrlString:kSearchTeacherAPI parDic:parDic Method:POST finish:^(NSData *data) {
         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
         
@@ -200,9 +200,6 @@
     
     BMSearchViewController *searchVC =(BMSearchViewController *)[self parentViewController];
     searchVC.searchController.searchBar.hidden = YES;
-    
-    
-    
     BMVideoLinkUserListViewController *linkUserVC = [[BMVideoLinkUserListViewController alloc] init];
     linkUserVC.keyWord = _keyWordString;
     [self.navigationController pushViewController:linkUserVC animated:YES];

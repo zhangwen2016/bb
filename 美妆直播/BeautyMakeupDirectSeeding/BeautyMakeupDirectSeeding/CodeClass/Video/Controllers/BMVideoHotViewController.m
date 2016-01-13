@@ -9,6 +9,7 @@
 #import "BMVideoHotViewController.h"
 #import "BMVideoHotTag.h"
 #import "BMAllTagViewController.h"
+#import "BMVideoShowViewController.h"
 #define kHotApi @"http://app.meilihuli.com/api/videodemand/firsthot/count/20/page/1/?lang=zh-cn&version=ios2.0.0&cid=asXoHoWV7R9iVVx6r8CwK8"
 
 #define kHotTagApi @"http://app.meilihuli.com/api/tag/recommendlist/?lang=zh-cn&version=ios2.0.0&cid=asXoHoWV7R9iVVx6r8CwK8"
@@ -122,7 +123,13 @@
     return cell;
 };
 
-
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    BMVideoShowViewController *showVC = [[BMVideoShowViewController alloc] init];
+    BMVideoMainModel *model = _dataSourceArray[indexPath.row];
+    showVC.source_id = model.source_id;
+    [self.navigationController pushViewController:showVC animated:YES];
+    
+}
 
 
 

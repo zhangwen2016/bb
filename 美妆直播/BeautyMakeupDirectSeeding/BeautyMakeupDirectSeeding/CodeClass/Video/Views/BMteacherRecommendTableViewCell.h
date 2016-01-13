@@ -1,0 +1,16 @@
+//
+//  BMteacherRecommendTableViewCell.h
+//  BeautyMakeupDirectSeeding
+//
+//  Created by lanou on 16/1/13.
+//  Copyright © 2016年 YONG. All rights reserved.
+//
+
+#import <UIKit/UIKit.h>
+#import "BMButtonLabel.h"
+#import "BMRecommendTeacherModel.h"
+@interface BMteacherRecommendTableViewCell : UITableViewCell
+@property (nonatomic, strong) NSArray *teacherArray;
+@property (nonatomic, strong) UIScrollView *bgScrollView;
+
+@end
