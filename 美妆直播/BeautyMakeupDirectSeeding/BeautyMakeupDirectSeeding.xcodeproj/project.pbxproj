@@ -32,6 +32,8 @@
 		796A56C21C44950B00DB0865 /* BMVideoHotTag.m in Sources */ = {isa = PBXBuildFile; fileRef = 796A56B81C44950B00DB0865 /* BMVideoHotTag.m */; };
 		796A56C31C44950B00DB0865 /* BMVideoMainTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 796A56BA1C44950B00DB0865 /* BMVideoMainTableViewCell.m */; };
 		7978174A1C44AE1100B01DA9 /* BMAnchorRankTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 797817491C44AE1100B01DA9 /* BMAnchorRankTableViewCell.m */; };
+		7983E1331C45EB680089C2B4 /* BMMeiliFamilyCommunityDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7983E1321C45EB680089C2B4 /* BMMeiliFamilyCommunityDetailViewController.m */; };
+		7983E1361C45EC2F0089C2B4 /* BMMeiliFamilyCommunityDetailView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7983E1351C45EC2F0089C2B4 /* BMMeiliFamilyCommunityDetailView.m */; };
 		7985EE8D1C44922700DCDFE5 /* BMAnchorTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7985EE791C44922700DCDFE5 /* BMAnchorTableViewController.m */; };
 		7985EE8E1C44922700DCDFE5 /* BMFindMainVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 7985EE7B1C44922700DCDFE5 /* BMFindMainVC.m */; };
 		7985EE911C44922700DCDFE5 /* BMAnchorFindModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7985EE831C44922700DCDFE5 /* BMAnchorFindModel.m */; };
@@ -40,6 +42,8 @@
 		7985EE941C44922700DCDFE5 /* BMFindAnchorHonerListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7985EE8A1C44922700DCDFE5 /* BMFindAnchorHonerListTableViewCell.m */; };
 		7985EE951C44922700DCDFE5 /* BMPopularAnchorTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7985EE8C1C44922700DCDFE5 /* BMPopularAnchorTableViewCell.m */; };
 		7985EE981C449B2800DCDFE5 /* BMAnchorFindTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7985EE971C449B2800DCDFE5 /* BMAnchorFindTableViewCell.m */; };
+		798B6F771C463B9A002A5FCE /* SmallCmtImg.png in Resources */ = {isa = PBXBuildFile; fileRef = 798B6F761C463B9A002A5FCE /* SmallCmtImg.png */; };
+		798B6F7A1C463D7F002A5FCE /* BMMeiliFamilyCmtModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 798B6F791C463D7F002A5FCE /* BMMeiliFamilyCmtModel.m */; };
 		798E1E451C44AA47001FB08B /* BMAnchorRankChildViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 798E1E441C44AA47001FB08B /* BMAnchorRankChildViewController.m */; };
 		799F22401C43503D00F03EA5 /* BMCommonMethod.m in Sources */ = {isa = PBXBuildFile; fileRef = 799F223F1C43503D00F03EA5 /* BMCommonMethod.m */; };
 		79BBA9801C43413100BB79E4 /* BMRequestManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 79BBA97F1C43413100BB79E4 /* BMRequestManager.m */; };
@@ -67,10 +71,12 @@
 		79BBA9D01C43446000BB79E4 /* FMDatabaseQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 79BBA9C91C43446000BB79E4 /* FMDatabaseQueue.m */; };
 		79BBA9D11C43446000BB79E4 /* FMResultSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 79BBA9CC1C43446000BB79E4 /* FMResultSet.m */; };
 		79BBA9D31C43457D00BB79E4 /* libsqlite3.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 79BBA9D21C43457D00BB79E4 /* libsqlite3.0.tbd */; };
+		79C617421C468F140041150C /* HcCustomKeyboard.m in Sources */ = {isa = PBXBuildFile; fileRef = 79C617411C468F140041150C /* HcCustomKeyboard.m */; };
 		79CAFC791C44ED41001B05B5 /* BMFindMeiliFamalyMainTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 79CAFC781C44ED41001B05B5 /* BMFindMeiliFamalyMainTableViewController.m */; };
 		79CFDAC61C44F76100DAE970 /* MeiliFamilyCmt.png in Resources */ = {isa = PBXBuildFile; fileRef = 79CFDAC51C44F76100DAE970 /* MeiliFamilyCmt.png */; };
 		79CFDAC81C44F89C00DAE970 /* meiliFamilyView.png in Resources */ = {isa = PBXBuildFile; fileRef = 79CFDAC71C44F89C00DAE970 /* meiliFamilyView.png */; };
 		79E60E291C449CDC00364587 /* BMAnchorFindCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 79E60E281C449CDC00364587 /* BMAnchorFindCollectionViewCell.m */; };
+		79EEE1FE1C46356700A6D576 /* BMMeiiFamilyCommentTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 79EEE1FD1C46356700A6D576 /* BMMeiiFamilyCommentTableViewCell.m */; };
 		79F730441C4532EF00300B93 /* BMFindMeiliFamilyCheckMoreTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 79F730431C4532EF00300B93 /* BMFindMeiliFamilyCheckMoreTableViewCell.m */; };
 		C600077D1C448A5A008AD3D8 /* ye.png in Resources */ = {isa = PBXBuildFile; fileRef = C600077C1C448A5A008AD3D8 /* ye.png */; };
 		C60007801C448AA0008AD3D8 /* BMDsLiveAndPreviewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = C600077F1C448AA0008AD3D8 /* BMDsLiveAndPreviewModel.m */; };
@@ -231,6 +237,10 @@
 		796A56BA1C44950B00DB0865 /* BMVideoMainTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BMVideoMainTableViewCell.m; sourceTree = "<group>"; };
 		797817481C44AE1100B01DA9 /* BMAnchorRankTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMAnchorRankTableViewCell.h; sourceTree = "<group>"; };
 		797817491C44AE1100B01DA9 /* BMAnchorRankTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BMAnchorRankTableViewCell.m; sourceTree = "<group>"; };
+		7983E1311C45EB680089C2B4 /* BMMeiliFamilyCommunityDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMMeiliFamilyCommunityDetailViewController.h; sourceTree = "<group>"; };
+		7983E1321C45EB680089C2B4 /* BMMeiliFamilyCommunityDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BMMeiliFamilyCommunityDetailViewController.m; sourceTree = "<group>"; };
+		7983E1341C45EC2F0089C2B4 /* BMMeiliFamilyCommunityDetailView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMMeiliFamilyCommunityDetailView.h; sourceTree = "<group>"; };
+		7983E1351C45EC2F0089C2B4 /* BMMeiliFamilyCommunityDetailView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BMMeiliFamilyCommunityDetailView.m; sourceTree = "<group>"; };
 		7985EE781C44922700DCDFE5 /* BMAnchorTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMAnchorTableViewController.h; sourceTree = "<group>"; };
 		7985EE791C44922700DCDFE5 /* BMAnchorTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BMAnchorTableViewController.m; sourceTree = "<group>"; };
 		7985EE7A1C44922700DCDFE5 /* BMFindMainVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMFindMainVC.h; sourceTree = "<group>"; };
@@ -247,6 +257,9 @@
 		7985EE8C1C44922700DCDFE5 /* BMPopularAnchorTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BMPopularAnchorTableViewCell.m; sourceTree = "<group>"; };
 		7985EE961C449B2800DCDFE5 /* BMAnchorFindTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMAnchorFindTableViewCell.h; sourceTree = "<group>"; };
 		7985EE971C449B2800DCDFE5 /* BMAnchorFindTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BMAnchorFindTableViewCell.m; sourceTree = "<group>"; };
+		798B6F761C463B9A002A5FCE /* SmallCmtImg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SmallCmtImg.png; sourceTree = "<group>"; };
+		798B6F781C463D7F002A5FCE /* BMMeiliFamilyCmtModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMMeiliFamilyCmtModel.h; sourceTree = "<group>"; };
+		798B6F791C463D7F002A5FCE /* BMMeiliFamilyCmtModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BMMeiliFamilyCmtModel.m; sourceTree = "<group>"; };
 		798E1E431C44AA47001FB08B /* BMAnchorRankChildViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMAnchorRankChildViewController.h; sourceTree = "<group>"; };
 		798E1E441C44AA47001FB08B /* BMAnchorRankChildViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BMAnchorRankChildViewController.m; sourceTree = "<group>"; };
 		799F223E1C43503D00F03EA5 /* BMCommonMethod.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMCommonMethod.h; sourceTree = "<group>"; };
@@ -303,12 +316,16 @@
 		79BBA9CB1C43446000BB79E4 /* FMResultSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMResultSet.h; sourceTree = "<group>"; };
 		79BBA9CC1C43446000BB79E4 /* FMResultSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMResultSet.m; sourceTree = "<group>"; };
 		79BBA9D21C43457D00BB79E4 /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
+		79C617401C468F140041150C /* HcCustomKeyboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HcCustomKeyboard.h; sourceTree = "<group>"; };
+		79C617411C468F140041150C /* HcCustomKeyboard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HcCustomKeyboard.m; sourceTree = "<group>"; };
 		79CAFC771C44ED41001B05B5 /* BMFindMeiliFamalyMainTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMFindMeiliFamalyMainTableViewController.h; sourceTree = "<group>"; };
 		79CAFC781C44ED41001B05B5 /* BMFindMeiliFamalyMainTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BMFindMeiliFamalyMainTableViewController.m; sourceTree = "<group>"; };
 		79CFDAC51C44F76100DAE970 /* MeiliFamilyCmt.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MeiliFamilyCmt.png; sourceTree = "<group>"; };
 		79CFDAC71C44F89C00DAE970 /* meiliFamilyView.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = meiliFamilyView.png; sourceTree = "<group>"; };
 		79E60E271C449CDC00364587 /* BMAnchorFindCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMAnchorFindCollectionViewCell.h; sourceTree = "<group>"; };
 		79E60E281C449CDC00364587 /* BMAnchorFindCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BMAnchorFindCollectionViewCell.m; sourceTree = "<group>"; };
+		79EEE1FC1C46356700A6D576 /* BMMeiiFamilyCommentTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMMeiiFamilyCommentTableViewCell.h; sourceTree = "<group>"; };
+		79EEE1FD1C46356700A6D576 /* BMMeiiFamilyCommentTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BMMeiiFamilyCommentTableViewCell.m; sourceTree = "<group>"; };
 		79F730421C4532EF00300B93 /* BMFindMeiliFamilyCheckMoreTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMFindMeiliFamilyCheckMoreTableViewCell.h; sourceTree = "<group>"; };
 		79F730431C4532EF00300B93 /* BMFindMeiliFamilyCheckMoreTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BMFindMeiliFamilyCheckMoreTableViewCell.m; sourceTree = "<group>"; };
 		C600077C1C448A5A008AD3D8 /* ye.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ye.png; sourceTree = "<group>"; };
@@ -730,6 +747,8 @@
 				79CAFC781C44ED41001B05B5 /* BMFindMeiliFamalyMainTableViewController.m */,
 				79513E1D1C45315400B3DA98 /* BMFindMeiliFamilyCheckMoreViewController.h */,
 				79513E1E1C45315400B3DA98 /* BMFindMeiliFamilyCheckMoreViewController.m */,
+				7983E1311C45EB680089C2B4 /* BMMeiliFamilyCommunityDetailViewController.h */,
+				7983E1321C45EB680089C2B4 /* BMMeiliFamilyCommunityDetailViewController.m */,
 			);
 			path = MeiliFamalyControllers;
 			sourceTree = "<group>";
@@ -741,6 +760,8 @@
 				792DA9DE1C44EFB000DE2FEE /* BMMeiliFamilyCommunityModel.m */,
 				79513E201C45319B00B3DA98 /* BMMeiliFamilyCheckMoreModel.h */,
 				79513E211C45319B00B3DA98 /* BMMeiliFamilyCheckMoreModel.m */,
+				798B6F781C463D7F002A5FCE /* BMMeiliFamilyCmtModel.h */,
+				798B6F791C463D7F002A5FCE /* BMMeiliFamilyCmtModel.m */,
 			);
 			path = MeiliFamalyModels;
 			sourceTree = "<group>";
@@ -754,6 +775,12 @@
 				792DA9E71C44F1A700DE2FEE /* BMFindMeiliFamilyTypeOneTableViewCell.m */,
 				79F730421C4532EF00300B93 /* BMFindMeiliFamilyCheckMoreTableViewCell.h */,
 				79F730431C4532EF00300B93 /* BMFindMeiliFamilyCheckMoreTableViewCell.m */,
+				7983E1341C45EC2F0089C2B4 /* BMMeiliFamilyCommunityDetailView.h */,
+				7983E1351C45EC2F0089C2B4 /* BMMeiliFamilyCommunityDetailView.m */,
+				79EEE1FC1C46356700A6D576 /* BMMeiiFamilyCommentTableViewCell.h */,
+				79EEE1FD1C46356700A6D576 /* BMMeiiFamilyCommentTableViewCell.m */,
+				79C617401C468F140041150C /* HcCustomKeyboard.h */,
+				79C617411C468F140041150C /* HcCustomKeyboard.m */,
 			);
 			path = MeiliFamalyViews;
 			sourceTree = "<group>";
@@ -851,6 +878,7 @@
 		C60909201C410A3600DF0B8B /* Picture */ = {
 			isa = PBXGroup;
 			children = (
+				798B6F761C463B9A002A5FCE /* SmallCmtImg.png */,
 				C659446C1C45E4DC00CEFECA /* zhibo02.png */,
 				C659446D1C45E4DC00CEFECA /* guanzhu.png */,
 				79513DF41C45226700B3DA98 /* annualGoddnessMakeUp.png */,
@@ -1217,6 +1245,7 @@
 				C60909571C410A3600DF0B8B /* error.png in Resources */,
 				C60909601C410A3600DF0B8B /* LaunchImage-700@2x.png in Resources */,
 				C60909551C410A3600DF0B8B /* banner_close@2x.png in Resources */,
+				798B6F771C463B9A002A5FCE /* SmallCmtImg.png in Resources */,
 				C64954B11C40EF3C00A7F89E /* Assets.xcassets in Resources */,
 				C60909481C410A3600DF0B8B /* all_topback.png in Resources */,
 				C609095F1C410A3600DF0B8B /* LaunchImage-700-568h@2x.png in Resources */,
@@ -1288,6 +1317,7 @@
 				7963640F1C45E1D700ABF7F9 /* BMSearchTeacherModel.m in Sources */,
 				79BBA9AE1C43445500BB79E4 /* MJRefreshAutoFooter.m in Sources */,
 				C64955451C41009C00A7F89E /* SDWebImageManager.m in Sources */,
+				7983E1361C45EC2F0089C2B4 /* BMMeiliFamilyCommunityDetailView.m in Sources */,
 				79E60E291C449CDC00364587 /* BMAnchorFindCollectionViewCell.m in Sources */,
 				7963640C1C45E1B600ABF7F9 /* BMVideoLinkUserListViewController.m in Sources */,
 				79F730441C4532EF00300B93 /* BMFindMeiliFamilyCheckMoreTableViewCell.m in Sources */,
@@ -1307,6 +1337,7 @@
 				79BBA9B51C43445500BB79E4 /* MJRefreshAutoStateFooter.m in Sources */,
 				796A56BD1C44950B00DB0865 /* BMVideoHotTagViewController.m in Sources */,
 				C64955411C41009C00A7F89E /* SDWebImageCompat.m in Sources */,
+				79C617421C468F140041150C /* HcCustomKeyboard.m in Sources */,
 				792DA9DF1C44EFB000DE2FEE /* BMMeiliFamilyCommunityModel.m in Sources */,
 				C649554D1C41009C00A7F89E /* UIView+WebCacheOperation.m in Sources */,
 				7963641E1C45E2A100ABF7F9 /* BMVideoRecommendViewController.m in Sources */,
@@ -1329,6 +1360,7 @@
 				C60007801C448AA0008AD3D8 /* BMDsLiveAndPreviewModel.m in Sources */,
 				79BBA9B71C43445500BB79E4 /* MJRefreshBackNormalFooter.m in Sources */,
 				C60909C61C412C3A00DF0B8B /* BMRootViewController.m in Sources */,
+				79EEE1FE1C46356700A6D576 /* BMMeiiFamilyCommentTableViewCell.m in Sources */,
 				79BBA9CD1C43446000BB79E4 /* FMDatabase.m in Sources */,
 				79BBA9D11C43446000BB79E4 /* FMResultSet.m in Sources */,
 				79BBA9AF1C43445500BB79E4 /* MJRefreshBackFooter.m in Sources */,
@@ -1350,6 +1382,7 @@
 				C62C5E4E1C43AAAC00C0CBD6 /* BMDirectSeedingFirstCell.m in Sources */,
 				79BBA9801C43413100BB79E4 /* BMRequestManager.m in Sources */,
 				792DA9E51C44F18600DE2FEE /* BMFindMeiliFamilyTypeTwoTableViewCell.m in Sources */,
+				798B6F7A1C463D7F002A5FCE /* BMMeiliFamilyCmtModel.m in Sources */,
 				796A56C01C44950B00DB0865 /* BMVideoHotTagModel.m in Sources */,
 				79BBA9B41C43445500BB79E4 /* MJRefreshAutoNormalFooter.m in Sources */,
 				C62C5E4D1C43AAAC00C0CBD6 /* BMDirectSeedingCellToOne.m in Sources */,
@@ -1371,6 +1404,7 @@
 				7985EE8D1C44922700DCDFE5 /* BMAnchorTableViewController.m in Sources */,
 				C65944751C45E4F800CEFECA /* BMDsRightScrollView.m in Sources */,
 				7985EE951C44922700DCDFE5 /* BMPopularAnchorTableViewCell.m in Sources */,
+				7983E1331C45EB680089C2B4 /* BMMeiliFamilyCommunityDetailViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -12,7 +12,6 @@
 + (void)autoAdjustHeightLabel:(UILabel *)label labelFontSize:(NSInteger)fontSize
 
 {
-    
     NSDictionary *dic = [NSDictionary dictionaryWithObjectsAndKeys:[UIFont systemFontOfSize:fontSize], NSFontAttributeName,nil];
     
     CGRect frame = [label.text boundingRectWithSize:CGSizeMake(label.frame.size.width, CGFLOAT_MAX) options:NSStringDrawingUsesLineFragmentOrigin attributes:dic context:nil];
