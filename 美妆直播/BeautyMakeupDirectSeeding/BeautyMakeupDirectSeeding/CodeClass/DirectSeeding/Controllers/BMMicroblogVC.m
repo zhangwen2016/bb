@@ -60,7 +60,7 @@
 - (void)setUpData
 {
     
-    NSString *url = [NSString stringWithFormat:@"http://app.meilihuli.com/api/user/info/uid/%@/?lang=zh-cn&version=ios2.0.0&cid=asXoHoWV7R9iVVx6r8CwK8",_model.uid];
+    NSString *url = [NSString stringWithFormat:@"http://app.meilihuli.com/api/user/info/uid/%@/?lang=zh-cn&version=ios2.0.0&cid=asXoHoWV7R9iVVx6r8CwK8",_uid];
     
     // 请求数据
     [BMRequestManager requsetWithUrlString:url parDic:nil Method:GET finish:^(NSData *data) {
@@ -79,7 +79,7 @@
     }];
 
     
-    NSString *oneUrl = [NSString stringWithFormat:@"http://app.meilihuli.com/api/videodemand/personallist/uid/%@/page/1/count/50/?lang=zh-cn&version=ios2.0.0&cid=asXoHoWV7R9iVVx6r8CwK8",_model.uid];
+    NSString *oneUrl = [NSString stringWithFormat:@"http://app.meilihuli.com/api/videodemand/personallist/uid/%@/page/1/count/50/?lang=zh-cn&version=ios2.0.0&cid=asXoHoWV7R9iVVx6r8CwK8",_uid];
     
     // 请求数据
     [BMRequestManager requsetWithUrlString:oneUrl parDic:nil Method:GET finish:^(NSData *data) {
@@ -103,7 +103,7 @@
     }];
 
     
-    NSString *twoUrl = [NSString stringWithFormat:@"http://app.meilihuli.com/api/album/getimglist/page/1/count/20/uid/%@/?lang=zh-cn&version=ios2.0.0&cid=asXoHoWV7R9iVVx6r8CwK8",_model.uid];
+    NSString *twoUrl = [NSString stringWithFormat:@"http://app.meilihuli.com/api/album/getimglist/page/1/count/20/uid/%@/?lang=zh-cn&version=ios2.0.0&cid=asXoHoWV7R9iVVx6r8CwK8",_uid];
     
     // 请求数据
     [BMRequestManager requsetWithUrlString:twoUrl parDic:nil Method:GET finish:^(NSData *data) {
@@ -148,7 +148,7 @@
     
     _RightVC = [[BMMicroblogRightVC alloc] init];
     
-    _RightVC.view.frame = CGRectMake(0,45, kScreenWidth, _tableView.height - 304);
+    _RightVC.view.frame = CGRectMake(0,47, kScreenWidth, _tableView.height - 304);
     _RightVC.view.backgroundColor = [UIColor redColor];
     
     [_tableView addSubview:_RightVC.view];
@@ -272,17 +272,32 @@
 {
     _tempOneImage.image = [UIImage imageNamed:@"kanzhibo"];
     _tempTwoImage.image = [UIImage imageNamed:@"qita01"];
-    [UIView animateWithDuration:.5 animations:^{
+    
+    _rowHeight = 280;
+    [_tableView reloadData];
+    
+    [_tableView sendSubviewToBack:_RightVC.view];
+
+    [NSTimer scheduledTimerWithTimeInterval:.1 target:self selector:@selector(timer) userInfo:nil repeats:NO];
+}
+
+- (void)timer
+{
+    [UIView animateWithDuration:.3 animations:^{
         CGRect newFrame = _tempView.frame;
         newFrame.origin.x = 0;
         _tempView.frame = newFrame;
         
     }];
-    _rowHeight = 280;
-    [_tableView reloadData];
-    [_tableView sendSubviewToBack:_RightVC.view];
-
-    
+}
+- (void)timer2
+{
+    [UIView animateWithDuration:.3 animations:^{
+        CGRect newFrame = _tempView.frame;
+        newFrame.origin.x = kScreenWidth/2;
+        _tempView.frame = newFrame;
+        
+    }];
 }
 
 // 切换其他按钮
@@ -291,16 +306,12 @@
     _tempOneImage.image = [UIImage imageNamed:@"kanzhibo01"];
     _tempTwoImage.image = [UIImage imageNamed:@"qita"];
     
-    [UIView animateWithDuration:.5 animations:^{
-        CGRect newFrame = _tempView.frame;
-        newFrame.origin.x = kScreenWidth/2;
-        _tempView.frame = newFrame;
-        
-    }];
-    _rowHeight = 5;
+    _rowHeight = 10;
     [_tableView reloadData];
     
     [_tableView bringSubviewToFront:_RightVC.view];
+    
+    [NSTimer scheduledTimerWithTimeInterval:.1 target:self selector:@selector(timer2) userInfo:nil repeats:NO];
     
     
 }
