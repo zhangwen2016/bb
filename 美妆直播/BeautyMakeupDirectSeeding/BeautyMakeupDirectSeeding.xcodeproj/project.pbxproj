@@ -79,8 +79,8 @@
 		799B60DF1C46984A00958A43 /* walletImg.png in Resources */ = {isa = PBXBuildFile; fileRef = 799B60DE1C46984A00958A43 /* walletImg.png */; };
 		799B60E11C46985600958A43 /* applyAnchor.png in Resources */ = {isa = PBXBuildFile; fileRef = 799B60E01C46985600958A43 /* applyAnchor.png */; };
 		799F22401C43503D00F03EA5 /* BMCommonMethod.m in Sources */ = {isa = PBXBuildFile; fileRef = 799F223F1C43503D00F03EA5 /* BMCommonMethod.m */; };
-		79B1478C1C4784C0009B827C /* PlaceHoldingImage.png in Resources */ = {isa = PBXBuildFile; fileRef = 79B1478B1C4784C0009B827C /* PlaceHoldingImage.png */; };
-		79B1478E1C478822009B827C /* iconfont-paizhao.png in Resources */ = {isa = PBXBuildFile; fileRef = 79B1478D1C478822009B827C /* iconfont-paizhao.png */; };
+		79B147941C478FF6009B827C /* iconfont-paizhao.png in Resources */ = {isa = PBXBuildFile; fileRef = 79B147931C478FF6009B827C /* iconfont-paizhao.png */; };
+		79B147971C479247009B827C /* PlaceHoldingImage.png in Resources */ = {isa = PBXBuildFile; fileRef = 79B147961C479247009B827C /* PlaceHoldingImage.png */; };
 		79BBA9801C43413100BB79E4 /* BMRequestManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 79BBA97F1C43413100BB79E4 /* BMRequestManager.m */; };
 		79BBA9AE1C43445500BB79E4 /* MJRefreshAutoFooter.m in Sources */ = {isa = PBXBuildFile; fileRef = 79BBA9841C43445400BB79E4 /* MJRefreshAutoFooter.m */; };
 		79BBA9AF1C43445500BB79E4 /* MJRefreshBackFooter.m in Sources */ = {isa = PBXBuildFile; fileRef = 79BBA9861C43445400BB79E4 /* MJRefreshBackFooter.m */; };
@@ -348,8 +348,9 @@
 		799B60E01C46985600958A43 /* applyAnchor.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = applyAnchor.png; sourceTree = "<group>"; };
 		799F223E1C43503D00F03EA5 /* BMCommonMethod.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMCommonMethod.h; sourceTree = "<group>"; };
 		799F223F1C43503D00F03EA5 /* BMCommonMethod.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BMCommonMethod.m; sourceTree = "<group>"; };
-		79B1478B1C4784C0009B827C /* PlaceHoldingImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PlaceHoldingImage.png; sourceTree = "<group>"; };
-		79B1478D1C478822009B827C /* iconfont-paizhao.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iconfont-paizhao.png"; sourceTree = "<group>"; };
+		79B147931C478FF6009B827C /* iconfont-paizhao.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iconfont-paizhao.png"; sourceTree = "<group>"; };
+		79B147951C479210009B827C /* iconfont-paizhao.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "iconfont-paizhao.png"; path = "BeautyMakeupDirectSeeding/Resource/Picture/iconfont-paizhao.png"; sourceTree = "<group>"; };
+		79B147961C479247009B827C /* PlaceHoldingImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = PlaceHoldingImage.png; path = BeautyMakeupDirectSeeding/Resource/Picture/PlaceHoldingImage.png; sourceTree = "<group>"; };
 		79BBA97E1C43413100BB79E4 /* BMRequestManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMRequestManager.h; sourceTree = "<group>"; };
 		79BBA97F1C43413100BB79E4 /* BMRequestManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BMRequestManager.m; sourceTree = "<group>"; };
 		79BBA9831C43445400BB79E4 /* MJRefreshAutoFooter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJRefreshAutoFooter.h; sourceTree = "<group>"; };
@@ -1022,7 +1023,6 @@
 		C60909201C410A3600DF0B8B /* Picture */ = {
 			isa = PBXGroup;
 			children = (
-
 				797089B91C47330600CC198F /* back.png */,
 				799B60DC1C46984000958A43 /* popularImg.png */,
 				799B60DE1C46984A00958A43 /* walletImg.png */,
@@ -1081,6 +1081,7 @@
 				C60909451C410A3600DF0B8B /* zbar-help.html */,
 				C60909461C410A3600DF0B8B /* zbar-helpicons.png */,
 				C60909471C410A3600DF0B8B /* zbar-samples.png */,
+				79B147931C478FF6009B827C /* iconfont-paizhao.png */,
 			);
 			path = Picture;
 			sourceTree = "<group>";
@@ -1123,6 +1124,8 @@
 		C64954951C40EF3C00A7F89E = {
 			isa = PBXGroup;
 			children = (
+				79B147961C479247009B827C /* PlaceHoldingImage.png */,
+				79B147951C479210009B827C /* iconfont-paizhao.png */,
 				797089B11C472D3F00CC198F /* AdSupport.framework */,
 				796364431C45E61200ABF7F9 /* MediaPlayer.framework */,
 				796364411C45E60B00ABF7F9 /* AVFoundation.framework */,
@@ -1382,6 +1385,7 @@
 				C60909491C410A3600DF0B8B /* all_topback@2x.png in Resources */,
 				7963643E1C45E5C700ABF7F9 /* kr-video-player-shrinkscreen@3x.png in Resources */,
 				C64954B41C40EF3C00A7F89E /* LaunchScreen.storyboard in Resources */,
+				79B147941C478FF6009B827C /* iconfont-paizhao.png in Resources */,
 				C659446F1C45E4DC00CEFECA /* guanzhu.png in Resources */,
 				C609096E1C410A3600DF0B8B /* zbar-samples.png in Resources */,
 				796364351C45E5C700ABF7F9 /* kr-video-player-fullscreen@2x.png in Resources */,
@@ -1405,7 +1409,6 @@
 				C62C5E121C43438E00C0CBD6 /* find.png in Resources */,
 				C62C5E3B1C43AA3D00C0CBD6 /* xiao.png in Resources */,
 				C60909681C410A3600DF0B8B /* player-progress-point@2x.png in Resources */,
-				79B1478E1C478822009B827C /* iconfont-paizhao.png in Resources */,
 				C60909571C410A3600DF0B8B /* error.png in Resources */,
 				7963643C1C45E5C700ABF7F9 /* kr-video-player-point@3x.png in Resources */,
 				C60909601C410A3600DF0B8B /* LaunchImage-700@2x.png in Resources */,
@@ -1445,8 +1448,8 @@
 				796364341C45E5C700ABF7F9 /* kr-video-player-close@3x.png in Resources */,
 				796364391C45E5C700ABF7F9 /* kr-video-player-play@2x.png in Resources */,
 				C609094F1C410A3600DF0B8B /* AppIcon29x29@2x.png in Resources */,
+				79B147971C479247009B827C /* PlaceHoldingImage.png in Resources */,
 				C609094D1C410A3600DF0B8B /* all_topdelete@3x.png in Resources */,
-				79B1478C1C4784C0009B827C /* PlaceHoldingImage.png in Resources */,
 				C60909671C410A3600DF0B8B /* player-progress-h@2x.png in Resources */,
 				C62C5E101C43438E00C0CBD6 /* DirectSeeding.png in Resources */,
 				C609095D1C410A3600DF0B8B /* Info.plist in Resources */,
