@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "BMMicroblogModel.h"
 @interface BMMicroblogSectionHeaderView : UIView
 
 /*
@@ -47,5 +47,6 @@
 // 星星
 @property (nonatomic,strong) UIImageView *gradeImageV;
 
+@property (nonatomic,strong) BMMicroblogModel *model;
 
 @end

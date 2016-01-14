@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "BMDsLiveAndPreviewModel.h"
 @interface BMMicroblogVC : UIViewController
+@property (nonatomic,strong) NSString *uid;
 
 @end
