@@ -94,7 +94,7 @@
     [headerView addSubview:seeMoreButton];
     
     
-    _listTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0,[UIScreen mainScreen].bounds.size.width, self.view.frame.size.height)];
+    _listTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0,[UIScreen mainScreen].bounds.size.width, self.view.frame.size.height - 70 - 44)];
     _listTableView.delegate = self;
     _listTableView.dataSource = self;
     _listTableView.rowHeight = 230;
@@ -124,6 +124,10 @@
 };
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    
     BMVideoShowViewController *showVC = [[BMVideoShowViewController alloc] init];
     BMVideoMainModel *model = _dataSourceArray[indexPath.row];
     showVC.source_id = model.source_id;

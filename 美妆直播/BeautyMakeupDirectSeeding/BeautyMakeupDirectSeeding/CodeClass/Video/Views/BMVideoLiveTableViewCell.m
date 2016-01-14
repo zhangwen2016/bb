@@ -8,6 +8,8 @@
 
 #import "BMVideoLiveTableViewCell.h"
 #import "BMSearchLiveCollectionViewCell.h"
+#import "BMVideoShowViewController.h"
+#import "BMSearchViewController.h"
 @implementation BMVideoLiveTableViewCell
 
 - (void)setLiveArray:(NSArray *)liveArray{
@@ -54,7 +56,29 @@
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
-    NSLog(@"%ld", (long)indexPath.row);
+  
+    
+    BMSearchTeacherModel *model = _liveArray[indexPath.row];
+   
+    if ([_currentVC isMemberOfClass:[BMSearchViewController class]]) {
+        BMVideoShowViewController *showVC =[[BMVideoShowViewController alloc] init];
+        
+        
+        showVC.source_id = model.live_id;
+        
+        BMSearchViewController *searchVC = (BMSearchViewController *)_currentVC;
+        searchVC.searchController.searchBar.hidden = YES;
+        [_currentVC.navigationController pushViewController:showVC animated:YES];
+    }else if ([_currentVC isMemberOfClass:[BMVideoShowViewController class]]){
+        BMVideoShowViewController *showVC = (BMVideoShowViewController *)_currentVC;
+        showVC.source_id = model.live_id;
+    
+        [showVC reloadData];
+    }
+    
+    
+    
+    
 }
 
 

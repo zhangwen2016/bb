@@ -7,7 +7,7 @@
 //
 
 #import "BMVideoHotTagViewController.h"
-
+#import "BMVideoShowViewController.h"
 @interface BMVideoHotTagViewController ()<UITableViewDataSource, UITableViewDelegate>
 @property (nonatomic, strong) NSMutableArray *dataSourceArray;
 @property (nonatomic, strong) UITableView *listTableView;
@@ -93,6 +93,16 @@
     cell.model = _dataSourceArray[indexPath.row];
     return cell;
 };
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    
+    BMVideoShowViewController *showVC = [[BMVideoShowViewController alloc] init];
+    BMVideoMainModel *model = _dataSourceArray[indexPath.row];
+    showVC.source_id = model.source_id;
+    [self.navigationController pushViewController:showVC animated:YES];
+}
 
 
 - (void)didReceiveMemoryWarning {

@@ -8,6 +8,7 @@
 
 #import "BMVideoHotTag.h"
 #import "BMVideoHotTagViewController.h"
+#import "BMSearchViewController.h"
 @interface BMVideoHotTag ()
 @property (nonatomic, assign) CGFloat lastWidth;
 
@@ -79,6 +80,14 @@
 //    }
     BMVideoHotTagViewController *hotTagVC = [[BMVideoHotTagViewController alloc] init];
     hotTagVC.hotTagModel = _sourceArray[button.tag];
+    
+    
+    // 将searchControll消失
+    if ([_currentVC isMemberOfClass:[BMSearchViewController class]]) {
+        BMSearchViewController *searchVC = (BMSearchViewController *)_currentVC;
+        [searchVC.searchController.searchBar resignFirstResponder];
+        searchVC.searchController.searchBar.hidden = YES;
+    }
     [_currentVC.navigationController pushViewController:hotTagVC animated:YES];
 }
 /*

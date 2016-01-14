@@ -23,7 +23,7 @@
         _avatarButton.frame = CGRectMake(10, 10, 50, 50);
         _avatarButton.layer.cornerRadius = 25;
         _avatarButton.layer.masksToBounds = YES;
-        _avatarButton.backgroundColor = [UIColor orangeColor];
+       // _avatarButton.backgroundColor = [UIColor orangeColor];
         [_avatarButton addTarget:self action:@selector(avatarButtonClick:) forControlEvents:(UIControlEventTouchUpInside)];
         [bgView addSubview:_avatarButton];
         
