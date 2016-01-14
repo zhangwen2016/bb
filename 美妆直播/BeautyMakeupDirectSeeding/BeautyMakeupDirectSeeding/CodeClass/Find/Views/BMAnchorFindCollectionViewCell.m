@@ -23,7 +23,6 @@
     if (self) {
         _avatarBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         _avatarBtn.frame = CGRectMake(0, 0, frame.size.width, frame.size.height);
-        [_avatarBtn setBackgroundColor:[UIColor redColor]];
         [self.contentView addSubview:_avatarBtn];
     }
     return self;
