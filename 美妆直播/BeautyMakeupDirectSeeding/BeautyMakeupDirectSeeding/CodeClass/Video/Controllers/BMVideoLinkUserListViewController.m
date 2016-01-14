@@ -38,8 +38,7 @@
     
     UIButton *backButton = [UIButton buttonWithType:(UIButtonTypeCustom)];
     backButton.frame = CGRectMake(10, 35, 20, 20);
-    backButton.backgroundColor = kPinkColor;
-    [backButton setBackgroundImage:[UIImage imageNamed:@"all_topback.png"] forState:(UIControlStateNormal)];
+    [backButton setBackgroundImage:[UIImage imageNamed:@"back.png"] forState:(UIControlStateNormal)];
     [backButton addTarget:self action:@selector(backButtonClick:) forControlEvents:(UIControlEventTouchUpInside)];
     [navView addSubview:backButton];
 }

@@ -64,8 +64,10 @@
     [_shareBtn addTarget:self action:@selector(shareBtnClick:) forControlEvents:(UIControlEventTouchUpInside)];
     [self.view addSubview:_shareBtn];
     
-  
+    // 5秒后消失
+    [self performSelector:@selector(ButtonHidden) withObject:nil afterDelay:7];
 }
+
 - (void)backBtnClick:(UIButton *)button{
     [self.navigationController popViewControllerAnimated:YES];
     
@@ -75,6 +77,16 @@
     NSLog(@"111");
     
 }
+- (void)ButtonHidden{
+    if (!_backBtn.hidden) {
+        [UIView animateWithDuration:0.3 animations:^{
+            _backBtn.alpha = 0;
+            _shareBtn.alpha = 0;
+        }];
+    }
+}
+
+
 - (void)playVideo{
     
     NSString *urlString = [@"http://apps.mushu.cn/jc_" stringByAppendingString:[NSString stringWithFormat:@"%@_m_big_hd.mp4", _source_id]];

@@ -59,6 +59,7 @@
 		797089B41C472DA400CC198F /* BMRecommendTeacherModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 796364511C463E5F00ABF7F9 /* BMRecommendTeacherModel.m */; };
 		797089B51C472DB000CC198F /* BMteacherRecommendTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 796364631C46883E00ABF7F9 /* BMteacherRecommendTableViewCell.m */; };
 		797089B81C472F0E00CC198F /* BMVideoShowViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 797089B71C472F0E00CC198F /* BMVideoShowViewController.m */; };
+		797089BA1C47330600CC198F /* back.png in Resources */ = {isa = PBXBuildFile; fileRef = 797089B91C47330600CC198F /* back.png */; };
 		7978174A1C44AE1100B01DA9 /* BMAnchorRankTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 797817491C44AE1100B01DA9 /* BMAnchorRankTableViewCell.m */; };
 		7983E1331C45EB680089C2B4 /* BMMeiliFamilyCommunityDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7983E1321C45EB680089C2B4 /* BMMeiliFamilyCommunityDetailViewController.m */; };
 		7983E1361C45EC2F0089C2B4 /* BMMeiliFamilyCommunityDetailView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7983E1351C45EC2F0089C2B4 /* BMMeiliFamilyCommunityDetailView.m */; };
@@ -306,6 +307,7 @@
 		797089B11C472D3F00CC198F /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
 		797089B61C472F0E00CC198F /* BMVideoShowViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMVideoShowViewController.h; sourceTree = "<group>"; };
 		797089B71C472F0E00CC198F /* BMVideoShowViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BMVideoShowViewController.m; sourceTree = "<group>"; };
+		797089B91C47330600CC198F /* back.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = back.png; sourceTree = "<group>"; };
 		797817481C44AE1100B01DA9 /* BMAnchorRankTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMAnchorRankTableViewCell.h; sourceTree = "<group>"; };
 		797817491C44AE1100B01DA9 /* BMAnchorRankTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BMAnchorRankTableViewCell.m; sourceTree = "<group>"; };
 		7983E1311C45EB680089C2B4 /* BMMeiliFamilyCommunityDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMMeiliFamilyCommunityDetailViewController.h; sourceTree = "<group>"; };
@@ -998,6 +1000,7 @@
 		C60909201C410A3600DF0B8B /* Picture */ = {
 			isa = PBXGroup;
 			children = (
+				797089B91C47330600CC198F /* back.png */,
 				799B60DC1C46984000958A43 /* popularImg.png */,
 				799B60DE1C46984A00958A43 /* walletImg.png */,
 				799B60E01C46985600958A43 /* applyAnchor.png */,
@@ -1384,6 +1387,7 @@
 				798B6F771C463B9A002A5FCE /* SmallCmtImg.png in Resources */,
 				C64954B11C40EF3C00A7F89E /* Assets.xcassets in Resources */,
 				799B60DD1C46984000958A43 /* popularImg.png in Resources */,
+				797089BA1C47330600CC198F /* back.png in Resources */,
 				C60909481C410A3600DF0B8B /* all_topback.png in Resources */,
 				799B60E11C46985600958A43 /* applyAnchor.png in Resources */,
 				C609095F1C410A3600DF0B8B /* LaunchImage-700-568h@2x.png in Resources */,
