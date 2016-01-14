@@ -15,7 +15,8 @@
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
-        _topic_imgBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        _topic_imgBtn = [[UIImageView alloc] init];
+       // _topic_imgBtn.userInteractionEnabled = YES;
         _topic_imgBtn.frame = CGRectMake(10, 10, kScreenWidth - 20, 200);
         [self.contentView addSubview:_topic_imgBtn];
     }
@@ -24,7 +25,7 @@
 
 - (void)setModel:(BMMeiliFamilyCheckMoreModel *)model
 {
-    [BMRequestManager downLoadButton:_topic_imgBtn UrlString:model.topic_img];
+    [BMRequestManager downLoadImageView:_topic_imgBtn UrlString:model.topic_img];
 }
 
 

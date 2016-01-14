@@ -41,7 +41,33 @@
     [self addChildVC];
     //  影藏下面的tabBar
     self.tabBarController.tabBar.hidden = YES;
+    [self loadNavView];
 }
+
+- (void)loadNavView{
+    UIView *navView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 70)];
+    UILabel *label = [[UILabel alloc] init];
+    label.text = @"排行榜";
+    label.textColor = kPinkColor;
+    label.font = [UIFont systemFontOfSize:16];
+    label.frame = CGRectMake((navView.width - 200) / 2, 20, 200, 50);
+    label.textAlignment = NSTextAlignmentCenter;
+    [navView addSubview:label];
+    [self.view addSubview:navView];
+    
+    UIButton *backButton = [UIButton buttonWithType:(UIButtonTypeCustom)];
+    backButton.frame = CGRectMake(10, 35, 20, 20);
+    backButton.backgroundColor = kPinkColor;
+    [backButton setBackgroundImage:[UIImage imageNamed:@"all_topback.png"] forState:(UIControlStateNormal)];
+    [backButton addTarget:self action:@selector(backButtonClick:) forControlEvents:(UIControlEventTouchUpInside)];
+    [navView addSubview:backButton];
+}
+
+//  点击返回
+- (void)backButtonClick:(UIButton *)button{
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
 
 #pragma mark  给navbar下面的两个选择btn初始化
 - (void)addChildNavBar
@@ -133,7 +159,10 @@
     }
 }
 
-
+- (void)viewWillDisappear:(BOOL)animated
+{
+    self.tabBarController.tabBar.hidden = NO;
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

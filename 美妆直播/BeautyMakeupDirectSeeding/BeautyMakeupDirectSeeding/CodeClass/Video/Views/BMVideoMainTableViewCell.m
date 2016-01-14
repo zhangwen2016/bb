@@ -75,6 +75,10 @@
     }else if ([model.status isEqualToString:@"1"]){
         _timeLabel.backgroundColor = [UIColor grayColor];
         _timeLabel.text = [NSString stringWithFormat:@" %@ ", model.video_time];
+    }else
+    {
+        _timeLabel.backgroundColor = [UIColor grayColor];
+        _timeLabel.text = [NSString stringWithFormat:@" %@ ", model.video_time];
     }
     // _timeLable设置自适应自适应宽度
     [BMCommonMethod autoAdjustRightWidthLabel:_timeLabel labelFontSize:12];

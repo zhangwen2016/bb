@@ -138,6 +138,7 @@
 {
     BMMeiiFamilyCommentTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"BMMeiiFamilyCommentTableViewCell" forIndexPath:indexPath];
     cell.model = _commentArr[indexPath.row];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
 }
 
