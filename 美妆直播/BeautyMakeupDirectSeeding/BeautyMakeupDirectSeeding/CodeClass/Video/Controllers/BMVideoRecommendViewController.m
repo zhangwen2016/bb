@@ -10,10 +10,11 @@
 #import "BMVideoMainTableViewCell.h"
 #import "BMSearchViewController.h"
 #import "BMVideoShowViewController.h"
-#define kVideoRecommendApi @"http://app.meilihuli.com/api/videodemand/firstcommend/count/20/page/1/?lang=zh-cn&version=ios2.0.0&cid=asXoHoWV7R9iVVx6r8CwK8"
+#import "MJRefresh.h"
 @interface BMVideoRecommendViewController () <UITableViewDataSource, UITableViewDelegate>
 @property (nonatomic, strong) UITableView *listTableView;
 @property (nonatomic, strong) NSMutableArray *dataSourceArray;
+@property (nonatomic, assign) NSInteger pageCount;
 @end
 
 @implementation BMVideoRecommendViewController
@@ -36,6 +37,18 @@
     _listTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [_listTableView registerClass:[BMVideoMainTableViewCell class] forCellReuseIdentifier:@"BMVideoMainTableViewCell"];
     [self.view addSubview:_listTableView];
+    _pageCount = 1;
+    _dataSourceArray = [NSMutableArray array];
+    
+    _listTableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        _pageCount = 1;
+        [self JsonData];
+    }];
+    
+    _listTableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
+        _pageCount += 1;
+        [self JsonData];
+    }];
 }
 
 #pragma mark ----- 加载searchBar
@@ -63,8 +76,12 @@
 
 #pragma mark  ---- 加载数据
 - (void)JsonData{
-    _dataSourceArray = [NSMutableArray array];
-    [BMRequestManager requsetWithUrlString:kVideoRecommendApi parDic:nil Method:GET finish:^(NSData *data) {
+    if (_pageCount == 1) {
+        [_dataSourceArray removeAllObjects];
+    }
+    NSString *page = [NSString stringWithFormat:@"%ld", (long)_pageCount];
+     NSString *VideoRecommendApi =[@"http://app.meilihuli.com/api/videodemand/firstcommend/count/20/page/" stringByAppendingString:[page stringByAppendingString:@"/?lang=zh-cn&version=ios2.0.0&cid=asXoHoWV7R9iVVx6r8CwK8"]];
+    [BMRequestManager requsetWithUrlString:VideoRecommendApi parDic:nil Method:GET finish:^(NSData *data) {
         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
         NSArray *dataArray = dic[@"data"];
         for (NSDictionary *oneDic in dataArray) {
@@ -72,6 +89,8 @@
             [model setValuesForKeysWithDictionary:oneDic];
             [_dataSourceArray addObject:model];
         }
+        [_listTableView.mj_header endRefreshing];
+        [_listTableView.mj_footer endRefreshing];
         [_listTableView reloadData];
         
     } erro:^(NSError *erro) {

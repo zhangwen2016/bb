@@ -10,8 +10,7 @@
 #import "BMVideoHotTag.h"
 #import "BMAllTagViewController.h"
 #import "BMVideoShowViewController.h"
-#define kHotApi @"http://app.meilihuli.com/api/videodemand/firsthot/count/20/page/1/?lang=zh-cn&version=ios2.0.0&cid=asXoHoWV7R9iVVx6r8CwK8"
-
+#import "MJRefresh.h"
 #define kHotTagApi @"http://app.meilihuli.com/api/tag/recommendlist/?lang=zh-cn&version=ios2.0.0&cid=asXoHoWV7R9iVVx6r8CwK8"
 @interface BMVideoHotViewController ()<UITableViewDataSource, UITableViewDelegate>
 @property (nonatomic, strong) BMVideoHotTag *hotTagView;
@@ -31,13 +30,13 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
-    _pageCount = 1;
+    
     [self loadTableView];
+    [self JsonHeaderView];
     [self JsonData];
     
 }
-
-- (void)JsonData{
+- (void)JsonHeaderView{
     _hotTagArray = [NSMutableArray array];
     [BMRequestManager requsetWithUrlString:kHotTagApi parDic:nil Method:GET finish:^(NSData *data) {
         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
@@ -54,9 +53,11 @@
     } erro:^(NSError *erro) {
         nil;
     }];
-    
-    
-    _dataSourceArray = [NSMutableArray array];
+}
+- (void)JsonData{
+    if (_pageCount == 1) {
+        [_dataSourceArray removeAllObjects];
+    }
     NSString *page = [NSString stringWithFormat:@"%ld", (long)_pageCount];
     NSString *hotApi =[@"http://app.meilihuli.com/api/videodemand/firsthot/count/20/page/" stringByAppendingString:[page stringByAppendingString:@"/?lang=zh-cn&version=ios2.0.0&cid=asXoHoWV7R9iVVx6r8CwK8"]];
     [BMRequestManager requsetWithUrlString:hotApi parDic:nil Method:GET finish:^(NSData *data) {
@@ -66,9 +67,11 @@
             BMVideoMainModel *model = [[BMVideoMainModel alloc] init];
             [model setValuesForKeysWithDictionary:oneDic];
             [_dataSourceArray addObject:model];
+
         }
+        [_listTableView.mj_header endRefreshing];
+        [_listTableView.mj_footer endRefreshing];
         [_listTableView reloadData];
-        
     } erro:^(NSError *erro) {
         [BMCommonMethod NoNetWorkInVC:self];
     }];
@@ -97,7 +100,7 @@
     [seeMoreButton addTarget:self action:@selector(seeMoreButton:) forControlEvents:(UIControlEventTouchUpInside)];
     [headerView addSubview:seeMoreButton];
     
-    
+    _pageCount = 1;
     _listTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0,[UIScreen mainScreen].bounds.size.width, self.view.frame.size.height - 70 - 44)];
     _listTableView.delegate = self;
     _listTableView.dataSource = self;
@@ -106,6 +109,18 @@
     _listTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [_listTableView registerClass:[BMVideoMainTableViewCell class] forCellReuseIdentifier:@"BMVideoMainTableViewCell"];
     [self.view addSubview:_listTableView];
+    _dataSourceArray = [NSMutableArray array];
+    
+    
+    _listTableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        _pageCount = 1;
+        [self JsonData];
+    }];
+    
+    _listTableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
+        _pageCount += 1;
+        [self JsonData];
+    }];
     
 }
 
