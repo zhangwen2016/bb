@@ -157,6 +157,9 @@
 		C649554B1C41009C00A7F89E /* UIImageView+HighlightedWebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = C64955391C41009C00A7F89E /* UIImageView+HighlightedWebCache.m */; };
 		C649554C1C41009C00A7F89E /* UIImageView+WebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = C649553B1C41009C00A7F89E /* UIImageView+WebCache.m */; };
 		C649554D1C41009C00A7F89E /* UIView+WebCacheOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = C649553D1C41009C00A7F89E /* UIView+WebCacheOperation.m */; };
+		C65929781C4665C20012C838 /* BMMicroblogVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C65929771C4665C20012C838 /* BMMicroblogVC.m */; };
+		C659297B1C466B440012C838 /* UINavigationBar+Awesome.m in Sources */ = {isa = PBXBuildFile; fileRef = C659297A1C466B440012C838 /* UINavigationBar+Awesome.m */; };
+		C659297E1C4687910012C838 /* BMMicroblogSectionHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = C659297D1C4687910012C838 /* BMMicroblogSectionHeaderView.m */; };
 		C659446E1C45E4DC00CEFECA /* zhibo02.png in Resources */ = {isa = PBXBuildFile; fileRef = C659446C1C45E4DC00CEFECA /* zhibo02.png */; };
 		C659446F1C45E4DC00CEFECA /* guanzhu.png in Resources */ = {isa = PBXBuildFile; fileRef = C659446D1C45E4DC00CEFECA /* guanzhu.png */; };
 		C65944741C45E4F800CEFECA /* BMToBeginPlayTimeView.m in Sources */ = {isa = PBXBuildFile; fileRef = C65944711C45E4F800CEFECA /* BMToBeginPlayTimeView.m */; };
@@ -435,6 +438,12 @@
 		C649553B1C41009C00A7F89E /* UIImageView+WebCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+WebCache.m"; sourceTree = "<group>"; };
 		C649553C1C41009C00A7F89E /* UIView+WebCacheOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+WebCacheOperation.h"; sourceTree = "<group>"; };
 		C649553D1C41009C00A7F89E /* UIView+WebCacheOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+WebCacheOperation.m"; sourceTree = "<group>"; };
+		C65929761C4665C20012C838 /* BMMicroblogVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMMicroblogVC.h; sourceTree = "<group>"; };
+		C65929771C4665C20012C838 /* BMMicroblogVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BMMicroblogVC.m; sourceTree = "<group>"; };
+		C65929791C466B440012C838 /* UINavigationBar+Awesome.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationBar+Awesome.h"; sourceTree = "<group>"; };
+		C659297A1C466B440012C838 /* UINavigationBar+Awesome.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationBar+Awesome.m"; sourceTree = "<group>"; };
+		C659297C1C4687910012C838 /* BMMicroblogSectionHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMMicroblogSectionHeaderView.h; sourceTree = "<group>"; };
+		C659297D1C4687910012C838 /* BMMicroblogSectionHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BMMicroblogSectionHeaderView.m; sourceTree = "<group>"; };
 		C659446C1C45E4DC00CEFECA /* zhibo02.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = zhibo02.png; sourceTree = "<group>"; };
 		C659446D1C45E4DC00CEFECA /* guanzhu.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = guanzhu.png; sourceTree = "<group>"; };
 		C65944701C45E4F800CEFECA /* BMToBeginPlayTimeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMToBeginPlayTimeView.h; sourceTree = "<group>"; };
@@ -803,6 +812,8 @@
 				C62C5E541C43AAB800C0CBD6 /* BMDirectSeedingLeftVC.m */,
 				C65944761C45E52700CEFECA /* BMDirectSeedingRightVC.h */,
 				C65944771C45E52700CEFECA /* BMDirectSeedingRightVC.m */,
+				C65929761C4665C20012C838 /* BMMicroblogVC.h */,
+				C65929771C4665C20012C838 /* BMMicroblogVC.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -844,6 +855,8 @@
 				C65944711C45E4F800CEFECA /* BMToBeginPlayTimeView.m */,
 				C65944721C45E4F800CEFECA /* BMDsRightScrollView.h */,
 				C65944731C45E4F800CEFECA /* BMDsRightScrollView.m */,
+				C659297C1C4687910012C838 /* BMMicroblogSectionHeaderView.h */,
+				C659297D1C4687910012C838 /* BMMicroblogSectionHeaderView.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1037,6 +1050,8 @@
 				C60909BF1C412BF600DF0B8B /* UIView+ZYFrame.m */,
 				799F223E1C43503D00F03EA5 /* BMCommonMethod.h */,
 				799F223F1C43503D00F03EA5 /* BMCommonMethod.m */,
+				C65929791C466B440012C838 /* UINavigationBar+Awesome.h */,
+				C659297A1C466B440012C838 /* UINavigationBar+Awesome.m */,
 				79BBA9C11C43446000BB79E4 /* fmdb */,
 				79BBA9811C43445400BB79E4 /* MJRefresh */,
 			);
@@ -1293,6 +1308,7 @@
 				79F730441C4532EF00300B93 /* BMFindMeiliFamilyCheckMoreTableViewCell.m in Sources */,
 				C62C5E501C43AAAC00C0CBD6 /* BMDirectSeedingThirdCell.m in Sources */,
 				79513E221C45319B00B3DA98 /* BMMeiliFamilyCheckMoreModel.m in Sources */,
+				C659297E1C4687910012C838 /* BMMicroblogSectionHeaderView.m in Sources */,
 				796364161C45E1E400ABF7F9 /* BMVideoTeacherListTableViewCell.m in Sources */,
 				C62C5E521C43AAAC00C0CBD6 /* BMImageAndLabel.m in Sources */,
 				7963641B1C45E28400ABF7F9 /* BMSearchViewController.m in Sources */,
@@ -1330,6 +1346,7 @@
 				79BBA9B71C43445500BB79E4 /* MJRefreshBackNormalFooter.m in Sources */,
 				C60909C61C412C3A00DF0B8B /* BMRootViewController.m in Sources */,
 				79BBA9CD1C43446000BB79E4 /* FMDatabase.m in Sources */,
+				C65929781C4665C20012C838 /* BMMicroblogVC.m in Sources */,
 				79BBA9D11C43446000BB79E4 /* FMResultSet.m in Sources */,
 				79BBA9AF1C43445500BB79E4 /* MJRefreshBackFooter.m in Sources */,
 				796334351C44A45F0021B938 /* BMApplyToAnchorViewController.m in Sources */,
@@ -1358,6 +1375,7 @@
 				C64955481C41009C00A7F89E /* UIImage+GIF.m in Sources */,
 				C60908A61C4106D200DF0B8B /* AppDelegate.m in Sources */,
 				796364181C45E1E400ABF7F9 /* BMVideoLiveTableViewCell.m in Sources */,
+				C659297B1C466B440012C838 /* UINavigationBar+Awesome.m in Sources */,
 				7985EE8E1C44922700DCDFE5 /* BMFindMainVC.m in Sources */,
 				C64955431C41009C00A7F89E /* SDWebImageDownloader.m in Sources */,
 				79BBA9BB1C43445500BB79E4 /* MJRefreshStateHeader.m in Sources */,
