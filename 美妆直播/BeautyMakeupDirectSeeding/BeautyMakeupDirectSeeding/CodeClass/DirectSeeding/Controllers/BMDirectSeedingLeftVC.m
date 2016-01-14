@@ -16,11 +16,13 @@
 #import "BMDsLiveAndPreviewModel.h"
 #import "BMToBeginPlayTimeView.h"
 #import "BMMicroblogVC.h"
+#import "BMVideoShowViewController.h"
+
 
 #define kDirectSeedingUrl @"http://app.meilihuli.com/api/channel/index/?lang=zh-cn&version=ios2.0.0&cid=asXoHoWV7R9iVVx6r8CwK8"
 
 
-@interface BMDirectSeedingLeftVC ()<UITableViewDelegate,UITableViewDataSource,liveButtonDelegate>
+@interface BMDirectSeedingLeftVC ()<UITableViewDelegate,UITableViewDataSource,liveButtonDelegate,headerViewDelegate>
 @property (nonatomic,strong) UITableView *tableView;
 
 // 保存图片网址的数组
@@ -76,10 +78,15 @@
         
         for (NSDictionary *oneDic in oneArray) {
             
-            [_imageUrlAarray addObject:oneDic[@"image_url"]];
+            BMDsLiveAndPreviewModel *model = [[BMDsLiveAndPreviewModel alloc] init];
+            [model setValuesForKeysWithDictionary:oneDic];
+            
+            [_imageUrlAarray addObject:model];
             
         }
         BMDirectSeedingHeaderView *headerView = [[BMDirectSeedingHeaderView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 150)];
+        headerView.delegate = self;
+        
         headerView.ImageUrlArray = _imageUrlAarray;
         _tableView.tableHeaderView = headerView;
         
@@ -284,12 +291,17 @@
             
             cell.model = _todayDataArray[indexPath.row -1];
             
+            
             return cell;
         }else if (indexPath.section == 2){
             
             BMDirectSeedingSecondCell *cell = [tableView dequeueReusableCellWithIdentifier:@"BMDirectSeedingSecondCell"];
             
             cell.model = _attentionDataArray[indexPath.row - 1];
+            
+            cell.avatarButton.tag = indexPath.row;
+            [cell.avatarButton addTarget:self action:@selector(SecondavatarButtonAction:) forControlEvents:(UIControlEventTouchUpInside)];
+    
             
             return cell;
         }else if (indexPath.section == 3){
@@ -358,6 +370,9 @@
         
         cell.model = _attentionDataArray[indexPath.row - 1];
         
+        cell.avatarButton.tag = indexPath.row;
+        [cell.avatarButton addTarget:self action:@selector(SecondavatarButtonAction:) forControlEvents:(UIControlEventTouchUpInside)];
+        
         return cell;
     }else if (indexPath.section == 2){
         
@@ -374,6 +389,9 @@
     return nil;
     
 }
+
+
+
 
 -(UIImage*) OriginImage:(UIImage *)image scaleToSize:(CGSize)size
 {
@@ -550,6 +568,19 @@
     }
  }
 
+#pragma mark -- 关注cell头像点击
+- (void)SecondavatarButtonAction:(UIButton *)sender
+{
+    
+    BMMicroblogVC *microblogVC = [[BMMicroblogVC alloc] init];
+    
+    BMDsLiveAndPreviewModel *model = _attentionDataArray[sender.tag - 1];
+    
+    microblogVC.uid = model.uid;
+    
+    [self.navigationController pushViewController:microblogVC animated:YES];
+    
+}
 
 #pragma mark -- 弹窗点击方法
 // 弹窗头像
@@ -564,8 +595,6 @@
     BMMicroblogVC *microblogVC = [[BMMicroblogVC alloc] init];
     
     microblogVC.uid = _tempModel.uid;
-    self.navigationController.navigationBar.hidden = NO;
-    self.navigationController.tabBarController.tabBar.hidden = YES;
     
     [self.navigationController pushViewController:microblogVC animated:YES];
 
@@ -583,6 +612,15 @@
         _tableView.userInteractionEnabled = YES;
         
     }];
+}
+
+#pragma mark -- 跳转播放界面
+- (void)transmitWithID:(NSString *)ID
+{
+    BMVideoShowViewController *VideoVC = [[BMVideoShowViewController alloc] init];
+    VideoVC.source_id = ID;
+    [self.navigationController pushViewController:VideoVC animated:YES];
+    
 }
 
 

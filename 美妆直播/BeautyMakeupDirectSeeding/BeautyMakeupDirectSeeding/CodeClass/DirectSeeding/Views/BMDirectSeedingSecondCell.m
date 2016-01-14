@@ -49,6 +49,7 @@
         [_attentionButton setTitleColor:[UIColor blackColor] forState:(UIControlStateNormal)];
         [self.contentView addSubview:_attentionButton];
         
+       
     }
     
     return self;
@@ -57,14 +58,17 @@
 - (void)setModel:(BMDsLiveAndPreviewModel *)model
 {
     _model = model;
-    [_avatarButton sd_setBackgroundImageWithURL:[NSURL URLWithString:model.avatar] forState:(UIControlStateNormal)];
-    _nicknameLabel.text = model.nickname;
     
+    [_avatarButton sd_setBackgroundImageWithURL:[NSURL URLWithString:model.avatar] forState:(UIControlStateNormal)];
+    
+    
+    _nicknameLabel.text = model.nickname;
     _subscribe_countLabel.text = [NSString stringWithFormat:@"%@人关注",model.subscribe_count];
     
-    
-    
 }
+
+
+
 
 - (void)awakeFromNib {
     // Initialization code

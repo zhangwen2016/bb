@@ -42,6 +42,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    self.navigationController.navigationBar.hidden = NO;
+    self.navigationController.tabBarController.tabBar.hidden = YES;
+    
     UIBarButtonItem *leftButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"all_topback@2x"] style:(UIBarButtonItemStylePlain) target:self action:@selector(leftButtonAction:)];
     self.navigationItem.leftBarButtonItem = leftButton;
     
