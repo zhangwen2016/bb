@@ -36,7 +36,8 @@
     _rightVC.view.frame = CGRectMake(kScreenWidth, 0, kScreenWidth, self.mainScroll.height);
     [self.mainScroll addSubview:_rightVC.view];
 
-    
+    [self addChildViewController:_leftVC];
+    [self addChildViewController:_rightVC];
     
 }
 
