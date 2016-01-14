@@ -16,6 +16,7 @@
 #import "BMSearchViewController.h"
 #import "BMVideoShowViewController.h"
 #import "MJRefresh.h"
+#import "BMMicroblogVC.h"
 #define kSearchTeacherAPI @"http://app.meilihuli.com/api/search/index/?lang=zh-cn&version=ios2.0.0&cid=asXoHoWV7R9iVVx6r8CwK8"
 #define kPost @"course_count=5&keyword=a&teacher_count=5"
 @interface BMSearchTeacherViewController ()<UITableViewDataSource, UITableViewDelegate>
@@ -242,7 +243,13 @@
     
     
     if (indexPath.section == 0) {
-        NSLog(@"indexPath.section == 0");
+      //  NSLog(@"%ld", (long)indexPath.row);
+        BMMicroblogVC *blogVC = [[BMMicroblogVC alloc] init];
+        BMSearchTeacherModel *teacherModel = _teacherArray[indexPath.row];
+        blogVC.uid = teacherModel.uid;
+        [self.navigationController pushViewController:blogVC animated:YES];
+        
+        
     }else if(indexPath.section == 1){
         
         

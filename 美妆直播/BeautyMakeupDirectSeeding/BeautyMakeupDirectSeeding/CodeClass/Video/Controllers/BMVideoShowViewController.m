@@ -178,7 +178,7 @@
         _personModel = [[BMPersonDetailModel alloc] init];
         [_personModel setValuesForKeysWithDictionary:dataDic];
         _headerView.personModel = _personModel;
-        
+        _headerView.currentVC = self;
         
         // 得到goodsList的部分
         NSArray *goodsArray = dataDic[@"relation_goods_list"];
