@@ -43,10 +43,13 @@
     self.tabBarController.tabBar.hidden = YES;
     self.navigationController.navigationBarHidden = YES;
     _page = 1;
-    [self playVideo];
-    [self showBackBtnAndShareBtn];
+    [self storeArray];
     [self JsonData];
     [self loadTableView];
+    [self playVideo];
+    [self showBackBtnAndShareBtn];
+    
+    
     
 }
 - (void)showBackBtnAndShareBtn{
@@ -64,17 +67,31 @@
     [_shareBtn addTarget:self action:@selector(shareBtnClick:) forControlEvents:(UIControlEventTouchUpInside)];
     [self.view addSubview:_shareBtn];
     
-  
+    // 5秒后消失
+    [self performSelector:@selector(ButtonHidden) withObject:nil afterDelay:7];
 }
+
 - (void)backBtnClick:(UIButton *)button{
+    [_videoController dismiss];
     [self.navigationController popViewControllerAnimated:YES];
     
 }
 
 - (void)shareBtnClick:(UIButton *)button{
     NSLog(@"111");
+   // [_listTableView removeFromSuperview];
     
 }
+- (void)ButtonHidden{
+    if (!_backBtn.hidden) {
+        [UIView animateWithDuration:0.3 animations:^{
+            _backBtn.alpha = 0;
+            _shareBtn.alpha = 0;
+        }];
+    }
+}
+
+
 - (void)playVideo{
     
     NSString *urlString = [@"http://apps.mushu.cn/jc_" stringByAppendingString:[NSString stringWithFormat:@"%@_m_big_hd.mp4", _source_id]];
@@ -135,12 +152,23 @@
     }
 }
 
-- (void)JsonData{
-    
-    NSString  *personGoodsApi = [@"http://app.meilihuli.com/api/course/detail/course_id/" stringByAppendingString:[NSString stringWithFormat:@"%@/?lang=zh-cn&version=ios2.0.0&cid=asXoHoWV7R9iVVx6r8CwK8", _source_id]];
-    
+
+- (void)storeArray{
     _goodListDic = [NSMutableDictionary dictionary];
     _shareDic = [NSMutableDictionary dictionary];
+    _videoRecommendArray = [NSMutableArray array];
+    _teacherRecommendArray = [NSMutableArray array];
+     _commentListArray = [NSMutableArray array];
+}
+
+- (void)JsonData{
+    
+    NSString  *personGoodsApi = [@"http://app.meilihuli.com/api/live/video/live_id/" stringByAppendingString:[NSString stringWithFormat:@"%@/?lang=zh-cn&version=ios2.0.0&cid=asXoHoWV7R9iVVx6r8CwK8", _live_id]];
+    if (_source_id.length != 0) {
+        
+        personGoodsApi = [@"http://app.meilihuli.com/api/course/detail/course_id/" stringByAppendingString:[NSString stringWithFormat:@"%@/?lang=zh-cn&version=ios2.0.0&cid=asXoHoWV7R9iVVx6r8CwK8", _source_id]];
+    }
+    NSLog(@"%@", personGoodsApi);
     
     [BMRequestManager requsetWithUrlString:personGoodsApi httpBodyStr:nil Method:GET finish:^(NSData *data) {
         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
@@ -150,6 +178,7 @@
         _personModel = [[BMPersonDetailModel alloc] init];
         [_personModel setValuesForKeysWithDictionary:dataDic];
         _headerView.personModel = _personModel;
+        
         
         // 得到goodsList的部分
         NSArray *goodsArray = dataDic[@"relation_goods_list"];
@@ -166,8 +195,7 @@
             [_goodListDic setObject:temp forKey:key];
             
         }
-        
-        
+       
         // 得到shareDic
         NSDictionary *share = dataDic[@"share_config"];
         NSArray *tempArray = @[@"weibo", @"weixin_friend", @"qq_space",@"qq_friend", @"weixin_friends"];
@@ -177,14 +205,20 @@
             [shareModel setValuesForKeysWithDictionary:temp];
             [_shareDic setValue:shareModel forKey:str];
         }
-        [_listTableView reloadData];
+        NSIndexSet *set = [[NSIndexSet alloc] initWithIndex:0];
+        [_listTableView reloadSections:set withRowAnimation:(UITableViewRowAnimationNone)];
     } erro:^(NSError *erro) {
         nil;
     }];
     
     // 解析推荐视频
-    _videoRecommendArray = [NSMutableArray array];
-     NSString *videoRecommendApi = [@"http://app.meilihuli.com/api/course/detailcoursecommend/count/4/course_id/" stringByAppendingString:[NSString stringWithFormat:@"%@/page/1/?lang=zh-cn&version=ios2.0.0&cid=asXoHoWV7R9iVVx6r8CwK8", _source_id]];
+    
+     NSString *videoRecommendApi = [@"http://app.meilihuli.com/api/course/detailcoursecommend/count/4/course_id/" stringByAppendingString:[NSString stringWithFormat:@"%@/page/1/?lang=zh-cn&version=ios2.0.0&cid=asXoHoWV7R9iVVx6r8CwK8", _live_id]];
+    
+    if (_source_id.length != 0) {
+        
+        videoRecommendApi = [@"http://app.meilihuli.com/api/course/detailcoursecommend/count/4/course_id/" stringByAppendingString:[NSString stringWithFormat:@"%@/page/1/?lang=zh-cn&version=ios2.0.0&cid=asXoHoWV7R9iVVx6r8CwK8", _source_id]];
+    }
     [BMRequestManager requsetWithUrlString:videoRecommendApi parDic:nil Method:GET finish:^(NSData *data) {
         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
         NSArray *dataArray = dic[@"data"];
@@ -193,7 +227,6 @@
             [videoModel setValuesForKeysWithDictionary:oneDic];
             [_videoRecommendArray addObject:videoModel];
         }
-       
         NSIndexSet *set = [[NSIndexSet alloc] initWithIndex:1];
         [_listTableView reloadSections:set withRowAnimation:(UITableViewRowAnimationNone)];
     } erro:^(NSError *erro) {
@@ -202,7 +235,7 @@
     
     
     // 主播推荐
-    _teacherRecommendArray = [NSMutableArray array];
+    
     NSString *teacherRecommendApi = @"http://app.meilihuli.com/api/teacher/recommendlist/count/4/page/1/?lang=zh-cn&version=ios2.0.0&cid=asXoHoWV7R9iVVx6r8CwK8";
     [BMRequestManager requsetWithUrlString:teacherRecommendApi parDic:nil Method:GET finish:^(NSData *data) {
         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
@@ -219,22 +252,23 @@
     }];
     
     // 讨论
-    _commentListArray = [NSMutableArray array];
-    NSString *commentApi =  [@"http://app.meilihuli.com/api/comment/list/source_id/" stringByAppendingString:[NSString stringWithFormat:@"%@/type/1/count/10/page/1/?lang=zh-cn&version=ios2.0.0&cid=asXoHoWV7R9iVVx6r8CwK8", _source_id]];
-    [BMRequestManager requsetWithUrlString:commentApi parDic:nil Method:GET finish:^(NSData *data) {
-        NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
-        NSArray *dataArray = dic[@"data"];
-        for (NSDictionary *oneDic in dataArray) {
-            BMCommentListModel *listModel = [[BMCommentListModel alloc] init];
-            [listModel setValuesForKeysWithDictionary:oneDic];
-            [_commentListArray addObject:listModel];
-        }
-        
-        NSIndexSet *set = [[NSIndexSet alloc] initWithIndex:2];
-        [_listTableView reloadSections:set withRowAnimation:(UITableViewRowAnimationNone)];
-    } erro:^(NSError *erro) {
-        nil;
-    }];
+   
+//    NSString *commentApi =  [@"http://app.meilihuli.com/api/comment/list/source_id/" stringByAppendingString:[NSString stringWithFormat:@"%@/type/1/count/10/page/1/?lang=zh-cn&version=ios2.0.0&cid=asXoHoWV7R9iVVx6r8CwK8", _source_id]];
+//    [BMRequestManager requsetWithUrlString:commentApi parDic:nil Method:GET finish:^(NSData *data) {
+//        NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+//        NSArray *dataArray = dic[@"data"];
+//        for (NSDictionary *oneDic in dataArray) {
+//            BMCommentListModel *listModel = [[BMCommentListModel alloc] init];
+//            [listModel setValuesForKeysWithDictionary:oneDic];
+//            [_commentListArray addObject:listModel];
+//        }
+    
+//        NSIndexSet *set = [[NSIndexSet alloc] initWithIndex:3];
+//        [_listTableView reloadSections:set withRowAnimation:(UITableViewRowAnimationNone)];
+//    } erro:^(NSError *erro) {
+//        nil;
+//    }];
+    
     
 }
 
@@ -252,15 +286,17 @@
     [_listTableView registerClass:[BMGoodsListTableViewCell class] forCellReuseIdentifier:@"BMGoodsListTableViewCell"];
     [_listTableView registerClass:[BMVideoLiveTableViewCell class] forCellReuseIdentifier:@"BMVideoLiveTableViewCell"];
     [_listTableView registerClass:[BMteacherRecommendTableViewCell class] forCellReuseIdentifier:@"BMteacherRecommendTableViewCell"];
-    [self.view addSubview:_listTableView];
     _headerView = [[BMShowVideoHeaderView alloc] initWithFrame: CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 150)];
     _listTableView.tableHeaderView = _headerView;
+    [self.view addSubview:_listTableView];
+   
     
     
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return 4;
+  // return 4;
+    return 3;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     return 1;
@@ -273,6 +309,7 @@
         return cell;
     }else if (indexPath.section == 1){
         BMVideoLiveTableViewCell *liveCell = [tableView dequeueReusableCellWithIdentifier:@"BMVideoLiveTableViewCell" forIndexPath:indexPath];
+        liveCell.currentVC = self;
         liveCell.liveArray = _videoRecommendArray;
         return liveCell;
     }else if (indexPath.section == 2){
@@ -280,14 +317,20 @@
         teacherCell.teacherArray = _teacherRecommendArray;
         return teacherCell;
     }
-    
-    else{
-        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"UITableViewCell" forIndexPath:indexPath];
-        return cell;
-        
-    }
+    return nil;
    
 }
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    if (indexPath.section == 1) {
+        
+    }
+}
+
+
+
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     
@@ -328,7 +371,7 @@
 
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
-    NSArray *array = @[@"提及产品", @"视频推荐", @"主播推荐", @"讨论"];
+    NSArray *array = @[@"提及产品", @"视频推荐", @"主播推荐"];
     UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, _listTableView.frame.size.width, 30)];
     view.backgroundColor = [UIColor whiteColor];
     
@@ -345,7 +388,7 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    NSArray *array = @[[_goodListDic allKeys], _videoRecommendArray, _teacherRecommendArray, _commentListArray];
+    NSArray *array = @[[_goodListDic allKeys], _videoRecommendArray, _teacherRecommendArray];
     for (NSArray *onearray in array) {
         if (onearray.count != 0 ) {
             return 30;
@@ -357,6 +400,22 @@
 }
 
 
+- (void)reloadData{
+    _listTableView.contentOffset = CGPointMake(0, 0);
+    [self playVideo];
+    [self removeArray];
+    [_listTableView removeFromSuperview];
+    [self loadTableView];
+    [self JsonData];
+   
+}
+- (void)removeArray{
+    [_goodListDic removeAllObjects];
+    [_shareDic removeAllObjects];
+    [_videoRecommendArray removeAllObjects];
+    [_teacherRecommendArray removeAllObjects];
+    [_commentListArray removeAllObjects];
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

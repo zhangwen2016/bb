@@ -184,6 +184,7 @@
             cell.logoImg.image = [UIImage imageWithContentsOfFile:walletImgPath];
             cell.dataArr = _honerListArr[1];
         }
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
         return cell;
     }
     
@@ -191,6 +192,7 @@
         BMPopularAnchorTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"BMPopularAnchorTableViewCell" forIndexPath:indexPath];
         [cell.applyAnchor addTarget:self action:@selector(applyAnchorAction:) forControlEvents:UIControlEventTouchUpInside];
         cell.dataArr = _popularAnchor;
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
         return cell;
 
     }
@@ -198,6 +200,7 @@
     if (indexPath.section == 2) {
         BMAnchorFindTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"BMAnchorFindTableViewCell" forIndexPath:indexPath];
         cell.dataArr = _findArr;
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
         return cell;
     }
     return nil;

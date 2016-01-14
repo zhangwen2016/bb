@@ -9,6 +9,7 @@
 #import "BMVideoRecommendViewController.h"
 #import "BMVideoMainTableViewCell.h"
 #import "BMSearchViewController.h"
+#import "BMVideoShowViewController.h"
 #define kVideoRecommendApi @"http://app.meilihuli.com/api/videodemand/firstcommend/count/20/page/1/?lang=zh-cn&version=ios2.0.0&cid=asXoHoWV7R9iVVx6r8CwK8"
 @interface BMVideoRecommendViewController () <UITableViewDataSource, UITableViewDelegate>
 @property (nonatomic, strong) UITableView *listTableView;
@@ -28,7 +29,7 @@
 #pragma mark -- 加载tableView
 - (void)loadTableView{
     
-    _listTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0,[UIScreen mainScreen].bounds.size.width, self.view.frame.size.height)];
+    _listTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0,[UIScreen mainScreen].bounds.size.width, self.view.frame.size.height - 70 - 44)];
     _listTableView.delegate = self;
     _listTableView.dataSource = self;
     _listTableView.rowHeight = 230;
@@ -91,7 +92,16 @@
     return cell;
 };
 
-
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    
+    BMVideoShowViewController *showVC = [[BMVideoShowViewController alloc] init];
+    BMVideoMainModel *model = _dataSourceArray[indexPath.row];
+    showVC.source_id = model.source_id;
+    [self.navigationController pushViewController:showVC animated:YES];
+}
 
 
 

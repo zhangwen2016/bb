@@ -18,6 +18,7 @@
 @property (nonatomic, strong) UITableView *listTableView;
 @property (nonatomic, strong) NSMutableArray *hotTagArray;
 @property (nonatomic, strong) NSMutableArray *dataSourceArray;
+
 @property (nonatomic, assign) NSInteger pageCount;
 @end
 
@@ -30,6 +31,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
+    _pageCount = 1;
     [self loadTableView];
     [self JsonData];
     
@@ -55,7 +57,9 @@
     
     
     _dataSourceArray = [NSMutableArray array];
-    [BMRequestManager requsetWithUrlString:kHotApi parDic:nil Method:GET finish:^(NSData *data) {
+    NSString *page = [NSString stringWithFormat:@"%ld", (long)_pageCount];
+    NSString *hotApi =[@"http://app.meilihuli.com/api/videodemand/firsthot/count/20/page/" stringByAppendingString:[page stringByAppendingString:@"/?lang=zh-cn&version=ios2.0.0&cid=asXoHoWV7R9iVVx6r8CwK8"]];
+    [BMRequestManager requsetWithUrlString:hotApi parDic:nil Method:GET finish:^(NSData *data) {
         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
         NSArray *dataArray = dic[@"data"];
         for (NSDictionary *oneDic in dataArray) {
@@ -94,7 +98,7 @@
     [headerView addSubview:seeMoreButton];
     
     
-    _listTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0,[UIScreen mainScreen].bounds.size.width, self.view.frame.size.height)];
+    _listTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0,[UIScreen mainScreen].bounds.size.width, self.view.frame.size.height - 70 - 44)];
     _listTableView.delegate = self;
     _listTableView.dataSource = self;
     _listTableView.rowHeight = 230;
@@ -124,6 +128,10 @@
 };
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    
     BMVideoShowViewController *showVC = [[BMVideoShowViewController alloc] init];
     BMVideoMainModel *model = _dataSourceArray[indexPath.row];
     showVC.source_id = model.source_id;

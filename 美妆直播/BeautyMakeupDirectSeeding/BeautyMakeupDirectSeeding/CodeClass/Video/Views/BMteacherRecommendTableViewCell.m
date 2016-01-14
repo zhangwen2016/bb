@@ -16,7 +16,7 @@
 }
 - (void)loadSubView{
     _bgScrollView = [[UIScrollView alloc] initWithFrame:self.contentView.frame];
-    _bgScrollView.showsHorizontalScrollIndicator = YES;
+    _bgScrollView.showsHorizontalScrollIndicator = NO;
     _bgScrollView.bounces = YES;
     [self.contentView addSubview:_bgScrollView];
     for (int i = 0; i < _teacherArray.count; i++) {
@@ -31,13 +31,15 @@
         [BMRequestManager downLoadButton:BL.upButton UrlString:model.avatar];
         BL.downLabel.text = model.nickname;
         
-        [self.contentView addSubview:BL];
-    }
+        [_bgScrollView addSubview:BL];
+    };
+    
+    _bgScrollView.contentSize = CGSizeMake(20 + 90 * _teacherArray.count, self.contentView.height);
 }
 
 
 - (void)upButtonClick:(UIButton *)button{
-    NSLog(@"%d", button.tag);
+    NSLog(@"%ld", (long)button.tag);
 }
 
 - (void)awakeFromNib {

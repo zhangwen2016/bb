@@ -11,7 +11,7 @@
 
 @interface BMFindMeiliFamilyCheckMoreTableViewCell : UITableViewCell
 
-@property (nonatomic, strong) UIButton *topic_imgBtn;//  放置图片
+@property (nonatomic, strong) UIImageView *topic_imgBtn;//  放置图片
 
 //  接口
 @property (nonatomic, strong) BMMeiliFamilyCheckMoreModel *model;

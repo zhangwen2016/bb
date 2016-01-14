@@ -8,6 +8,8 @@
 
 #import "BMVideoLiveTableViewCell.h"
 #import "BMSearchLiveCollectionViewCell.h"
+#import "BMVideoShowViewController.h"
+#import "BMSearchViewController.h"
 @implementation BMVideoLiveTableViewCell
 
 - (void)setLiveArray:(NSArray *)liveArray{
@@ -54,7 +56,39 @@
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
-    NSLog(@"%ld", (long)indexPath.row);
+  
+    
+    BMSearchTeacherModel *model = _liveArray[indexPath.row];
+   
+    if ([_currentVC isMemberOfClass:[BMSearchViewController class]]) {
+        BMVideoShowViewController *showVC =[[BMVideoShowViewController alloc] init];
+        
+        
+        showVC.live_id = model.live_id;
+        NSLog(@"%@", model.start_time);
+        long long int date1 = (long long int)[@1453289400 intValue];
+        
+        NSDate *date2 = [NSDate dateWithTimeIntervalSince1970:date1];
+        
+        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+        [formatter setDateFormat:@"MM:DD:HH:mm"];
+        NSString *str = [formatter stringFromDate:date2];
+        
+        
+        
+        BMSearchViewController *searchVC = (BMSearchViewController *)_currentVC;
+        searchVC.searchController.searchBar.hidden = YES;
+        [_currentVC.navigationController pushViewController:showVC animated:YES];
+    }else if ([_currentVC isMemberOfClass:[BMVideoShowViewController class]]){
+        BMVideoShowViewController *showVC = (BMVideoShowViewController *)_currentVC;
+        showVC.source_id = model.live_id;
+    
+        [showVC reloadData];
+    }
+    
+    
+    
+    
 }
 
 

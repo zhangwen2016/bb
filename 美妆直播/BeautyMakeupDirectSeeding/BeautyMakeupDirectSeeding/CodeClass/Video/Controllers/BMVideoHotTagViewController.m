@@ -7,7 +7,7 @@
 //
 
 #import "BMVideoHotTagViewController.h"
-
+#import "BMVideoShowViewController.h"
 @interface BMVideoHotTagViewController ()<UITableViewDataSource, UITableViewDelegate>
 @property (nonatomic, strong) NSMutableArray *dataSourceArray;
 @property (nonatomic, strong) UITableView *listTableView;
@@ -40,8 +40,7 @@
     
     UIButton *backButton = [UIButton buttonWithType:(UIButtonTypeCustom)];
     backButton.frame = CGRectMake(10, 35, 20, 20);
-    backButton.backgroundColor = kPinkColor;
-    [backButton setBackgroundImage:[UIImage imageNamed:@"all_topback.png"] forState:(UIControlStateNormal)];
+    [backButton setBackgroundImage:[UIImage imageNamed:@"back.png"] forState:(UIControlStateNormal)];
     [backButton addTarget:self action:@selector(backButtonClick:) forControlEvents:(UIControlEventTouchUpInside)];
     [navView addSubview:backButton];
 }
@@ -94,6 +93,16 @@
     cell.model = _dataSourceArray[indexPath.row];
     return cell;
 };
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    
+    BMVideoShowViewController *showVC = [[BMVideoShowViewController alloc] init];
+    BMVideoMainModel *model = _dataSourceArray[indexPath.row];
+    showVC.source_id = model.source_id;
+    [self.navigationController pushViewController:showVC animated:YES];
+}
 
 
 - (void)didReceiveMemoryWarning {

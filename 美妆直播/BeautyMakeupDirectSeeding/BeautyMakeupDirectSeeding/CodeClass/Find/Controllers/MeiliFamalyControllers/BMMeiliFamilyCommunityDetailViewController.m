@@ -37,6 +37,37 @@
     self.view = _communityDetailV;
     
     self.tabBarController.tabBar.hidden = YES;
+    [self loadNavView];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    self.tabBarController.tabBar.hidden = YES;
+
+}
+
+- (void)loadNavView{
+    UIView *navView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 70)];
+    UILabel *label = [[UILabel alloc] init];
+    label.text = @"美狸家";
+    label.textColor = kPinkColor;
+    label.font = [UIFont systemFontOfSize:16];
+    label.frame = CGRectMake((navView.width - 200) / 2, 20, 200, 50);
+    label.textAlignment = NSTextAlignmentCenter;
+    [navView addSubview:label];
+    [self.view addSubview:navView];
+    
+    UIButton *backButton = [UIButton buttonWithType:(UIButtonTypeCustom)];
+    backButton.frame = CGRectMake(10, 35, 20, 20);
+    backButton.backgroundColor = kPinkColor;
+    [backButton setBackgroundImage:[UIImage imageNamed:@"back"] forState:(UIControlStateNormal)];
+    [backButton addTarget:self action:@selector(backButtonClick:) forControlEvents:(UIControlEventTouchUpInside)];
+    [navView addSubview:backButton];
+}
+
+//  点击返回
+- (void)backButtonClick:(UIButton *)button{
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)viewDidLoad {
@@ -175,6 +206,11 @@
     NSString *str = [formatter stringFromDate:date2];
     
     _communityDetailV.add_time.text = [NSString stringWithFormat:@"%@",str];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    self.tabBarController.tabBar.hidden = NO;
 }
 
 - (void)didReceiveMemoryWarning {

@@ -14,6 +14,7 @@
 #import "BMVideoLiveTableViewCell.h"
 #import "BMVideoLinkUserListViewController.h"
 #import "BMSearchViewController.h"
+#import "BMVideoShowViewController.h"
 #define kSearchTeacherAPI @"http://app.meilihuli.com/api/search/index/?lang=zh-cn&version=ios2.0.0&cid=asXoHoWV7R9iVVx6r8CwK8"
 #define kPost @"course_count=5&keyword=a&teacher_count=5"
 @interface BMSearchTeacherViewController ()<UITableViewDataSource, UITableViewDelegate>
@@ -88,10 +89,11 @@
 
 #pragma mark ---- 加载tableView
 - (void)loadTableView{
-    _listTableView = [[UITableView alloc] initWithFrame:self.view.frame style:(UITableViewStyleGrouped)];
+    _listTableView = [[UITableView alloc] initWithFrame:self.view.frame style:(UITableViewStylePlain)];
     _listTableView.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, self.view.frame.size.height);
     _listTableView.delegate = self;
     _listTableView.dataSource = self;
+    _listTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [_listTableView registerClass:[BMVideoMainTableViewCell class] forCellReuseIdentifier:@"BMVideoMainTableViewCell"];
     [_listTableView registerClass:[BMVideoLiveTableViewCell class] forCellReuseIdentifier:@"BMVideoLiveTableViewCell"];
      [_listTableView registerClass:[BMVideoTeacherListTableViewCell class] forCellReuseIdentifier:@"BMVideoTeacherListTableViewCell"];
@@ -104,13 +106,8 @@
 
 #pragma mark --- 实现tableVide 的代理方法
 
-// 2或者3分区可能为0
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    if (_liveArray.count == 0 && _courseArray.count == 0 ) {
-        return 1;
-    }else if (_liveArray.count == 0 || _courseArray.count == 0){
-        return 2;
-    }
+  
     return 3;
 }
 
@@ -120,21 +117,29 @@
         return _teacherArray.count;
     }else if (section == 1){
         return 1;
-    }else{
+    }else if(section == 2){
         return _courseArray.count;
     }
+    return 0;
 }
 
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
-    if (section == 0 && _teacherArray.count != 0) {
-        return @"相关用户";
-    }else if (section == 1 && _liveArray.count != 0){
-        return @"直播教程";
-    }else if (section == 2 && _courseArray.count != 0){
-        return @"相关教程";
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+    NSArray *array = @[@"相关用户", @"直播教程", @"相关教程"];
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, _listTableView.frame.size.width, 30)];
+    view.backgroundColor = [UIColor colorWithRed:239 / 255.0 green:239 / 255.0 blue:244 / 255.0 alpha:1];
+    UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 10, 200, 15)];
+    titleLabel.textColor = kPinkColor;
+    // 保护
+    if (section < 4) {
+        titleLabel.text = array[section];
     }
-    return nil;
+    titleLabel.font = [UIFont systemFontOfSize:14];
+    [view addSubview:titleLabel];
+    return view;
 }
+
+
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -144,6 +149,7 @@
          return teacherCell;
     }else if(indexPath.section == 1){
         BMVideoLiveTableViewCell *liveCell = [tableView dequeueReusableCellWithIdentifier:@"BMVideoLiveTableViewCell" forIndexPath:indexPath];
+        liveCell.currentVC = self.parentViewController;
         liveCell.liveArray = _liveArray;
         return liveCell;
     }else if (indexPath.section == 2){
@@ -156,27 +162,41 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section == 0) {
-        return 60;
-    }else if (indexPath.section == 1){
-        if (_liveArray.count % 2 == 1) {
-            return (_liveArray.count + 1) / 2 * 150 + 20;
+        if (_teacherArray.count != 0) {
+            return 60;
+        }else{
+            return 0;
         }
-        return _liveArray.count / 2 * 150 + 20;
+        
+    }else if (indexPath.section == 1){
+        if (_liveArray.count != 0) {
+            if (_liveArray.count % 2 == 1) {
+                return (_liveArray.count + 1) / 2 * 150 + 20;
+            }
+            return _liveArray.count / 2 * 150 + 20;
+        }else{
+            return 0;
+        }
+        
     }else if(indexPath.section == 2){
-        return 230;
+        if (_courseArray.count != 0) {
+            return 230;
+        }else{
+            return 0;
+        }
+        
     }
     return 0;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    if (section == 0) {
-        return 30;
-    }else if (section == 1){
-        return 30;
-    }else if(section == 2){
+    NSArray *array = @[_teacherArray, _liveArray, _courseArray];
+    NSArray *arr = array[section];
+    if (arr.count != 0) {
         return 30;
     }
     return 0;
+    
 }
 
 // 第一个分区的表尾 button
@@ -213,7 +233,32 @@
     return 0;
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 
+    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    
+    
+    if (indexPath.section == 0) {
+        NSLog(@"indexPath.section == 0");
+    }else if(indexPath.section == 1){
+        
+        
+    }else if (indexPath.section == 2){
+        BMVideoShowViewController *showVC = [[BMVideoShowViewController alloc] init];
+        BMVideoMainModel *model = _courseArray[indexPath.row];
+        showVC.source_id = model.source_id;
+        
+        // 将searchBarhidden;
+        BMSearchViewController *searchVC = (BMSearchViewController *)self.parentViewController;
+        searchVC.searchController.searchBar.hidden = YES;
+        
+        [searchVC.navigationController pushViewController:showVC animated:YES];
+        
+    }
+
+    
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
