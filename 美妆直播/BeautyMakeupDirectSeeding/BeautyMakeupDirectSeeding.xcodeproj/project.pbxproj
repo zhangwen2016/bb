@@ -46,18 +46,19 @@
 		796364491C46287F00ABF7F9 /* zhaobudao.png in Resources */ = {isa = PBXBuildFile; fileRef = 796364481C46287F00ABF7F9 /* zhaobudao.png */; };
 		7963644C1C46357800ABF7F9 /* BMPersonDetailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7963644B1C46357800ABF7F9 /* BMPersonDetailModel.m */; };
 		7963644F1C46377D00ABF7F9 /* BMGoodsListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7963644E1C46377D00ABF7F9 /* BMGoodsListModel.m */; };
-		796364521C463E5F00ABF7F9 /* BMRecommendTeacherModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 796364511C463E5F00ABF7F9 /* BMRecommendTeacherModel.m */; };
 		796364551C463EC700ABF7F9 /* BMCommentListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 796364541C463EC700ABF7F9 /* BMCommentListModel.m */; };
 		796364581C4647E700ABF7F9 /* BMShowVideoHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 796364571C4647E700ABF7F9 /* BMShowVideoHeaderView.m */; };
 		7963645B1C46492500ABF7F9 /* BMButtonLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7963645A1C46492500ABF7F9 /* BMButtonLabel.m */; };
 		7963645E1C46668500ABF7F9 /* BMShareModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7963645D1C46668500ABF7F9 /* BMShareModel.m */; };
-		796364611C46751900ABF7F9 /* BMGoodsListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 796364601C46751900ABF7F9 /* BMGoodsListTableViewCell.m */; };
-		796364641C46883E00ABF7F9 /* BMteacherRecommendTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 796364631C46883E00ABF7F9 /* BMteacherRecommendTableViewCell.m */; };
 		796A56BE1C44950B00DB0865 /* BMVideoMainVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 796A56AE1C44950B00DB0865 /* BMVideoMainVC.m */; };
 		796A56C01C44950B00DB0865 /* BMVideoHotTagModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 796A56B31C44950B00DB0865 /* BMVideoHotTagModel.m */; };
 		796A56C11C44950B00DB0865 /* BMVideoMainModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 796A56B51C44950B00DB0865 /* BMVideoMainModel.m */; };
 		796A56C21C44950B00DB0865 /* BMVideoHotTag.m in Sources */ = {isa = PBXBuildFile; fileRef = 796A56B81C44950B00DB0865 /* BMVideoHotTag.m */; };
 		796A56C31C44950B00DB0865 /* BMVideoMainTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 796A56BA1C44950B00DB0865 /* BMVideoMainTableViewCell.m */; };
+		797089B21C472D3F00CC198F /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 797089B11C472D3F00CC198F /* AdSupport.framework */; };
+		797089B31C472D9D00CC198F /* BMGoodsListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 796364601C46751900ABF7F9 /* BMGoodsListTableViewCell.m */; };
+		797089B41C472DA400CC198F /* BMRecommendTeacherModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 796364511C463E5F00ABF7F9 /* BMRecommendTeacherModel.m */; };
+		797089B51C472DB000CC198F /* BMteacherRecommendTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 796364631C46883E00ABF7F9 /* BMteacherRecommendTableViewCell.m */; };
 		7978174A1C44AE1100B01DA9 /* BMAnchorRankTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 797817491C44AE1100B01DA9 /* BMAnchorRankTableViewCell.m */; };
 		7983E1331C45EB680089C2B4 /* BMMeiliFamilyCommunityDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7983E1321C45EB680089C2B4 /* BMMeiliFamilyCommunityDetailViewController.m */; };
 		7983E1361C45EC2F0089C2B4 /* BMMeiliFamilyCommunityDetailView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7983E1351C45EC2F0089C2B4 /* BMMeiliFamilyCommunityDetailView.m */; };
@@ -304,6 +305,7 @@
 		796A56B81C44950B00DB0865 /* BMVideoHotTag.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BMVideoHotTag.m; sourceTree = "<group>"; };
 		796A56B91C44950B00DB0865 /* BMVideoMainTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMVideoMainTableViewCell.h; sourceTree = "<group>"; };
 		796A56BA1C44950B00DB0865 /* BMVideoMainTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BMVideoMainTableViewCell.m; sourceTree = "<group>"; };
+		797089B11C472D3F00CC198F /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
 		797817481C44AE1100B01DA9 /* BMAnchorRankTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMAnchorRankTableViewCell.h; sourceTree = "<group>"; };
 		797817491C44AE1100B01DA9 /* BMAnchorRankTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BMAnchorRankTableViewCell.m; sourceTree = "<group>"; };
 		7983E1311C45EB680089C2B4 /* BMMeiliFamilyCommunityDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMMeiliFamilyCommunityDetailViewController.h; sourceTree = "<group>"; };
@@ -539,6 +541,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				797089B21C472D3F00CC198F /* AdSupport.framework in Frameworks */,
 				796364441C45E61200ABF7F9 /* MediaPlayer.framework in Frameworks */,
 				796364421C45E60B00ABF7F9 /* AVFoundation.framework in Frameworks */,
 				79BBA9D31C43457D00BB79E4 /* libsqlite3.0.tbd in Frameworks */,
@@ -1094,6 +1097,7 @@
 		C64954951C40EF3C00A7F89E = {
 			isa = PBXGroup;
 			children = (
+				797089B11C472D3F00CC198F /* AdSupport.framework */,
 				796364431C45E61200ABF7F9 /* MediaPlayer.framework */,
 				796364411C45E60B00ABF7F9 /* AVFoundation.framework */,
 				79BBA9D21C43457D00BB79E4 /* libsqlite3.0.tbd */,
@@ -1443,6 +1447,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				797089B51C472DB000CC198F /* BMteacherRecommendTableViewCell.m in Sources */,
+				797089B41C472DA400CC198F /* BMRecommendTeacherModel.m in Sources */,
+				797089B31C472D9D00CC198F /* BMGoodsListTableViewCell.m in Sources */,
 				79BBA9B31C43445500BB79E4 /* MJRefreshAutoGifFooter.m in Sources */,
 				79513E1F1C45315400B3DA98 /* BMFindMeiliFamilyCheckMoreViewController.m in Sources */,
 				79BBA9B81C43445500BB79E4 /* MJRefreshBackStateFooter.m in Sources */,
