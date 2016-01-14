@@ -36,7 +36,10 @@
     [self.tableView registerClass:[BMFindMeiliFamilyTypeTwoTableViewCell class] forCellReuseIdentifier:@"BMFindMeiliFamilyTypeTwoTableViewCell"];
     [self loadData];
     self.tableView.tableHeaderView = [self headViewForTableView];
+    
 }
+
+
 
 - (void)loadData
 {
@@ -84,11 +87,13 @@
     if ([model.list_show_type isEqualToString:@"1"]) {
         BMFindMeiliFamilyTypeOneTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"BMFindMeiliFamilyTypeOneTableViewCell" forIndexPath:indexPath];
         cell.model = model;
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
         return cell;
     }else{
     
     BMFindMeiliFamilyTypeTwoTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"BMFindMeiliFamilyTypeTwoTableViewCell" forIndexPath:indexPath];
         cell.model = model;
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
         return cell;
     }
     // Configure the cell...

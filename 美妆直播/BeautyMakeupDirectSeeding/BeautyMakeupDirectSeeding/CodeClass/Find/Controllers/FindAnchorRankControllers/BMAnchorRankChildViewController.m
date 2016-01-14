@@ -88,7 +88,7 @@
 {
     BMAnchorRankTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"BMAnchorRankTableViewCell" forIndexPath:indexPath];
     cell.model = _rankDataArr[indexPath.row];
-    
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
 }
 

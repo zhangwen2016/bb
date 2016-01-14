@@ -68,7 +68,6 @@
 {
     BMAnchorPopularAnchorCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"BMAnchorPopularAnchorCollectionViewCell" forIndexPath:indexPath];
     cell.model = _dataArr[indexPath.row];
-    
     return cell;
 }
 

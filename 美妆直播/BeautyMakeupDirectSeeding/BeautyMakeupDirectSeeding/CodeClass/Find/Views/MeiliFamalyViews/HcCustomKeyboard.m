@@ -53,7 +53,7 @@ static HcCustomKeyboard *customKeyboard = nil;
     self.mDelegate =delegate;
     self.isTop = NO;//初始化的时候设为NO
     
-    self.mBackView =[[UIView alloc]initWithFrame:CGRectMake(0, [UIScreen mainScreen].bounds.size.height-64, WIDTH_SCREEN, 50)];
+    self.mBackView =[[UIView alloc]initWithFrame:CGRectMake(0, [UIScreen mainScreen].bounds.size.height- 50, WIDTH_SCREEN, 50)];
     NSLog(@"%p",self.mBackView);
     self.mBackView.backgroundColor =[UIColor colorWithRed:229/255.0 green:229/255.0 blue:229/255.0 alpha:1];
     [self.mViewController.view addSubview:self.mBackView];
@@ -75,7 +75,10 @@ static HcCustomKeyboard *customKeyboard = nil;
     
     UIButton *cameraBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     cameraBtn.frame = CGRectMake(10, 0, 30, 30);
-    cameraBtn.backgroundColor = [UIColor cyanColor];
+//    cameraBtn.backgroundColor = [UIColor cyanColor];
+    cameraBtn.tintColor = [UIColor magentaColor];
+    NSString *cameraPath = [[NSBundle mainBundle] pathForResource:@"iconfont-paizhao" ofType:@"png"];
+    [cameraBtn setBackgroundImage:[UIImage imageWithContentsOfFile:cameraPath] forState:UIControlStateNormal];
     [cameraBtn addTarget:self action:@selector(btnAction:) forControlEvents:UIControlEventTouchUpInside];
     [self.mSecondaryBackView addSubview:cameraBtn];
 
@@ -121,7 +124,7 @@ static HcCustomKeyboard *customKeyboard = nil;
 
 - (BOOL)textViewShouldBeginEditing:(UITextView *)textView
 {
-//    self.mTextView.text = nil;
+    self.mTextView.text = nil;
     return YES;
 }
 
