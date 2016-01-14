@@ -48,7 +48,10 @@
     
     _applyAnchor = [UIButton buttonWithType:UIButtonTypeCustom];
     _applyAnchor.frame = CGRectMake(0.25 * kScreenWidth, _collectionV.bottom, 0.5 * kScreenWidth, 30);
-    _applyAnchor.backgroundColor = [UIColor cyanColor];
+    
+    NSString *applyPath = [[NSBundle mainBundle] pathForResource:@"applyAnchor" ofType:@"png"];
+    [_applyAnchor setBackgroundImage:[UIImage imageWithContentsOfFile:applyPath] forState:UIControlStateNormal];
+
   //  [_applyAnchor addTarget:self action:@selector(applyTobeAnchorAction:) forControlEvents:UIControlEventTouchUpInside];
     [self.contentView addSubview:_applyAnchor];
     

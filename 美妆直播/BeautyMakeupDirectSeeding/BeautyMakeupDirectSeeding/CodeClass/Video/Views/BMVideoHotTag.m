@@ -41,10 +41,10 @@
         // 设置button 的位置
         CGFloat width = [self autoWidthbutton:button FontSize:12] + 20;
         CGFloat height = 30;
-        orginX = 10 + _lastWidth + orginX; // X者的位置
+        orginX = 5 + _lastWidth + orginX; // X者的位置
         if (self.frame.size.width - orginX < width) {
             line += 1;
-            orginX = 10;
+            orginX = 5;
         }
         CGFloat orginY = 10 + line * (height + 10);
         button.frame = CGRectMake(orginX, orginY, width, height);

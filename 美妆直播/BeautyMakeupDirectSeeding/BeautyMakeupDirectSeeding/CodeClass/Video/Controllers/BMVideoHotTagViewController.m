@@ -8,7 +8,11 @@
 
 #import "BMVideoHotTagViewController.h"
 
-@interface BMVideoHotTagViewController ()
+@interface BMVideoHotTagViewController ()<UITableViewDataSource, UITableViewDelegate>
+@property (nonatomic, strong) NSMutableArray *dataSourceArray;
+@property (nonatomic, strong) UITableView *listTableView;
+
+
 
 @end
 
@@ -18,12 +22,16 @@
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
     [self loadNavView];
+    [self JsonData];
+    [self loadTableView];
+
 }
+#pragma mark ---- 标题
 - (void)loadNavView{
     UIView *navView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 70)];
     UILabel *label = [[UILabel alloc] init];
     label.text = _hotTagModel.name;
-    label.textColor = [UIColor colorWithRed:255/255.0 green:75 / 255.0 blue:124 / 255.0 alpha:1];
+    label.textColor = kPinkColor;
     label.font = [UIFont systemFontOfSize:16];
     [BMCommonMethod autoAdjustLeftWidthLabel:label labelFontSize:16];
     label.frame = CGRectMake((navView.width - label.width) / 2, 20, label.width, 50);
@@ -31,11 +39,63 @@
     [self.view addSubview:navView];
     
     UIButton *backButton = [UIButton buttonWithType:(UIButtonTypeCustom)];
-    backButton.frame = CGRectMake(10, 30, 20, 20);
-    backButton.tintColor =[UIColor colorWithRed:255/255.0 green:75 / 255.0 blue:124 / 255.0 alpha:1];
+    backButton.frame = CGRectMake(10, 35, 20, 20);
+    backButton.backgroundColor = kPinkColor;
     [backButton setBackgroundImage:[UIImage imageNamed:@"all_topback.png"] forState:(UIControlStateNormal)];
+    [backButton addTarget:self action:@selector(backButtonClick:) forControlEvents:(UIControlEventTouchUpInside)];
     [navView addSubview:backButton];
 }
+
+- (void)backButtonClick:(UIButton *)button{
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+
+#pragma mark ---- 加载数据得到的接口
+- (void)JsonData{
+    _dataSourceArray = [NSMutableArray array];
+    
+     NSString *hotTagApi = [@"http://app.meilihuli.com/api/videodemand/taglist/tag_id/"stringByAppendingString:[NSString stringWithFormat:@"%@?lang=zh-cn&version=ios2.0.0&cid=asXoHoWV7R9iVVx6r8CwK8",_hotTagModel.tag_id]];
+    
+    [BMRequestManager requsetWithUrlString:hotTagApi parDic:nil Method:GET finish:^(NSData *data) {
+        NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+        NSArray *dataArray = dic[@"data"];
+        for (NSDictionary *oneDic in dataArray) {
+            BMVideoMainModel *model = [[BMVideoMainModel alloc] init];
+            [model setValuesForKeysWithDictionary:oneDic];
+            [_dataSourceArray addObject:model];
+        }
+        [_listTableView reloadData];
+        
+    } erro:^(NSError *erro) {
+        [BMCommonMethod NoNetWorkInVC:self];
+    }];
+}
+
+#pragma mark -- 加载tableView
+- (void)loadTableView{
+    
+    _listTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 70,[UIScreen mainScreen].bounds.size.width, self.view.frame.size.height - 70)];
+    _listTableView.delegate = self;
+    _listTableView.dataSource = self;
+    _listTableView.rowHeight = 230;
+    _listTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    [_listTableView registerClass:[BMVideoMainTableViewCell class] forCellReuseIdentifier:@"BMVideoMainTableViewCell"];
+    [self.view addSubview:_listTableView];
+}
+
+#pragma mark --- 实现tableView 的代理方法
+- (NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    return _dataSourceArray.count;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    BMVideoMainTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"BMVideoMainTableViewCell" forIndexPath:indexPath];
+    cell.model = _dataSourceArray[indexPath.row];
+    return cell;
+};
+
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

@@ -9,7 +9,23 @@
 #import "BMSearchTeacherModel.h"
 
 @implementation BMSearchTeacherModel
+
+// @property (nonatomic, strong) NSString *uid;
+
+
 - (void)setValue:(id)value forUndefinedKey:(NSString *)key{
+    if ([key isEqualToString:@"course_id"]) {
+        _live_id = value;
+    }
+    if ([key isEqualToString:@"course_title"]) {
+        _live_title = value;
+    }
+    
+    if ([key isEqualToString:@"course_cover"]) {
+        _live_cover = value;
+    }
+
+    
     
 }
 @end

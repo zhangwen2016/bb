@@ -45,16 +45,14 @@
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     
+    //  设置tableView
     [self setUpTableView];
     
     //  初始化数据
     [self loadData];
-    //  设置tableView
-   
 }
 
 #pragma mark  初始化数据
-
 - (void)loadData
 {
     _honerListArr = [NSMutableArray array];
@@ -67,6 +65,7 @@
     [self getFindInfor];
 }
 
+//  获取荣誉榜和人气主播的信息
 - (void)getPopularAnchorAndHonerListInfor
 {
     //  获取荣誉榜和人气主播的信息
@@ -93,7 +92,7 @@
     }];
 }
 
-
+//  获取发现的信息
 - (void)getFindInfor
 {
     [BMRequestManager requsetWithUrlString:kFindFindUrl parDic:nil Method:GET finish:^(NSData *data)  {
@@ -128,7 +127,6 @@
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
 
-    
     //  注册tableView
     [self.tableView registerClass:[BMPopularAnchorTableViewCell class] forCellReuseIdentifier:@"BMPopularAnchorTableViewCell"];
     [self.tableView registerClass:[BMFindAnchorHonerListTableViewCell class] forCellReuseIdentifier:@"BMFindAnchorHonerListTableViewCell"];
@@ -177,9 +175,13 @@
         cell.titleLable.font = [UIFont systemFontOfSize:kLargeFont];
         if (indexPath.row == 0) {
             cell.titleLable.text = @"人气排行榜";
+            NSString *popularPath = [[NSBundle mainBundle] pathForResource:@"popularImg" ofType:@"png"];
+            cell.logoImg.image = [UIImage imageWithContentsOfFile:popularPath];
             cell.dataArr = (NSArray *)_honerListArr[0];
         }else{
             cell.titleLable.text = @"收益排行榜";
+            NSString *walletImgPath = [[NSBundle mainBundle] pathForResource:@"walletImg" ofType:@"png"];
+            cell.logoImg.image = [UIImage imageWithContentsOfFile:walletImgPath];
             cell.dataArr = _honerListArr[1];
         }
         return cell;
