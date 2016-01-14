@@ -68,7 +68,9 @@
 - (void)setModel:(BMAnchorRecommendModel *)model
 {
     _model = model;
-    [_rankNumberBtn setTitle:model.rank forState:UIControlStateNormal];
+    NSString *rankStr = [NSString stringWithFormat:@"NO.%@", model.rank];
+    [_rankNumberBtn setTitle:rankStr forState:UIControlStateNormal];
+    [_rankNumberBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [BMRequestManager downLoadButton:_avatarButton UrlString:model.avatar];
     _nicknameLabel.text = model.nickname;
     _signature.text = model.signature;
