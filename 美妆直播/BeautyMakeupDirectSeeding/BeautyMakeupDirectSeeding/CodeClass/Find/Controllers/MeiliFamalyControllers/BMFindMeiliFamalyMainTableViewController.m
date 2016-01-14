@@ -10,8 +10,9 @@
 #import "BMRequestManager.h"
 #import "BMMeiliFamilyCommunityModel.h"
 #import "BMFindMeiliFamilyTypeOneTableViewCell.h"
-#include "BMFindMeiliFamilyTypeTwoTableViewCell.h"
+#import "BMFindMeiliFamilyTypeTwoTableViewCell.h"
 #import "BMFindMeiliFamilyCheckMoreViewController.h"
+#import "BMMeiliFamilyCommunityDetailViewController.h"
 
 #define kCommunityAPI @"http://app.meilihuli.com/api/activity/getlist/count/10/page/1/?lang=zh-cn&version=ios2.0.0&cid=asXoHoWV7R9iVVx6r8CwK8"
 
@@ -136,6 +137,15 @@
     [view addSubview:imgBtn];
 
     return view;
+}
+
+//  点击cell
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    BMMeiliFamilyCommunityDetailViewController *communityDetailVC = [[BMMeiliFamilyCommunityDetailViewController alloc] init];
+    BMMeiliFamilyCommunityModel *model = _communityArr[indexPath.row];
+    communityDetailVC.activity_id = model.activity_id;
+    [self.navigationController pushViewController:communityDetailVC animated:YES];
 }
 
 #pragma mark -- 点击查看更多所实现的 方法

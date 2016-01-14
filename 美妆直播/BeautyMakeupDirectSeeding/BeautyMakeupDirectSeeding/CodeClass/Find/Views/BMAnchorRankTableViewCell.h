@@ -10,7 +10,7 @@
 #import "BMAnchorRecommendModel.h"
 
 /*
- 排行榜的cell
+ 排行榜的cell  rank
  
  */
 
