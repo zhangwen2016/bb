@@ -9,10 +9,12 @@
 #import "BMVideoLinkUserListViewController.h"
 #import "BMCommonMethod.h"
 #import "BMVideoTeacherListTableViewCell.h"
+#import "MJRefresh.h"
 #define kSearchTeachAPi @"http://app.meilihuli.com/api/search/teacher/?lang=zh-cn&version=ios2.0.0&cid=asXoHoWV7R9iVVx6r8CwK8"
 @interface BMVideoLinkUserListViewController ()<UITableViewDataSource, UITableViewDelegate>
 @property (nonatomic, strong) UITableView *listTableView;
 @property (nonatomic, strong) NSMutableArray *dataSourceArray;
+@property (nonatomic, assign) NSInteger pageCount;
 @end
 
 @implementation BMVideoLinkUserListViewController
@@ -21,8 +23,9 @@
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
     [self loadNavView];
-    [self JsonData];
     [self loadTableView];
+    [self JsonData];
+    
 }
 #pragma mark ---- 标题
 - (void)loadNavView{
@@ -48,11 +51,12 @@
 
 #pragma mark --- jsonDATA
 - (void)JsonData{
-    _dataSourceArray = [NSMutableArray array];
+    
     NSMutableDictionary *parDic = [NSMutableDictionary dictionary];
     parDic[@"count"] = @"10";
     parDic[@"keyword"] =_keyWord;
-    parDic[@"page"] = @"1";
+    NSString *page = [NSString stringWithFormat:@"%ld", _pageCount];
+    parDic[@"page"] = page;
     [BMRequestManager requsetWithUrlString:kSearchTeachAPi parDic:parDic Method:POST finish:^(NSData *data) {
         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
         NSArray *dataArray = dic[@"data"];
@@ -61,6 +65,7 @@
             [model setValuesForKeysWithDictionary:oneDic];
             [_dataSourceArray addObject:model];
         }
+        [_listTableView.mj_footer endRefreshing];
         [_listTableView reloadData]; 
     } erro:^(NSError *erro) {
         [BMCommonMethod NoNetWorkInVC:self];
@@ -76,6 +81,14 @@
     _listTableView.rowHeight = 60;
     [_listTableView registerClass:[BMVideoTeacherListTableViewCell class] forCellReuseIdentifier:@"BMVideoTeacherListTableViewCell"];
     [self.view addSubview:_listTableView];
+    _dataSourceArray = [NSMutableArray array];
+    
+    _pageCount = 1;
+    _listTableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
+        _pageCount += 1;
+        [self JsonData];
+    }];
+    
 }
 
 #pragma mark --- tableView的代理方法

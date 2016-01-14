@@ -155,10 +155,13 @@
     if ([_searchController.searchBar isFirstResponder]) {
         [_searchController.searchBar resignFirstResponder];
     }
-   // 把收缩老师的页面贴上去
-    [self.view addSubview:_seaTeacherVC.view];
-    [self addChildViewController:_seaTeacherVC];
-    [_seaTeacherVC reloadData];
+    if (![[searchBar.text substringToIndex:1] isEqualToString:@" "]) {
+        // 把收缩老师的页面贴上去
+        [self.view addSubview:_seaTeacherVC.view];
+        [self addChildViewController:_seaTeacherVC];
+        [_seaTeacherVC reloadData];
+    }
+   
 }
 // 判断数据库里面有没有一样的
 - (BOOL)JudgeIsConcludeText:(NSString *)text{
