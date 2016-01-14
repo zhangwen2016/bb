@@ -15,6 +15,8 @@
 #import "BMDirectSeedingHeaderView.h"
 #import "BMDsLiveAndPreviewModel.h"
 #import "BMToBeginPlayTimeView.h"
+#import "BMMicroblogVC.h"
+
 #define kDirectSeedingUrl @"http://app.meilihuli.com/api/channel/index/?lang=zh-cn&version=ios2.0.0&cid=asXoHoWV7R9iVVx6r8CwK8"
 
 
@@ -41,7 +43,7 @@
 // 弹窗视图
 @property (nonatomic,strong) BMToBeginPlayTimeView *timeView;
 
-
+@property (nonatomic,strong) BMDsLiveAndPreviewModel *tempModel;
 
 @end
 
@@ -55,7 +57,6 @@
     _todayDataArray = [NSMutableArray array];
     _attentionDataArray = [NSMutableArray array];
     _recentDataArray = [NSMutableArray array];
-    
     
     [self addTableView];
     
@@ -93,7 +94,6 @@
             [_dsDataArray addObject:model];
             
         }
-        
         
         // 预告
         _preview_title = dic[@"data"][@"preview_title"];
@@ -136,9 +136,7 @@
         NSLog(@"请求失败");
     }];
     
-    
-    
-    
+
     
 }
 
@@ -436,9 +434,13 @@
     _timeView = [[BMToBeginPlayTimeView alloc] initWithFrame:CGRectMake(60, kScreenHeight, kScreenWidth - 120,kScreenHeight/2)];
     _timeView.autoresizesSubviews = YES;
     _timeView.backgroundColor = [UIColor whiteColor];
-    _timeView.model = model;
     
+    _timeView.model = model;
+    _tempModel = model;
     [_timeView.closeButton addTarget:self action:@selector(closeButtonAction:) forControlEvents:(UIControlEventTouchUpInside)];
+    
+    // 添加弹窗头像点击方法
+    [_timeView.avatarButton addTarget:self action:@selector(timeViewToavatr:) forControlEvents:(UIControlEventTouchUpInside)];
     
     [self.view addSubview:_timeView];
     
@@ -450,8 +452,6 @@
         _tableView.userInteractionEnabled = NO;
         
     }];
-    
-    
     
 }
 
@@ -465,20 +465,22 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     
-    
     // 排数第一行
     if (indexPath.row == 0) {
         
         return;
     }
     
-    
-    
     if (indexPath.section == 0 && _dsDataArray.count == 0){
         
-        // 第一个分区(直播)
+        // 第一个分区(今日预告)
+        _tempModel = _todayDataArray[indexPath.row - 1];
         
         _timeView = [[BMToBeginPlayTimeView alloc] initWithFrame:CGRectMake(60, kScreenHeight, kScreenWidth - 120,kScreenHeight/2)];
+        
+        // 添加弹窗头像点击方法
+        [_timeView.avatarButton addTarget:self action:@selector(timeViewToavatr:) forControlEvents:(UIControlEventTouchUpInside)];
+        
         _timeView.autoresizesSubviews = YES;
         _timeView.backgroundColor = [UIColor whiteColor];
         _timeView.model = _todayDataArray[indexPath.row - 1];
@@ -498,6 +500,8 @@
         
     }else if (_dsDataArray.count != 0 && indexPath.section == 0){
         
+        // 直播分区
+        _tempModel = _dsDataArray[indexPath.row - 1];
         _timeView = [[BMToBeginPlayTimeView alloc] initWithFrame:CGRectMake(60, kScreenHeight, kScreenWidth - 120,kScreenHeight/2)];
         _timeView.autoresizesSubviews = YES;
         _timeView.backgroundColor = [UIColor whiteColor];
@@ -505,6 +509,9 @@
         
         [_timeView.closeButton addTarget:self action:@selector(closeButtonAction:) forControlEvents:(UIControlEventTouchUpInside)];
         
+        // 添加弹窗头像点击方法
+        [_timeView.avatarButton addTarget:self action:@selector(timeViewToavatr:) forControlEvents:(UIControlEventTouchUpInside)];
+        
         [self.view addSubview:_timeView];
         
         [UIView animateWithDuration:.5 animations:^{
@@ -516,10 +523,10 @@
             
         }];
         
-        
     }else if (_dsDataArray.count != 0 && indexPath.section == 1){
         
-        // 第二个分区
+        // 第二个分区(今日预告)
+        _tempModel = _todayDataArray[indexPath.row - 1];
         _timeView = [[BMToBeginPlayTimeView alloc] initWithFrame:CGRectMake(60, kScreenHeight, kScreenWidth - 120,kScreenHeight/2)];
         _timeView.autoresizesSubviews = YES;
         _timeView.backgroundColor = [UIColor whiteColor];
@@ -527,6 +534,9 @@
         
         [_timeView.closeButton addTarget:self action:@selector(closeButtonAction:) forControlEvents:(UIControlEventTouchUpInside)];
         
+        // 添加弹窗头像点击方法
+        [_timeView.avatarButton addTarget:self action:@selector(timeViewToavatr:) forControlEvents:(UIControlEventTouchUpInside)];
+        
         [self.view addSubview:_timeView];
         
         [UIView animateWithDuration:.5 animations:^{
@@ -537,17 +547,28 @@
             _tableView.userInteractionEnabled = NO;
             
         }];
-        
-        
-        
     }
+ }
+
+
+#pragma mark -- 弹窗点击方法
+// 弹窗头像
+- (void)timeViewToavatr:(UIButton *)sender
+{
+    CGRect newFrame = _timeView.frame;
+    newFrame.origin.y = kScreenHeight;
+    _timeView.frame = newFrame;
+    _timeView = nil;
+    _tableView.userInteractionEnabled = YES;
     
+    BMMicroblogVC *microblogVC = [[BMMicroblogVC alloc] init];
     
+    self.navigationController.navigationBar.hidden = NO;
+    self.navigationController.tabBarController.tabBar.hidden = YES;
     
-    
+    [self.navigationController pushViewController:microblogVC animated:YES];
+
 }
-
-
 
 // 关闭按钮
 - (void)closeButtonAction:(UIButton *)sender
