@@ -163,9 +163,12 @@
 
 - (void)JsonData{
     
-    NSString  *personGoodsApi = [@"http://app.meilihuli.com/api/course/detail/course_id/" stringByAppendingString:[NSString stringWithFormat:@"%@/?lang=zh-cn&version=ios2.0.0&cid=asXoHoWV7R9iVVx6r8CwK8", _source_id]];
-    
-    
+    NSString  *personGoodsApi = [@"http://app.meilihuli.com/api/live/video/live_id/" stringByAppendingString:[NSString stringWithFormat:@"%@/?lang=zh-cn&version=ios2.0.0&cid=asXoHoWV7R9iVVx6r8CwK8", _live_id]];
+    if (_source_id.length != 0) {
+        
+        personGoodsApi = [@"http://app.meilihuli.com/api/course/detail/course_id/" stringByAppendingString:[NSString stringWithFormat:@"%@/?lang=zh-cn&version=ios2.0.0&cid=asXoHoWV7R9iVVx6r8CwK8", _source_id]];
+    }
+    NSLog(@"%@", personGoodsApi);
     
     [BMRequestManager requsetWithUrlString:personGoodsApi httpBodyStr:nil Method:GET finish:^(NSData *data) {
         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
@@ -210,7 +213,12 @@
     
     // 解析推荐视频
     
-     NSString *videoRecommendApi = [@"http://app.meilihuli.com/api/course/detailcoursecommend/count/4/course_id/" stringByAppendingString:[NSString stringWithFormat:@"%@/page/1/?lang=zh-cn&version=ios2.0.0&cid=asXoHoWV7R9iVVx6r8CwK8", _source_id]];
+     NSString *videoRecommendApi = [@"http://app.meilihuli.com/api/course/detailcoursecommend/count/4/course_id/" stringByAppendingString:[NSString stringWithFormat:@"%@/page/1/?lang=zh-cn&version=ios2.0.0&cid=asXoHoWV7R9iVVx6r8CwK8", _live_id]];
+    
+    if (_source_id.length != 0) {
+        
+        videoRecommendApi = [@"http://app.meilihuli.com/api/course/detailcoursecommend/count/4/course_id/" stringByAppendingString:[NSString stringWithFormat:@"%@/page/1/?lang=zh-cn&version=ios2.0.0&cid=asXoHoWV7R9iVVx6r8CwK8", _source_id]];
+    }
     [BMRequestManager requsetWithUrlString:videoRecommendApi parDic:nil Method:GET finish:^(NSData *data) {
         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
         NSArray *dataArray = dic[@"data"];

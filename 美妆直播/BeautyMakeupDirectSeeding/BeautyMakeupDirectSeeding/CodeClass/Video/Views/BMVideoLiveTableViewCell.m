@@ -64,7 +64,17 @@
         BMVideoShowViewController *showVC =[[BMVideoShowViewController alloc] init];
         
         
-        showVC.source_id = model.live_id;
+        showVC.live_id = model.live_id;
+        NSLog(@"%@", model.start_time);
+        long long int date1 = (long long int)[@1453289400 intValue];
+        
+        NSDate *date2 = [NSDate dateWithTimeIntervalSince1970:date1];
+        
+        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+        [formatter setDateFormat:@"MM:DD:HH:mm"];
+        NSString *str = [formatter stringFromDate:date2];
+        
+        
         
         BMSearchViewController *searchVC = (BMSearchViewController *)_currentVC;
         searchVC.searchController.searchBar.hidden = YES;
