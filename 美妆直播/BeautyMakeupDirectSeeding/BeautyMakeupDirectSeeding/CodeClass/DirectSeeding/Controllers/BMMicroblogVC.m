@@ -8,17 +8,32 @@
 
 #import "BMMicroblogVC.h"
 #import "BMMicroblogSectionHeaderView.h"
-#import "UINavigationBar+Awesome.h"
+#import "BMMicroblogOneCell.h"
+#import "BMDirectSeedingFirstCell.h"
+#import "BMMicroblogModel.h"
+#import "BMMicroblogRightVC.h"
+#import "BMMicroblogLeftVC.h"
 
+#import "UINavigationBar+Awesome.h"
 #define NAVBAR_CHANGE_POINT (-190)
 
 
 @interface BMMicroblogVC ()<UITableViewDataSource,UITableViewDelegate>
 @property (nonatomic,strong) UITableView *tableView;
 @property (nonatomic,strong) UIImageView *imageView;
+@property (nonatomic,strong) NSMutableArray *dataArray;
+@property (nonatomic,strong) NSMutableArray *rightVdataArray;
 
 @property (nonatomic,strong) BMMicroblogSectionHeaderView *headerView;
 
+@property (nonatomic,strong) UIView *tempView;
+@property (nonatomic,strong) UIImageView *tempOneImage;
+@property (nonatomic,strong) UIImageView *tempTwoImage;
+
+@property (nonatomic,strong) BMMicroblogRightVC *RightVC;
+@property (nonatomic,strong) BMMicroblogLeftVC *leftVC;
+
+@property (nonatomic,assign) CGFloat rowHeight;
 
 @end
 
@@ -33,10 +48,84 @@
     UIBarButtonItem *rightButton = [[UIBarButtonItem alloc] initWithTitle:@"分享" style:(UIBarButtonItemStylePlain) target:self action:@selector(rightButtonAction:)];
     self.navigationItem.rightBarButtonItem = rightButton;
 //    self.navigationController.navigationBar.translucent = YES;
-    
-    self.navigationItem.title = @"美甲师";
+    _rowHeight = 280;
     
     [self addTableView];
+    
+    [self setUpData];
+    
+}
+
+// 数据加载
+- (void)setUpData
+{
+    
+    NSString *url = [NSString stringWithFormat:@"http://app.meilihuli.com/api/user/info/uid/%@/?lang=zh-cn&version=ios2.0.0&cid=asXoHoWV7R9iVVx6r8CwK8",_model.uid];
+    
+    // 请求数据
+    [BMRequestManager requsetWithUrlString:url parDic:nil Method:GET finish:^(NSData *data) {
+        
+        NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+       
+        NSDictionary *oneDic = dic[@"data"];
+        BMMicroblogModel *model = [[BMMicroblogModel alloc] init];
+        [model setValuesForKeysWithDictionary:oneDic];
+        _headerView.model = model;
+        self.navigationItem.title = model.nickname;
+
+        
+    } erro:^(NSError *erro) {
+        NSLog(@"请求失败");
+    }];
+
+    
+    NSString *oneUrl = [NSString stringWithFormat:@"http://app.meilihuli.com/api/videodemand/personallist/uid/%@/page/1/count/50/?lang=zh-cn&version=ios2.0.0&cid=asXoHoWV7R9iVVx6r8CwK8",_model.uid];
+    
+    // 请求数据
+    [BMRequestManager requsetWithUrlString:oneUrl parDic:nil Method:GET finish:^(NSData *data) {
+        
+        NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+        
+        NSArray *array = dic[@"data"];
+        
+        _dataArray = [NSMutableArray array];
+        for (NSDictionary *twoDic in array) {
+            BMDsLiveAndPreviewModel *model = [[BMDsLiveAndPreviewModel alloc] init];
+            [model setValuesForKeysWithDictionary:twoDic];
+            
+            [_dataArray addObject:model];
+        }
+        
+        [_tableView reloadData];
+        
+    } erro:^(NSError *erro) {
+        NSLog(@"请求失败");
+    }];
+
+    
+    NSString *twoUrl = [NSString stringWithFormat:@"http://app.meilihuli.com/api/album/getimglist/page/1/count/20/uid/%@/?lang=zh-cn&version=ios2.0.0&cid=asXoHoWV7R9iVVx6r8CwK8",_model.uid];
+    
+    // 请求数据
+    [BMRequestManager requsetWithUrlString:twoUrl parDic:nil Method:GET finish:^(NSData *data) {
+        
+        NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+        
+        NSArray *array = dic[@"data"];
+        
+        _rightVdataArray = [NSMutableArray array];
+        for (NSDictionary *twoDic in array) {
+            BMMicroblogModel *model = [[BMMicroblogModel alloc] init];
+            [model setValuesForKeysWithDictionary:twoDic];
+            
+            [_rightVdataArray addObject:model];
+        }
+        
+        _RightVC.dataArray = _rightVdataArray;
+        
+    } erro:^(NSError *erro) {
+        NSLog(@"请求失败");
+    }];
+
     
 }
 
@@ -46,40 +135,24 @@
     _tableView.delegate = self;
     _tableView.dataSource = self;
     
-    
-    
-    
-//    _imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, -220, kScreenWidth, 240)];
-//    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0 , 0, _imageView.width, 120)];
-//    view.tag = 20;
-//    view.backgroundColor = [UIColor yellowColor];
-//    [_imageView addSubview:view];
-//
-//    _imageView.backgroundColor = [UIColor redColor];
-//    
-//    [_tableView addSubview:_imageView];
-//
-//    UIView *twoView = [[UIView alloc] initWithFrame:CGRectMake(25, 100, 50, 50)];
-//    twoView.backgroundColor = [UIColor greenColor];
-//    
-//    
-//    [_imageView addSubview:twoView];
-    
-    
-    
-//    view.autoresizesSubviews = YES;
-//    twoView.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin|UIViewAutoresizingFlexibleRightMargin|UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleTopMargin;
-//    _imageView.image = [UIImage imageNamed:@"zbar-samples"];
-    
-    
     _headerView = [[BMMicroblogSectionHeaderView alloc] initWithFrame:CGRectMake(0, -240, kScreenWidth, 240)];
     
-    _headerView.backgroundColor = [UIColor redColor];
+    _headerView.backgroundColor = [UIColor whiteColor];
     
     [_tableView addSubview:_headerView];
     
     _tableView.contentInset =UIEdgeInsetsMake(240,0, 0,0);
 
+    [_tableView registerClass:[BMDirectSeedingFirstCell class] forCellReuseIdentifier:@"BMDirectSeedingFirstCell"];
+    [_tableView registerClass:[BMMicroblogOneCell class] forCellReuseIdentifier:@"BMMicroblogOneCell"];
+    
+    _RightVC = [[BMMicroblogRightVC alloc] init];
+    
+    _RightVC.view.frame = CGRectMake(0,45, kScreenWidth, _tableView.height - 304);
+    _RightVC.view.backgroundColor = [UIColor redColor];
+    
+    [_tableView addSubview:_RightVC.view];
+    [_tableView sendSubviewToBack:_RightVC.view];
     [self.view addSubview:_tableView];
     
     
@@ -104,30 +177,32 @@
     }
     
     
-    CGFloat yOffset  = scrollView.contentOffset.y;
-    
     
 
+
     CGRect f = _headerView.background_imageView.frame;
-// 当偏移量<图片的高度
-    if (yOffset < -240) {
-       
-        CGFloat s = f.size.height + yOffset + 64;
+    
+    CGFloat yOffset  = scrollView.contentOffset.y;
+    CGFloat s = -(240 + yOffset + 64);
+    NSLog(@"%f",s);
+    
+    if (s > 0) {
+        f.origin.y = 0 - s;
+        f.size.height =  160 + s;
         
-        // 改变frame
-        f.origin.y = f.origin.y + s;
-        f.size.height =  f.size.height - s;
-        
-        f.origin.x =  f.origin.x + s/2;
-        f.size.width = f.size.width - s;
-        
-        if (f.size.width < kScreenWidth) {
-            f.origin.x =  f.origin.x - s/2;
-            f.size.width = f.size.width + s;
+        if (s > 64) {
+            
+            f.origin.x =  0 - (s - 64)/2;
+            f.size.width = kScreenWidth + (s - 64);
+            
+        }else{
+            f.origin.x = 0;
+            f.size.width =kScreenWidth;
         }
-        _headerView.visualEffv.frame = f;
-        _headerView.background_imageView.frame = f;
+        
     }
+            _headerView.visualEffv.frame = f;
+            _headerView.background_imageView.frame = f;
     
 }
 
@@ -159,30 +234,86 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 5;
+    return _dataArray.count + 1;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 5;
+    return 1;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"Cell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     
-    if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:(UITableViewCellStyleSubtitle) reuseIdentifier:CellIdentifier];
+    if (indexPath.row == 0) {
+        BMMicroblogOneCell *cell = [tableView dequeueReusableCellWithIdentifier:@"BMMicroblogOneCell"];
+        [cell.Dsbutton addTarget:self action:@selector(DsbuttonAction:) forControlEvents:(UIControlEventTouchUpInside)];
+        
+        _tempOneImage = cell.DsButtonImage;
+        _tempTwoImage = cell.pictureButtonImage;
+        _tempView = cell.mineDownView;
+        
+        [cell.pictureButton addTarget:self action:@selector(pictureButtonAction:) forControlEvents:(UIControlEventTouchUpInside)];
+        
+        return cell;
+        
+    }else{
+        
+        BMDirectSeedingFirstCell *cell = [tableView dequeueReusableCellWithIdentifier:@"BMDirectSeedingFirstCell"];
+        cell.microblogModel = _dataArray[indexPath.row - 1];
+        return cell;
     }
     
-    cell.textLabel.text = @"text";
-    return cell;
+    return nil;
 }
+
+// 切换直播按钮
+- (void)DsbuttonAction:(UIButton *)sender
+{
+    _tempOneImage.image = [UIImage imageNamed:@"kanzhibo"];
+    _tempTwoImage.image = [UIImage imageNamed:@"qita01"];
+    [UIView animateWithDuration:.5 animations:^{
+        CGRect newFrame = _tempView.frame;
+        newFrame.origin.x = 0;
+        _tempView.frame = newFrame;
+        
+    }];
+    _rowHeight = 280;
+    [_tableView reloadData];
+    [_tableView sendSubviewToBack:_RightVC.view];
+
+    
+}
+
+// 切换其他按钮
+- (void)pictureButtonAction:(UIButton *)sender
+{
+    _tempOneImage.image = [UIImage imageNamed:@"kanzhibo01"];
+    _tempTwoImage.image = [UIImage imageNamed:@"qita"];
+    
+    [UIView animateWithDuration:.5 animations:^{
+        CGRect newFrame = _tempView.frame;
+        newFrame.origin.x = kScreenWidth/2;
+        _tempView.frame = newFrame;
+        
+    }];
+    _rowHeight = 5;
+    [_tableView reloadData];
+    
+    [_tableView bringSubviewToFront:_RightVC.view];
+    
+    
+}
+
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 65;
+    if (indexPath.row == 0) {
+        return 45;
+    }
+    
+    
+    return _rowHeight;
 }
 
 
@@ -201,6 +332,13 @@
     self.navigationController.tabBarController.tabBar.hidden = NO;
     [self.navigationController popViewControllerAnimated:YES];
     
+}
+
+
+// 分区表头高度
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    return 0.000001;
 }
 
 

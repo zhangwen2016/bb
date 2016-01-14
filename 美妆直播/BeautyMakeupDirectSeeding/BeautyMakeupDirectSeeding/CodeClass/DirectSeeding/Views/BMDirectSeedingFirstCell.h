@@ -24,5 +24,7 @@
 
 @property (nonatomic, strong) BMDsLiveAndPreviewModel *model;
 
+@property (nonatomic,strong) BMDsLiveAndPreviewModel *microblogModel;
+
 
 @end

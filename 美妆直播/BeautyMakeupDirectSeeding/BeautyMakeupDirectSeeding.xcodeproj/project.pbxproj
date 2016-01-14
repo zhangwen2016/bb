@@ -111,6 +111,17 @@
 		79F730441C4532EF00300B93 /* BMFindMeiliFamilyCheckMoreTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 79F730431C4532EF00300B93 /* BMFindMeiliFamilyCheckMoreTableViewCell.m */; };
 		C600077D1C448A5A008AD3D8 /* ye.png in Resources */ = {isa = PBXBuildFile; fileRef = C600077C1C448A5A008AD3D8 /* ye.png */; };
 		C60007801C448AA0008AD3D8 /* BMDsLiveAndPreviewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = C600077F1C448AA0008AD3D8 /* BMDsLiveAndPreviewModel.m */; };
+		C60650F31C4737BD005726BF /* guanzhu01.png in Resources */ = {isa = PBXBuildFile; fileRef = C60650F21C4737BD005726BF /* guanzhu01.png */; };
+		C60650F61C473AFE005726BF /* BMMicroblogOneCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C60650F51C473AFE005726BF /* BMMicroblogOneCell.m */; };
+		C60650FB1C4741CE005726BF /* qita01.png in Resources */ = {isa = PBXBuildFile; fileRef = C60650F71C4741CE005726BF /* qita01.png */; };
+		C60650FC1C4741CE005726BF /* qita.png in Resources */ = {isa = PBXBuildFile; fileRef = C60650F81C4741CE005726BF /* qita.png */; };
+		C60650FD1C4741CE005726BF /* kanzhibo01.png in Resources */ = {isa = PBXBuildFile; fileRef = C60650F91C4741CE005726BF /* kanzhibo01.png */; };
+		C60650FE1C4741CE005726BF /* kanzhibo.png in Resources */ = {isa = PBXBuildFile; fileRef = C60650FA1C4741CE005726BF /* kanzhibo.png */; };
+		C60651011C4752A9005726BF /* BMMicroblogModel.m in Sources */ = {isa = PBXBuildFile; fileRef = C60651001C4752A9005726BF /* BMMicroblogModel.m */; };
+		C60651071C47965E005726BF /* BMMicroblogRightVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C60651061C47965E005726BF /* BMMicroblogRightVC.m */; };
+		C606510A1C479D96005726BF /* BMMicroblogCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C60651091C479D96005726BF /* BMMicroblogCollectionCell.m */; };
+		C606510D1C47B094005726BF /* BMMicroblogLeftVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C606510C1C47B094005726BF /* BMMicroblogLeftVC.m */; };
+		C606510F1C47CA4F005726BF /* zhanweitu.jpg in Resources */ = {isa = PBXBuildFile; fileRef = C606510E1C47CA4F005726BF /* zhanweitu.jpg */; };
 		C60908A61C4106D200DF0B8B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C60908A51C4106D200DF0B8B /* AppDelegate.m */; };
 		C60909481C410A3600DF0B8B /* all_topback.png in Resources */ = {isa = PBXBuildFile; fileRef = C60909211C410A3600DF0B8B /* all_topback.png */; };
 		C60909491C410A3600DF0B8B /* all_topback@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C60909221C410A3600DF0B8B /* all_topback@2x.png */; };
@@ -408,6 +419,22 @@
 		C600077C1C448A5A008AD3D8 /* ye.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ye.png; sourceTree = "<group>"; };
 		C600077E1C448AA0008AD3D8 /* BMDsLiveAndPreviewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMDsLiveAndPreviewModel.h; sourceTree = "<group>"; };
 		C600077F1C448AA0008AD3D8 /* BMDsLiveAndPreviewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BMDsLiveAndPreviewModel.m; sourceTree = "<group>"; };
+		C60650F21C4737BD005726BF /* guanzhu01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = guanzhu01.png; sourceTree = "<group>"; };
+		C60650F41C473AFE005726BF /* BMMicroblogOneCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMMicroblogOneCell.h; sourceTree = "<group>"; };
+		C60650F51C473AFE005726BF /* BMMicroblogOneCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BMMicroblogOneCell.m; sourceTree = "<group>"; };
+		C60650F71C4741CE005726BF /* qita01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = qita01.png; sourceTree = "<group>"; };
+		C60650F81C4741CE005726BF /* qita.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = qita.png; sourceTree = "<group>"; };
+		C60650F91C4741CE005726BF /* kanzhibo01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = kanzhibo01.png; sourceTree = "<group>"; };
+		C60650FA1C4741CE005726BF /* kanzhibo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = kanzhibo.png; sourceTree = "<group>"; };
+		C60650FF1C4752A9005726BF /* BMMicroblogModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMMicroblogModel.h; sourceTree = "<group>"; };
+		C60651001C4752A9005726BF /* BMMicroblogModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BMMicroblogModel.m; sourceTree = "<group>"; };
+		C60651051C47965E005726BF /* BMMicroblogRightVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMMicroblogRightVC.h; sourceTree = "<group>"; };
+		C60651061C47965E005726BF /* BMMicroblogRightVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BMMicroblogRightVC.m; sourceTree = "<group>"; };
+		C60651081C479D96005726BF /* BMMicroblogCollectionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMMicroblogCollectionCell.h; sourceTree = "<group>"; };
+		C60651091C479D96005726BF /* BMMicroblogCollectionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BMMicroblogCollectionCell.m; sourceTree = "<group>"; };
+		C606510B1C47B094005726BF /* BMMicroblogLeftVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMMicroblogLeftVC.h; sourceTree = "<group>"; };
+		C606510C1C47B094005726BF /* BMMicroblogLeftVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BMMicroblogLeftVC.m; sourceTree = "<group>"; };
+		C606510E1C47CA4F005726BF /* zhanweitu.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = zhanweitu.jpg; sourceTree = "<group>"; };
 		C60908A41C4106D200DF0B8B /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		C60908A51C4106D200DF0B8B /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		C60909211C410A3600DF0B8B /* all_topback.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = all_topback.png; sourceTree = "<group>"; };
@@ -961,6 +988,10 @@
 				C65944771C45E52700CEFECA /* BMDirectSeedingRightVC.m */,
 				C65929761C4665C20012C838 /* BMMicroblogVC.h */,
 				C65929771C4665C20012C838 /* BMMicroblogVC.m */,
+				C606510B1C47B094005726BF /* BMMicroblogLeftVC.h */,
+				C606510C1C47B094005726BF /* BMMicroblogLeftVC.m */,
+				C60651051C47965E005726BF /* BMMicroblogRightVC.h */,
+				C60651061C47965E005726BF /* BMMicroblogRightVC.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -977,6 +1008,8 @@
 			children = (
 				C600077E1C448AA0008AD3D8 /* BMDsLiveAndPreviewModel.h */,
 				C600077F1C448AA0008AD3D8 /* BMDsLiveAndPreviewModel.m */,
+				C60650FF1C4752A9005726BF /* BMMicroblogModel.h */,
+				C60651001C4752A9005726BF /* BMMicroblogModel.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1004,6 +1037,10 @@
 				C65944731C45E4F800CEFECA /* BMDsRightScrollView.m */,
 				C659297C1C4687910012C838 /* BMMicroblogSectionHeaderView.h */,
 				C659297D1C4687910012C838 /* BMMicroblogSectionHeaderView.m */,
+				C60650F41C473AFE005726BF /* BMMicroblogOneCell.h */,
+				C60650F51C473AFE005726BF /* BMMicroblogOneCell.m */,
+				C60651081C479D96005726BF /* BMMicroblogCollectionCell.h */,
+				C60651091C479D96005726BF /* BMMicroblogCollectionCell.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1011,6 +1048,12 @@
 		C60909201C410A3600DF0B8B /* Picture */ = {
 			isa = PBXGroup;
 			children = (
+				C606510E1C47CA4F005726BF /* zhanweitu.jpg */,
+				C60650F71C4741CE005726BF /* qita01.png */,
+				C60650F81C4741CE005726BF /* qita.png */,
+				C60650F91C4741CE005726BF /* kanzhibo01.png */,
+				C60650FA1C4741CE005726BF /* kanzhibo.png */,
+				C60650F21C4737BD005726BF /* guanzhu01.png */,
 				799B60DC1C46984000958A43 /* popularImg.png */,
 				799B60DE1C46984A00958A43 /* walletImg.png */,
 				799B60E01C46985600958A43 /* applyAnchor.png */,
@@ -1371,6 +1414,7 @@
 				C64954B41C40EF3C00A7F89E /* LaunchScreen.storyboard in Resources */,
 				C659446F1C45E4DC00CEFECA /* guanzhu.png in Resources */,
 				C609096E1C410A3600DF0B8B /* zbar-samples.png in Resources */,
+				C60650FB1C4741CE005726BF /* qita01.png in Resources */,
 				796364351C45E5C700ABF7F9 /* kr-video-player-fullscreen@2x.png in Resources */,
 				C609094B1C410A3600DF0B8B /* all_topdelete.png in Resources */,
 				C60909611C410A3600DF0B8B /* LaunchImage-800-667h@2x.png in Resources */,
@@ -1393,6 +1437,7 @@
 				C62C5E3B1C43AA3D00C0CBD6 /* xiao.png in Resources */,
 				C60909681C410A3600DF0B8B /* player-progress-point@2x.png in Resources */,
 				C60909571C410A3600DF0B8B /* error.png in Resources */,
+				C60650FD1C4741CE005726BF /* kanzhibo01.png in Resources */,
 				7963643C1C45E5C700ABF7F9 /* kr-video-player-point@3x.png in Resources */,
 				C60909601C410A3600DF0B8B /* LaunchImage-700@2x.png in Resources */,
 				C60909551C410A3600DF0B8B /* banner_close@2x.png in Resources */,
@@ -1409,6 +1454,7 @@
 				C62C5E131C43438E00C0CBD6 /* mine.png in Resources */,
 				C609096B1C410A3600DF0B8B /* success@2x.png in Resources */,
 				C60909631C410A3600DF0B8B /* LaunchImage@2x.png in Resources */,
+				C60650FE1C4741CE005726BF /* kanzhibo.png in Resources */,
 				C659446E1C45E4DC00CEFECA /* zhibo02.png in Resources */,
 				C609095C1C410A3600DF0B8B /* image_chose_up@2x.png in Resources */,
 				C62C5E3C1C43AA3D00C0CBD6 /* jin.png in Resources */,
@@ -1422,6 +1468,7 @@
 				C60909581C410A3600DF0B8B /* error@2x.png in Resources */,
 				C60909691C410A3600DF0B8B /* player-progress@2x.png in Resources */,
 				C609094E1C410A3600DF0B8B /* AppIcon29x29.png in Resources */,
+				C606510F1C47CA4F005726BF /* zhanweitu.jpg in Resources */,
 				C60909531C410A3600DF0B8B /* AppIcon60x60@2x.png in Resources */,
 				C609096A1C410A3600DF0B8B /* success.png in Resources */,
 				C60909561C410A3600DF0B8B /* banner_shadowline@2x.png in Resources */,
@@ -1436,8 +1483,10 @@
 				C609095D1C410A3600DF0B8B /* Info.plist in Resources */,
 				C62C5E3D1C43AA3D00C0CBD6 /* 7.png in Resources */,
 				C60909621C410A3600DF0B8B /* LaunchImage-800-Portrait-736h@3x.png in Resources */,
+				C60650FC1C4741CE005726BF /* qita.png in Resources */,
 				C60909541C410A3600DF0B8B /* AppIcon60x60@3x.png in Resources */,
 				C60909641C410A3600DF0B8B /* lock-icon.png in Resources */,
+				C60650F31C4737BD005726BF /* guanzhu01.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1502,7 +1551,9 @@
 				7963644F1C46377D00ABF7F9 /* BMGoodsListModel.m in Sources */,
 				79BBA9B51C43445500BB79E4 /* MJRefreshAutoStateFooter.m in Sources */,
 				796364211C45E55500ABF7F9 /* BMVideoHotTagViewController.m in Sources */,
+				C60650F61C473AFE005726BF /* BMMicroblogOneCell.m in Sources */,
 				C64955411C41009C00A7F89E /* SDWebImageCompat.m in Sources */,
+				C606510A1C479D96005726BF /* BMMicroblogCollectionCell.m in Sources */,
 				79C617421C468F140041150C /* HcCustomKeyboard.m in Sources */,
 				792DA9DF1C44EFB000DE2FEE /* BMMeiliFamilyCommunityModel.m in Sources */,
 				C649554D1C41009C00A7F89E /* UIView+WebCacheOperation.m in Sources */,
@@ -1538,6 +1589,7 @@
 				796364031C45E18300ABF7F9 /* BMVideoHotViewController.m in Sources */,
 				7985EE921C44922700DCDFE5 /* BMAnchorRecommendModel.m in Sources */,
 				7985EE981C449B2800DCDFE5 /* BMAnchorFindTableViewCell.m in Sources */,
+				C60651011C4752A9005726BF /* BMMicroblogModel.m in Sources */,
 				C62C5E4F1C43AAAC00C0CBD6 /* BMDirectSeedingSecondCell.m in Sources */,
 				C649551B1C40F6FC00A7F89E /* BMBeautyMakeTabBarC.m in Sources */,
 				7963645B1C46492500ABF7F9 /* BMButtonLabel.m in Sources */,
@@ -1576,6 +1628,8 @@
 				79BBA9B01C43445500BB79E4 /* MJRefreshComponent.m in Sources */,
 				796364091C45E1AD00ABF7F9 /* BMSearchTeacherViewController.m in Sources */,
 				7985EE8D1C44922700DCDFE5 /* BMAnchorTableViewController.m in Sources */,
+				C606510D1C47B094005726BF /* BMMicroblogLeftVC.m in Sources */,
+				C60651071C47965E005726BF /* BMMicroblogRightVC.m in Sources */,
 				C65944751C45E4F800CEFECA /* BMDsRightScrollView.m in Sources */,
 				7985EE951C44922700DCDFE5 /* BMPopularAnchorTableViewCell.m in Sources */,
 				7983E1331C45EB680089C2B4 /* BMMeiliFamilyCommunityDetailViewController.m in Sources */,

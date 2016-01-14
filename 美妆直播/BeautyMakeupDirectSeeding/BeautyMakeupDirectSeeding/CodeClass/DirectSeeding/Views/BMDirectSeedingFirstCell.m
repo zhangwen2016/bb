@@ -84,6 +84,61 @@
     
 }
 
+- (void)setMicroblogModel:(BMDsLiveAndPreviewModel *)microblogModel
+{
+    _microblogModel = microblogModel;
+//    [BMRequestManager downLoadImageView:_coverImgView UrlString:microblogModel.cover_url];
+//    
+//    long long int date1 = (long long int)[microblogModel.start_time intValue];
+//    
+//    NSDate *date2 = [NSDate dateWithTimeIntervalSince1970:date1];
+//    
+//    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+//    [formatter setDateFormat:@"HH:mm"];
+//    NSString *str = [formatter stringFromDate:date2];
+//    
+//    _timeLabel.text = [NSString stringWithFormat:@"%@开播",str];
+//    
+    
+    [BMRequestManager downLoadImageView:_coverImgView UrlString:microblogModel.cover_url];
+    [BMRequestManager downLoadImageView:_headerImgView UrlString:microblogModel.avatar];
+    _nameLabel.text = microblogModel.nickname;
+    _titleLabel.text = microblogModel.title;
+    _watchNumberLabel.text = [NSString stringWithFormat:@"%@人已观看",microblogModel.subscribe_count];
+    //_watchNumberLabel自适应宽
+    [BMCommonMethod autoAdjustRightWidthLabel:_watchNumberLabel labelFontSize:12];
+    
+    
+    // 更具model的status判断_timeLabel的显示的字是回放还是video_time
+    if ([microblogModel.status isEqualToString:@"20"]) {
+        _timeLabel.backgroundColor = [UIColor colorWithRed:255/255.0 green:75 / 255.0 blue:124 / 255.0 alpha:1];
+        _timeLabel.text = @"回放";
+        _timeLabel.alpha = 1;
+    }else if ([microblogModel.status isEqualToString:@"1"]){
+        _timeLabel.backgroundColor = [UIColor grayColor];
+        _timeLabel.text = [NSString stringWithFormat:@" %@ ", microblogModel.video_time];
+    }
+    
+    if ([microblogModel.status isEqualToString:@"3"]) {
+        
+        long long int date1 = (long long int)[microblogModel.start_time intValue];
+        
+        NSDate *date2 = [NSDate dateWithTimeIntervalSince1970:date1];
+        
+        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+        [formatter setDateFormat:@"HH:mm"];
+        NSString *str = [formatter stringFromDate:date2];
+        
+        _timeLabel.text = [NSString stringWithFormat:@"%@开播",str];
+        
+        
+    }
+    
+    // _timeLable设置自适应自适应宽度
+    [BMCommonMethod autoAdjustRightWidthLabel:_timeLabel labelFontSize:12];
+
+    
+}
 
 
 - (void)awakeFromNib {

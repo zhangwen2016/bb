@@ -563,6 +563,7 @@
     
     BMMicroblogVC *microblogVC = [[BMMicroblogVC alloc] init];
     
+    microblogVC.model = _tempModel;
     self.navigationController.navigationBar.hidden = NO;
     self.navigationController.tabBarController.tabBar.hidden = YES;
     
