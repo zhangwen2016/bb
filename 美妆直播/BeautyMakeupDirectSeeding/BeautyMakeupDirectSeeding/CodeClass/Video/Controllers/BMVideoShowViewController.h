@@ -11,4 +11,6 @@
 @interface BMVideoShowViewController : UIViewController
 // @property (nonatomic, strong) BMVideoMainModel *mainModel;
 @property (nonatomic, strong) NSString *source_id;
+
+- (void)reloadData;
 @end

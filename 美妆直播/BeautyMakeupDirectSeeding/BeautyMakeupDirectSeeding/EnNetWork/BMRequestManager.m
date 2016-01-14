@@ -35,7 +35,7 @@
     }
     [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue currentQueue] completionHandler:^(NSURLResponse * _Nullable response, NSData * _Nullable data, NSError * _Nullable connectionError) {
         if (connectionError == nil) {
-            NSLog(@"请求成功");
+           // NSLog(@"请求成功");
             finish(data);
         }else{
             NSLog(@"请求失败");
