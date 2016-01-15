@@ -24,7 +24,7 @@
 @property (nonatomic, strong) NSMutableArray *teacherArray;
 @property (nonatomic, strong) NSMutableArray *liveArray;
 @property (nonatomic, strong) NSMutableArray *courseArray;
-@property (nonatomic, assign) NSInteger course_count;
+@property (nonatomic, assign) NSInteger page;
 
 @end
 
@@ -81,7 +81,7 @@
             [self.view addSubview:imageView];
             return;
         }
-        [_listTableView.mj_footer endRefreshing];
+        
         [_listTableView reloadData];
     } erro:^(NSError *erro) {
         [BMCommonMethod NoNetWorkInVC:self];
@@ -101,11 +101,35 @@
     _teacherArray = [NSMutableArray array];
     _liveArray = [NSMutableArray array];
     _courseArray = [NSMutableArray array];
+    _page = 1;
     [self.view addSubview:_listTableView];
+    _listTableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
+        _page += 1;
+        [self JsonRefreshData];
+        
+    }];
 
 }
 
-
+- (void)JsonRefreshData{
+    NSMutableDictionary *parDic = [NSMutableDictionary dictionary];
+    parDic[@"count"] = @"5";
+    parDic[@"keyword"] = _keyWordString;
+    parDic[@"page"] = [NSString stringWithFormat:@"%ld", _page];
+    [BMRequestManager requsetWithUrlString:@"http://app.meilihuli.com/api/search/course/?lang=zhcn&version=ios2.0.0&cid=asXoHoWV7R9iVVx6r8CwK8" parDic:parDic Method:POST finish:^(NSData *data) {
+         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+        NSArray *courseArray = dic[@"data"];
+        for (NSDictionary *oneDic in courseArray) {
+            BMVideoMainModel *model = [[BMVideoMainModel alloc] init];
+            [model setValuesForKeysWithDictionary:oneDic];
+            [_courseArray addObject:model];
+        }
+        [_listTableView.mj_footer endRefreshing];
+        [_listTableView reloadData];
+    } erro:^(NSError *erro) {
+        nil;
+    }];
+}
 
 #pragma mark --- 实现tableVide 的代理方法
 

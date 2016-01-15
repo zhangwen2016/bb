@@ -15,7 +15,8 @@
 #import "BMGoodsListTableViewCell.h"
 #import "BMVideoLiveTableViewCell.h"
 #import "BMteacherRecommendTableViewCell.h"
-@interface BMVideoShowViewController () <UITableViewDataSource, UITableViewDelegate>
+#import "BMMicroblogVC.h"
+@interface BMVideoShowViewController () <UITableViewDataSource, UITableViewDelegate, BMRecommendTeacherDelegate>
 @property (nonatomic, strong) KrVideoPlayerController  *videoController;
 @property (nonatomic, strong) UIButton *backBtn;
 @property (nonatomic, strong) UIButton *shareBtn;
@@ -314,6 +315,7 @@
         return liveCell;
     }else if (indexPath.section == 2){
         BMteacherRecommendTableViewCell *teacherCell = [tableView dequeueReusableCellWithIdentifier:@"BMteacherRecommendTableViewCell" forIndexPath:indexPath];
+        teacherCell.delegate = self;
         teacherCell.teacherArray = _teacherRecommendArray;
         return teacherCell;
     }
@@ -400,6 +402,18 @@
 }
 
 
+// 推荐老师的代理方法
+- (void)sendButtonModel:(BMRecommendTeacherModel *)model{
+    BMMicroblogVC *blogVC = [[BMMicroblogVC alloc] init];
+    blogVC.uid = model.uid;
+    [self.navigationController pushViewController:blogVC animated:YES];
+}
+
+
+
+
+
+// 刷新数据
 - (void)reloadData{
     _listTableView.contentOffset = CGPointMake(0, 0);
     [self playVideo];
