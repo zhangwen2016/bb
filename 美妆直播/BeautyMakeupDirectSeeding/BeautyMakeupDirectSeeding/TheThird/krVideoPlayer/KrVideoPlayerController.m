@@ -86,7 +86,9 @@ static const CGFloat kVideoPlayerControllerAnimationTimeinterval = 0.3f;
         }
     }];
     [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
+    
 }
+
 
 #pragma mark - Private Method
 

@@ -39,5 +39,8 @@
 @property (nonatomic,strong) NSString *is_praise;
 @property (nonatomic,strong) NSString *title;
 @property (nonatomic,strong) NSString *video_time;
+@property (nonatomic,strong) NSString *source_id;
+
+
 
 @end

@@ -21,6 +21,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    
     [self.navigationView.topToLeftButton setTitle:@"直播" forState:(UIControlStateNormal)];
     [self.navigationView.topToRightButton setTitle:@"关注" forState:(UIControlStateNormal)];
     
@@ -39,6 +40,13 @@
     [self addChildViewController:_leftVC];
     [self addChildViewController:_rightVC];
     
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    self.navigationController.navigationBar.hidden = YES;
+    self.navigationController.tabBarController.tabBar.hidden = NO;
 }
 
 - (void)didReceiveMemoryWarning {

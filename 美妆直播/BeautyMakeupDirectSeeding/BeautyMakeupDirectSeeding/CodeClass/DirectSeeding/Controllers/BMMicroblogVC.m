@@ -12,7 +12,9 @@
 #import "BMDirectSeedingFirstCell.h"
 #import "BMMicroblogModel.h"
 #import "BMMicroblogRightVC.h"
-#import "BMMicroblogLeftVC.h"
+#import "BMVideoShowViewController.h"
+#import "BMToBeginPlayTimeView.h"
+
 
 #import "UINavigationBar+Awesome.h"
 #define NAVBAR_CHANGE_POINT (-190)
@@ -31,9 +33,13 @@
 @property (nonatomic,strong) UIImageView *tempTwoImage;
 
 @property (nonatomic,strong) BMMicroblogRightVC *RightVC;
-@property (nonatomic,strong) BMMicroblogLeftVC *leftVC;
 
 @property (nonatomic,assign) CGFloat rowHeight;
+
+// 弹窗视图
+@property (nonatomic,strong) BMToBeginPlayTimeView *timeView;
+
+@property (nonatomic,strong) BMDsLiveAndPreviewModel *tempModel;
 
 @end
 
@@ -42,9 +48,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
-    self.navigationController.navigationBar.hidden = NO;
-    self.navigationController.tabBarController.tabBar.hidden = YES;
     
     UIBarButtonItem *leftButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"all_topback@2x"] style:(UIBarButtonItemStylePlain) target:self action:@selector(leftButtonAction:)];
     self.navigationItem.leftBarButtonItem = leftButton;
@@ -180,9 +183,6 @@
         [self.navigationController.navigationBar lt_setBackgroundColor:[color colorWithAlphaComponent:0]];
     }
     
-    
-    
-
 
     CGRect f = _headerView.background_imageView.frame;
     
@@ -210,21 +210,31 @@
     
 }
 
+// 视图将要出现
 - (void)viewWillAppear:(BOOL)animated
 {
-    
+ 
     [super viewWillAppear:animated];
-    _imageView.frame =CGRectMake(0, -240,self.tableView.frame.size.width,240);
+    self.navigationController.navigationBar.hidden = NO;
+    self.navigationController.tabBarController.tabBar.hidden = YES;
+    self.navigationController.navigationBarHidden = NO;
+
+    _headerView.frame = CGRectMake(0, -240,self.tableView.frame.size.width,240);
     
     [super viewWillAppear:YES];
+    
     self.tableView.delegate = self;
+    self.tableView.dataSource = self;
     [self scrollViewDidScroll:self.tableView];
+    
     [self.navigationController.navigationBar setShadowImage:[UIImage new]];
+   
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
+    self.tableView.dataSource = nil;
     self.tableView.delegate = nil;
     [self.navigationController.navigationBar lt_reset];
 }
@@ -337,16 +347,16 @@
 - (void)rightButtonAction:(UIBarButtonItem *)rightButton
 {
     
+    
+    
 }
 
 #pragma mark ---- 返回按钮
 
 - (void)leftButtonAction:(UIBarButtonItem *)leftButton
 {
-    self.navigationController.navigationBar.hidden = YES;
-    self.navigationController.tabBarController.tabBar.hidden = NO;
-    [self.navigationController popViewControllerAnimated:YES];
     
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 
@@ -354,6 +364,86 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
     return 0.000001;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath.row == 0) {
+        return;
+    }
+    
+    BMDsLiveAndPreviewModel *model = _dataArray[indexPath.row - 1];
+
+    
+    if ([model.status isEqualToString:@"20"]||[model.status isEqualToString:@"1"]) {
+        
+        BMVideoShowViewController *VideoVC = [[BMVideoShowViewController alloc] init];
+        VideoVC.source_id = model.source_id;
+        
+        [self.navigationController pushViewController:VideoVC animated:YES];
+        
+    }else if ([model.status isEqualToString:@"3"]){
+        
+        _tempModel = model;
+        
+        _timeView = [[BMToBeginPlayTimeView alloc] initWithFrame:CGRectMake(60, kScreenHeight, kScreenWidth - 120,kScreenHeight/2)];
+        
+        _timeView.autoresizesSubviews = YES;
+        _timeView.backgroundColor = [UIColor whiteColor];
+        _timeView.model = model;
+        
+        [_timeView.closeButton addTarget:self action:@selector(closeButtonAction:) forControlEvents:(UIControlEventTouchUpInside)];
+        
+        // 添加弹窗头像点击方法
+        [_timeView.avatarButton addTarget:self action:@selector(timeViewToavatr:) forControlEvents:(UIControlEventTouchUpInside)];
+        
+        [self.view addSubview:_timeView];
+        
+        // 添加弹窗动画
+        [UIView animateWithDuration:.5 animations:^{
+            
+            CGRect newFrame = _timeView.frame;
+            newFrame.origin.y = 80;
+            _timeView.frame = newFrame;
+            _tableView.userInteractionEnabled = NO;
+            
+        }];
+        
+    }
+    
+}
+
+#pragma mark -- 弹窗点击方法
+// 弹窗头像
+- (void)timeViewToavatr:(UIButton *)sender
+{
+    CGRect newFrame = _timeView.frame;
+    newFrame.origin.y = kScreenHeight;
+    _timeView.frame = newFrame;
+    _timeView = nil;
+    _tableView.userInteractionEnabled = YES;
+    
+    BMMicroblogVC *microblogVC = [[BMMicroblogVC alloc] init];
+    
+    microblogVC.uid = _tempModel.uid;
+    
+    
+    [self.navigationController pushViewController:microblogVC animated:YES];
+    
+}
+
+#pragma mark -- 弹窗关闭按钮
+- (void)closeButtonAction:(UIButton *)sender
+{
+    [UIView animateWithDuration:.5 animations:^{
+        
+        CGRect newFrame = _timeView.frame;
+        newFrame.origin.y = kScreenHeight;
+        _timeView.frame = newFrame;
+        _timeView = nil;
+        _tableView.userInteractionEnabled = YES;
+        
+    }];
 }
 
 
