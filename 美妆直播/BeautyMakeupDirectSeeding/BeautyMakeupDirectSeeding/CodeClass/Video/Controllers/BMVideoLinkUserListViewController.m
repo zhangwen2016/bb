@@ -10,6 +10,7 @@
 #import "BMCommonMethod.h"
 #import "BMVideoTeacherListTableViewCell.h"
 #import "MJRefresh.h"
+#import "BMMicroblogVC.h"
 #define kSearchTeachAPi @"http://app.meilihuli.com/api/search/teacher/?lang=zh-cn&version=ios2.0.0&cid=asXoHoWV7R9iVVx6r8CwK8"
 @interface BMVideoLinkUserListViewController ()<UITableViewDataSource, UITableViewDelegate>
 @property (nonatomic, strong) UITableView *listTableView;
@@ -103,7 +104,12 @@
 }
 
 
-
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    BMMicroblogVC *blogVC = [[BMMicroblogVC alloc] init];
+    BMSearchTeacherModel *teacherModel = _dataSourceArray[indexPath.row];
+    blogVC.uid = teacherModel.uid;
+    [self.navigationController pushViewController:blogVC animated:YES];
+}
 
 
 - (void)didReceiveMemoryWarning {

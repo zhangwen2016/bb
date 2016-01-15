@@ -362,8 +362,7 @@
 		799F223E1C43503D00F03EA5 /* BMCommonMethod.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMCommonMethod.h; sourceTree = "<group>"; };
 		799F223F1C43503D00F03EA5 /* BMCommonMethod.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BMCommonMethod.m; sourceTree = "<group>"; };
 		79B147931C478FF6009B827C /* iconfont-paizhao.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iconfont-paizhao.png"; sourceTree = "<group>"; };
-		79B147951C479210009B827C /* iconfont-paizhao.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iconfont-paizhao.png"; sourceTree = "<group>"; };
-		79B147961C479247009B827C /* PlaceHoldingImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PlaceHoldingImage.png; sourceTree = "<group>"; };
+		79B147961C479247009B827C /* PlaceHoldingImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = PlaceHoldingImage.png; path = ../../../PlaceHoldingImage.png; sourceTree = "<group>"; };
 		79BBA97E1C43413100BB79E4 /* BMRequestManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMRequestManager.h; sourceTree = "<group>"; };
 		79BBA97F1C43413100BB79E4 /* BMRequestManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BMRequestManager.m; sourceTree = "<group>"; };
 		79BBA9831C43445400BB79E4 /* MJRefreshAutoFooter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJRefreshAutoFooter.h; sourceTree = "<group>"; };
@@ -439,12 +438,14 @@
 		C60651061C47965E005726BF /* BMMicroblogRightVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BMMicroblogRightVC.m; sourceTree = "<group>"; };
 		C60651081C479D96005726BF /* BMMicroblogCollectionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMMicroblogCollectionCell.h; sourceTree = "<group>"; };
 		C60651091C479D96005726BF /* BMMicroblogCollectionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BMMicroblogCollectionCell.m; sourceTree = "<group>"; };
-		C606511C1C47CE88005726BF /* qita01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = qita01.png; sourceTree = "<group>"; };
-		C606511E1C47CEE9005726BF /* kanzhibo01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = kanzhibo01.png; sourceTree = "<group>"; };
-		C60651201C47CF1B005726BF /* kanzhibo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = kanzhibo.png; sourceTree = "<group>"; };
-		C60651221C47CF47005726BF /* zhanweitu.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = zhanweitu.jpg; sourceTree = "<group>"; };
-		C60651241C47D035005726BF /* PlaceHoldingImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PlaceHoldingImage.png; sourceTree = "<group>"; };
-		C60651261C47D0C1005726BF /* guanzhu01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = guanzhu01.png; sourceTree = "<group>"; };
+		C606510B1C47B094005726BF /* BMMicroblogLeftVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMMicroblogLeftVC.h; sourceTree = "<group>"; };
+		C606510C1C47B094005726BF /* BMMicroblogLeftVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BMMicroblogLeftVC.m; sourceTree = "<group>"; };
+		C606511C1C47CE88005726BF /* qita01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = qita01.png; path = ../../../qita01.png; sourceTree = "<group>"; };
+		C606511E1C47CEE9005726BF /* kanzhibo01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = kanzhibo01.png; path = ../../../kanzhibo01.png; sourceTree = "<group>"; };
+		C60651201C47CF1B005726BF /* kanzhibo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = kanzhibo.png; path = ../../../kanzhibo.png; sourceTree = "<group>"; };
+		C60651221C47CF47005726BF /* zhanweitu.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = zhanweitu.jpg; path = ../../../zhanweitu.jpg; sourceTree = "<group>"; };
+		C60651241C47D035005726BF /* PlaceHoldingImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = PlaceHoldingImage.png; path = ../../../PlaceHoldingImage.png; sourceTree = "<group>"; };
+		C60651261C47D0C1005726BF /* guanzhu01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = guanzhu01.png; path = ../../../guanzhu01.png; sourceTree = "<group>"; };
 		C606512A1C47D21E005726BF /* qita.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = qita.png; sourceTree = "<group>"; };
 		C60908A41C4106D200DF0B8B /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		C60908A51C4106D200DF0B8B /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -1059,6 +1060,14 @@
 		C60909201C410A3600DF0B8B /* Picture */ = {
 			isa = PBXGroup;
 			children = (
+
+				C60651261C47D0C1005726BF /* guanzhu01.png */,
+				C60651241C47D035005726BF /* PlaceHoldingImage.png */,
+				C60651221C47CF47005726BF /* zhanweitu.jpg */,
+				C60651201C47CF1B005726BF /* kanzhibo.png */,
+				C606511E1C47CEE9005726BF /* kanzhibo01.png */,
+				C606511C1C47CE88005726BF /* qita01.png */,
+				79B147961C479247009B827C /* PlaceHoldingImage.png */,
 				797089B91C47330600CC198F /* back.png */,
 				799B60DC1C46984000958A43 /* popularImg.png */,
 				799B60DE1C46984A00958A43 /* walletImg.png */,
@@ -1162,14 +1171,6 @@
 		C64954951C40EF3C00A7F89E = {
 			isa = PBXGroup;
 			children = (
-				C60651261C47D0C1005726BF /* guanzhu01.png */,
-				C60651241C47D035005726BF /* PlaceHoldingImage.png */,
-				C60651221C47CF47005726BF /* zhanweitu.jpg */,
-				C60651201C47CF1B005726BF /* kanzhibo.png */,
-				C606511E1C47CEE9005726BF /* kanzhibo01.png */,
-				C606511C1C47CE88005726BF /* qita01.png */,
-				79B147961C479247009B827C /* PlaceHoldingImage.png */,
-				79B147951C479210009B827C /* iconfont-paizhao.png */,
 				797089B11C472D3F00CC198F /* AdSupport.framework */,
 				796364431C45E61200ABF7F9 /* MediaPlayer.framework */,
 				796364411C45E60B00ABF7F9 /* AVFoundation.framework */,

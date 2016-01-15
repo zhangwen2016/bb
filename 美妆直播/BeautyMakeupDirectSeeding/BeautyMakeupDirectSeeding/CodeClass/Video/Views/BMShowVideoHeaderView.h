@@ -21,4 +21,6 @@
 
 @property (nonatomic, strong) BMPersonDetailModel *personModel;
 
+@property (nonatomic, strong) UIViewController *currentVC;
+
 @end
