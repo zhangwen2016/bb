@@ -11,7 +11,6 @@
 
 @interface BMAnchorPopularAnchorCollectionViewCell ()
 
-@property (nonatomic, strong) UIButton *avatarBtn;
 @property (nonatomic, strong) UILabel *nicknameLabel;
 
 @end
@@ -38,7 +37,7 @@
     [BMRequestManager downLoadButton:_avatarBtn UrlString:model.avatar];
     _avatarBtn.layer.cornerRadius = _avatarBtn.frame.size.width / 2;
     _avatarBtn.layer.masksToBounds = YES;
-    [_avatarBtn addTarget:self action:@selector(clickPopularAchor:) forControlEvents:UIControlEventTouchUpInside];
+
     _nicknameLabel.text = model.nickname;
     _nicknameLabel.font = [UIFont systemFontOfSize:kSmallFont];
     _nicknameLabel.textAlignment = NSTextAlignmentCenter;

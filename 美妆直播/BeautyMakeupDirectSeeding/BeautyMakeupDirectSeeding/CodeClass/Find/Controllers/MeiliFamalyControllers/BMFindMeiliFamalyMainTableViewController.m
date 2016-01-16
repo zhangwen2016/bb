@@ -13,12 +13,19 @@
 #import "BMFindMeiliFamilyTypeTwoTableViewCell.h"
 #import "BMFindMeiliFamilyCheckMoreViewController.h"
 #import "BMMeiliFamilyCommunityDetailViewController.h"
+#import "MJRefresh.h"//  下啦刷新的头文件
 
-#define kCommunityAPI @"http://app.meilihuli.com/api/activity/getlist/count/10/page/1/?lang=zh-cn&version=ios2.0.0&cid=asXoHoWV7R9iVVx6r8CwK8"
+
+//#define kCommunityAPI @"http://app.meilihuli.com/api/activity/getlist/count/10/page/1/?lang=zh-cn&version=ios2.0.0&cid=asXoHoWV7R9iVVx6r8CwK8"
+#define kCommunityAPIPart1 @"http://app.meilihuli.com/api/activity/getlist/count/"
+#define kCommunityAPIPart2 @"/page/1/?lang=zh-cn&version=ios2.0.0&cid=asXoHoWV7R9iVVx6r8CwK8"
 
 @interface BMFindMeiliFamalyMainTableViewController ()
 
 @property (nonatomic, strong) NSMutableArray *communityArr;//  存储社区解析的数据
+@property (nonatomic, assign) NSInteger requireIndex;//  要加载多少数据
+
+
 @end
 
 @implementation BMFindMeiliFamalyMainTableViewController
@@ -34,9 +41,29 @@
     self.tableView.backgroundColor = [UIColor whiteColor];
     [self.tableView registerClass:[BMFindMeiliFamilyTypeOneTableViewCell class] forCellReuseIdentifier:@"BMFindMeiliFamilyTypeOneTableViewCell"];
     [self.tableView registerClass:[BMFindMeiliFamilyTypeTwoTableViewCell class] forCellReuseIdentifier:@"BMFindMeiliFamilyTypeTwoTableViewCell"];
+    _requireIndex = 10;
     [self loadData];
     self.tableView.tableHeaderView = [self headViewForTableView];
+
     
+    //  下啦刷新
+    self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        // 进入刷新状态后会自动调用这个block
+        //  刷新的时候有了新数据 要把老数据清空 否则会造成数据重复
+        _requireIndex = 10;
+        [self loadData];
+    }];
+    
+    //  上拉刷新
+    self.tableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
+        // 进入刷新状态后会自动调用这个block
+        
+        _requireIndex = _requireIndex + 10;
+        //        if (_requireIndex > 100) {
+        //            [self.tableView.mj_footer endRefreshing];
+        //        }
+        [self loadData];
+    }];
 }
 
 
@@ -44,7 +71,9 @@
 - (void)loadData
 {
     _communityArr = [NSMutableArray array];
-    [BMRequestManager requsetWithUrlString:kCommunityAPI parDic:nil Method:GET finish:^(NSData *data)  {
+    NSString *CommunityApi = [NSString stringWithFormat:@"%@%ld%@",kCommunityAPIPart1, _requireIndex, kCommunityAPIPart2];
+    
+    [BMRequestManager requsetWithUrlString:CommunityApi parDic:nil Method:GET finish:^(NSData *data)  {
         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
         NSArray *dataArr = dic[@"data"];
         //  解析数据
@@ -59,6 +88,9 @@
         NSLog(@"erro");
     }];
 
+    
+    [self.tableView.mj_header endRefreshing];
+    [self.tableView.mj_footer endRefreshing];
 }
 
 

@@ -12,7 +12,6 @@
 @interface BMAnchorFindTableViewCell ()<UICollectionViewDataSource, UICollectionViewDelegate>
 
 
-@property (nonatomic, strong) UICollectionView *collectionV;
 
 @end
 
@@ -36,7 +35,7 @@
     flowLayout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
     flowLayout.sectionInset = UIEdgeInsetsMake(10, 10, 10, 10);
     
-    _collectionV = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, (kScreenWidth - 10 * 2 - 10 * 2) / 3 * 7 + 10 * 8) collectionViewLayout:flowLayout];
+    _collectionV = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, ((kScreenWidth - 10 * 2 - 10 * 2) / 3 * _index / 3 + 10 * (_index / 3 + 1))) collectionViewLayout:flowLayout];
     _collectionV.backgroundColor = [UIColor whiteColor];
     //  隐藏滑动栏
     _collectionV.showsVerticalScrollIndicator = NO;
@@ -53,7 +52,9 @@
 - (void)setDataArr:(NSArray *)dataArr
 {
     _dataArr = dataArr;
-    [_collectionV reloadData];
+
+    //  记得改变frame
+    _collectionV.frame = CGRectMake(0, 0, kScreenWidth, ((kScreenWidth - 10 * 2 - 10 * 2) / 3 * _index / 3 + 10 * (_index / 3 + 1)));
 }
 
 
@@ -68,6 +69,14 @@
     BMAnchorFindCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"BMAnchorFindCollectionViewCell" forIndexPath:indexPath];
     cell.model = _dataArr[indexPath.row];
     return cell;
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    BMAnchorFindModel *model = _dataArr[indexPath.row];
+    if ([_delegate respondsToSelector:@selector(anchorFindTableViewCellWithModel:)]) {
+        [_delegate anchorFindTableViewCellWithModel:model];
+    }
 }
 
 - (void)awakeFromNib {

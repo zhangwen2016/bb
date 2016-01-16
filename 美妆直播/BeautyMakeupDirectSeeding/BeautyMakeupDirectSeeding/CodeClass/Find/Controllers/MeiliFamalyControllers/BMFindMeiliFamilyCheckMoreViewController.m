@@ -10,12 +10,20 @@
 #import "BMFindMeiliFamilyCheckMoreTableViewCell.h"
 #import "BMRequestManager.h"
 #import "BMFindMoreTopicDetailTableViewController.h"
-#define kCheckMoreAPI @"http://app.meilihuli.com/api/topic/getlist/count/10/page/1/?lang=zh-cn&version=ios2.0.0&cid=asXoHoWV7R9iVVx6r8CwK8"
+#import "MJRefresh.h"//  下啦刷新的头文件
+
+
+
+#define kCheckMoreAPIPart1 @"http://app.meilihuli.com/api/topic/getlist/count/"
+#define kCheckMoreAPIPart2 @"/page/1/?lang=zh-cn&version=ios2.0.0&cid=asXoHoWV7R9iVVx6r8CwK8"
 
 @interface BMFindMeiliFamilyCheckMoreViewController ()<UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSMutableArray *dataArr;// 请求得到的 数据源
+
+@property (nonatomic, assign) NSInteger requireIndex;//  要加载多少数据
+
 
 @end
 
@@ -25,10 +33,31 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     [self addTableView];
+    _requireIndex = 10;
     [self loadData];
     [self loadNavView];
     self.view.backgroundColor = [UIColor whiteColor];
     self.tabBarController.tabBar.hidden = YES;
+    
+    
+    //  下啦刷新
+    self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        // 进入刷新状态后会自动调用这个block
+        //  刷新的时候有了新数据 要把老数据清空 否则会造成数据重复
+        _requireIndex = 10;
+        [self loadData];
+    }];
+    
+    //  上拉刷新
+    self.tableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
+        // 进入刷新状态后会自动调用这个block
+        
+        _requireIndex = _requireIndex + 10;
+        //        if (_requireIndex > 100) {
+        //            [self.tableView.mj_footer endRefreshing];
+        //        }
+        [self loadData];
+    }];
 }
 
 - (void)loadNavView{
@@ -69,7 +98,8 @@
 - (void) loadData
 {
     _dataArr = [NSMutableArray array];
-    [BMRequestManager requsetWithUrlString:kCheckMoreAPI parDic:nil Method:GET finish:^(NSData *data)  {
+    NSString *checkMoreAPI = [NSString stringWithFormat:@"http://app.meilihuli.com/api/topic/getlist/count/%ld/page/1/?lang=zh-cn&version=ios2.0.0&cid=asXoHoWV7R9iVVx6r8CwK8",_requireIndex];
+    [BMRequestManager requsetWithUrlString:checkMoreAPI parDic:nil Method:GET finish:^(NSData *data)  {
         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
         NSArray *dataArr = dic[@"data"];
         //  解析数据
@@ -82,6 +112,9 @@
     } erro:^(NSError *erro) {
         NSLog(@"erro");
     }];
+    
+    [self.tableView.mj_header endRefreshing];
+    [self.tableView.mj_footer endRefreshing];
 }
 
 #pragma mark  tableView的代理方法

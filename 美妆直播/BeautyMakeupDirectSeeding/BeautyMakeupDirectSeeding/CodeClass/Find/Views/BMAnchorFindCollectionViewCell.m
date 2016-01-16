@@ -11,7 +11,7 @@
 
 @interface BMAnchorFindCollectionViewCell ()
 
-@property (nonatomic, strong)UIButton *avatarBtn;
+@property (nonatomic, strong)UIImageView *avatarBtn;
 
 @end
 
@@ -21,7 +21,7 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-        _avatarBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        _avatarBtn = [[UIImageView alloc] init];;
         _avatarBtn.frame = CGRectMake(0, 0, frame.size.width, frame.size.height);
         [self.contentView addSubview:_avatarBtn];
     }
@@ -31,7 +31,7 @@
 - (void)setModel:(BMAnchorFindModel *)model
 {
     _model = model;
-    [BMRequestManager downLoadButton:_avatarBtn UrlString:model.img_url];
+    [BMRequestManager downLoadImageView:_avatarBtn UrlString:model.img_url];
 }
 
 
