@@ -82,6 +82,23 @@
     if (_dataArray.count != 0) {
         [_collectionView reloadData];
         
+        CGRect newFrame = _collectionView.frame;
+        
+        if (dataArray.count % 2 == 0) {
+            
+            newFrame.size.height = (dataArray.count/2 * 150 ) + ((dataArray.count/2 - 1) * 20);
+            
+        }
+        
+        if (dataArray.count % 2 == 1) {
+            
+            newFrame.size.height = (dataArray.count/2 * 150 ) + ((dataArray.count/2 - 1) * 20) + 170;
+        
+        }
+
+        _collectionView.frame = newFrame;
+        
+        
     }
     
 }
@@ -93,7 +110,6 @@
     if (_delegate && [_delegate respondsToSelector:@selector(popupTimeViewWithModel:)]) {
         [_delegate popupTimeViewWithModel:model];
     }
-    
     
 }
 

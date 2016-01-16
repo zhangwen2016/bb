@@ -9,6 +9,10 @@
 #import <UIKit/UIKit.h>
 #import "BMDsLiveAndPreviewModel.h"
 @interface BMMicroblogVC : UIViewController
+/*
+ 微博界面
+ */
+
 @property (nonatomic,strong) NSString *uid;
 
 @end

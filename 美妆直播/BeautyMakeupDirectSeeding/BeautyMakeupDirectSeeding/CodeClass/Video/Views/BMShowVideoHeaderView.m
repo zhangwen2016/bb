@@ -7,7 +7,7 @@
 //
 
 #import "BMShowVideoHeaderView.h"
-
+#import "BMMicroblogVC.h"
 @implementation BMShowVideoHeaderView
 
 - (instancetype)initWithFrame:(CGRect)frame{
@@ -91,7 +91,11 @@
 }
 
 - (void)avatarButtonClick:(UIButton *)button{
-    NSLog(@"avatarButtonClick");
+    // NSLog(@"avatarButtonClick");
+    BMMicroblogVC *blogVC = [[BMMicroblogVC alloc] init];
+    blogVC.uid = _personModel.uid;
+    [_currentVC.navigationController pushViewController:blogVC animated:YES];
+   
 }
 
 

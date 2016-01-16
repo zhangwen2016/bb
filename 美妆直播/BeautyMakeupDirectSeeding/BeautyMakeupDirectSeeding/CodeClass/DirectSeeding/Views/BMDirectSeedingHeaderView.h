@@ -8,7 +8,15 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol headerViewDelegate <NSObject>
+
+- (void)transmitWithID:(NSString *)ID;
+
+@end
+
 @interface BMDirectSeedingHeaderView : UIView
+
+@property (nonatomic,strong) id<headerViewDelegate>delegate;
 
 @property (nonatomic,strong) UIPageControl *pageControl;
 
@@ -17,6 +25,7 @@
 @property (nonatomic,strong) NSTimer *timer;
 
 @property (nonatomic,assign)BOOL isFirst;//标记定时器方法是否是第一次
+
 
 
 

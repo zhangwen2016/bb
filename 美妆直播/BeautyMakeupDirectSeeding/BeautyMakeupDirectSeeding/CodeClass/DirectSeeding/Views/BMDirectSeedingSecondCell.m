@@ -43,12 +43,23 @@
         [self.contentView addSubview:_subscribe_countLabel];
         
         // 关注按钮
-        _attentionButton = [UIButton buttonWithType:(UIButtonTypeCustom)];
-        _attentionButton.frame = CGRectMake(kScreenWidth - 100,self.contentView.height/2 - 15,90, 30);
+        
+        // 关注按钮
+        
+        _attentionButton = [UIButton buttonWithType:(UIButtonTypeSystem)];
         [_attentionButton setTitle:@"+ 关注" forState:(UIControlStateNormal)];
-        [_attentionButton setTitleColor:[UIColor blackColor] forState:(UIControlStateNormal)];
+        [_attentionButton setTitleColor:kPinkColor forState:(UIControlStateNormal)];
+        
+         _attentionButton.frame = CGRectMake(kScreenWidth - 80,self.contentView.height/2 - 15,60, 25);
+        _attentionButton.layer.borderWidth = 0.7;
+        _attentionButton.layer.borderColor =  kPinkColor.CGColor;
+        _attentionButton.layer.cornerRadius = 12;
+        
+        [self addSubview:_attentionButton];
+        
         [self.contentView addSubview:_attentionButton];
         
+       
     }
     
     return self;
@@ -57,14 +68,17 @@
 - (void)setModel:(BMDsLiveAndPreviewModel *)model
 {
     _model = model;
-    [_avatarButton sd_setBackgroundImageWithURL:[NSURL URLWithString:model.avatar] forState:(UIControlStateNormal)];
-    _nicknameLabel.text = model.nickname;
     
+    [_avatarButton sd_setBackgroundImageWithURL:[NSURL URLWithString:model.avatar] forState:(UIControlStateNormal)];
+    
+    
+    _nicknameLabel.text = model.nickname;
     _subscribe_countLabel.text = [NSString stringWithFormat:@"%@人关注",model.subscribe_count];
     
-    
-    
 }
+
+
+
 
 - (void)awakeFromNib {
     // Initialization code

@@ -16,11 +16,14 @@
 #import "BMDsLiveAndPreviewModel.h"
 #import "BMToBeginPlayTimeView.h"
 #import "BMMicroblogVC.h"
+#import "BMVideoShowViewController.h"
+#import "MJRefresh.h"
+
 
 #define kDirectSeedingUrl @"http://app.meilihuli.com/api/channel/index/?lang=zh-cn&version=ios2.0.0&cid=asXoHoWV7R9iVVx6r8CwK8"
 
 
-@interface BMDirectSeedingLeftVC ()<UITableViewDelegate,UITableViewDataSource,liveButtonDelegate>
+@interface BMDirectSeedingLeftVC ()<UITableViewDelegate,UITableViewDataSource,liveButtonDelegate,headerViewDelegate>
 @property (nonatomic,strong) UITableView *tableView;
 
 // 保存图片网址的数组
@@ -45,27 +48,101 @@
 
 @property (nonatomic,strong) BMDsLiveAndPreviewModel *tempModel;
 
+@property (nonatomic,assign) NSInteger index;
+
+@property (nonatomic,assign) CGFloat threeHeight;
+
+@property (nonatomic,assign) BOOL isRefresh;
+
 @end
 
 @implementation BMDirectSeedingLeftVC
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    _index = 2;
+    _threeHeight = 660;
+    _isRefresh = NO;
+    [self addTableView];
     
+    [self setUpData];
+    
+    // 下拉刷新
+    _tableView.header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        // 进入刷新状态后会自动调用这个block
+        [self setUpData];
+    }];
+    
+    // 上拉刷新
+    _tableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
+        // 进入刷新状态后会自动调用这个block
+//        _isRefresh = YES;
+        [self setThirdCelldataArray];
+    
+        
+    }];
+    
+}
+
+- (void)setThirdCelldataArray
+{
+ 
+    BMDirectSeedingThirdCell *cell = [_tableView viewWithTag:10];
+    
+    NSString *url = [NSString stringWithFormat:@"http://app.meilihuli.com/api/channel/previewlist/page/%ld/count/10/?lang=zh-cn&version=ios2.0.0&cid=asXoHoWV7R9iVVx6r8CwK8",_index];
+    _index++;
+    // 请求数据
+    [BMRequestManager requsetWithUrlString:url parDic:nil Method:GET finish:^(NSData *data) {
+        
+        NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+        
+        NSArray *array = dic[@"data"];
+        
+        for (NSDictionary *oneDic in array) {
+            
+            BMDsLiveAndPreviewModel *model = [[BMDsLiveAndPreviewModel alloc] init];
+            [model setValuesForKeysWithDictionary:oneDic];
+            
+            [_recentDataArray addObject:model];
+            
+        }
+        
+        cell.dataArray = _recentDataArray;
+    
+    } erro:^(NSError *erro) {
+        NSLog(@"请求失败");
+    }];
+    
+    
+    if (_recentDataArray.count % 2 == 0) {
+        
+        _threeHeight = (_recentDataArray.count/2 * 150 ) + ((_recentDataArray.count/2 - 1) * 20);
+        
+    }
+    
+    if (_recentDataArray.count % 2 == 1) {
+        
+        _threeHeight = (_recentDataArray.count/2 * 150 ) + ((_recentDataArray.count/2 - 1) * 20) + 170;
+        
+    }
+    
+    [_tableView reloadData];
+    
+    [_tableView.mj_footer endRefreshing];
+
+
+}
+
+
+// 数据处理
+- (void)setUpData
+{
     _imageUrlAarray = [NSMutableArray array];
     _dsDataArray = [NSMutableArray array];
     _todayDataArray = [NSMutableArray array];
     _attentionDataArray = [NSMutableArray array];
     _recentDataArray = [NSMutableArray array];
     
-    [self addTableView];
-    
-    [self setUpData];
-}
-
-// 数据处理
-- (void)setUpData
-{
     // 请求数据
     [BMRequestManager requsetWithUrlString:kDirectSeedingUrl parDic:nil Method:GET finish:^(NSData *data) {
         
@@ -76,10 +153,15 @@
         
         for (NSDictionary *oneDic in oneArray) {
             
-            [_imageUrlAarray addObject:oneDic[@"image_url"]];
+            BMDsLiveAndPreviewModel *model = [[BMDsLiveAndPreviewModel alloc] init];
+            [model setValuesForKeysWithDictionary:oneDic];
+            
+            [_imageUrlAarray addObject:model];
             
         }
         BMDirectSeedingHeaderView *headerView = [[BMDirectSeedingHeaderView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 150)];
+        headerView.delegate = self;
+        
         headerView.ImageUrlArray = _imageUrlAarray;
         _tableView.tableHeaderView = headerView;
         
@@ -108,6 +190,8 @@
             
         }
         
+       
+        
         // 关注
         NSArray *fourArray = dic[@"data"][@"teacher"];
         
@@ -127,16 +211,23 @@
             [model setValuesForKeysWithDictionary:fiveDic];
             
             [_recentDataArray addObject:model];
-            
+    
         }
         
-        [_tableView reloadData];
         
+        
+        [_tableView reloadData];
+
     } erro:^(NSError *erro) {
         NSLog(@"请求失败");
     }];
-    
 
+    
+    
+    [_tableView.header endRefreshing];
+
+
+    
     
 }
 
@@ -194,8 +285,6 @@
             // 近期预告
             return 2;
         }
-        
-        
         
         
     }else if (section == 0) {
@@ -284,12 +373,17 @@
             
             cell.model = _todayDataArray[indexPath.row -1];
             
+            
             return cell;
         }else if (indexPath.section == 2){
             
             BMDirectSeedingSecondCell *cell = [tableView dequeueReusableCellWithIdentifier:@"BMDirectSeedingSecondCell"];
             
             cell.model = _attentionDataArray[indexPath.row - 1];
+            
+            cell.avatarButton.tag = indexPath.row;
+            [cell.avatarButton addTarget:self action:@selector(SecondavatarButtonAction:) forControlEvents:(UIControlEventTouchUpInside)];
+    
             
             return cell;
         }else if (indexPath.section == 3){
@@ -302,13 +396,9 @@
             
             return cell;
         }
-        
-        
-        
     }
     
-    
-    //====================没有直播
+        //====================没有直播
     
     // 设置各个分区第一个cell
     if (indexPath.row == 0 && indexPath.section == 0) {
@@ -358,8 +448,12 @@
         
         cell.model = _attentionDataArray[indexPath.row - 1];
         
+        cell.avatarButton.tag = indexPath.row;
+        [cell.avatarButton addTarget:self action:@selector(SecondavatarButtonAction:) forControlEvents:(UIControlEventTouchUpInside)];
+        
         return cell;
     }else if (indexPath.section == 2){
+        
         
         BMDirectSeedingThirdCell *cell = [tableView dequeueReusableCellWithIdentifier:@"BMDirectSeedingThirdCell"];
         cell.delegate = self;
@@ -367,13 +461,16 @@
         cell.tag = 10;
         
         cell.dataArray = _recentDataArray;
-        
+
         return cell;
     }
     
     return nil;
     
 }
+
+
+
 
 -(UIImage*) OriginImage:(UIImage *)image scaleToSize:(CGSize)size
 {
@@ -395,6 +492,8 @@
         return 50;
     }
     
+
+    
     // 如果有直播
     if (_dsDataArray.count != 0) {
         
@@ -407,7 +506,7 @@
             
         }else if (indexPath.section == 3){
             
-            return 660;
+            return _threeHeight;
         }
         
         return 50;
@@ -420,7 +519,7 @@
         
     }else if (indexPath.section == 2){
         
-        return 660;
+        return _threeHeight;
     }
     
     
@@ -528,6 +627,7 @@
         // 第二个分区(今日预告)
         _tempModel = _todayDataArray[indexPath.row - 1];
         _timeView = [[BMToBeginPlayTimeView alloc] initWithFrame:CGRectMake(60, kScreenHeight, kScreenWidth - 120,kScreenHeight/2)];
+        
         _timeView.autoresizesSubviews = YES;
         _timeView.backgroundColor = [UIColor whiteColor];
         _timeView.model = _todayDataArray[indexPath.row - 1];
@@ -550,6 +650,20 @@
     }
  }
 
+#pragma mark -- 关注cell头像点击
+- (void)SecondavatarButtonAction:(UIButton *)sender
+{
+    
+    BMMicroblogVC *microblogVC = [[BMMicroblogVC alloc] init];
+  
+    BMDsLiveAndPreviewModel *model = _attentionDataArray[sender.tag - 1];
+    
+    microblogVC.uid = model.uid;
+    
+    
+    [self.navigationController pushViewController:microblogVC animated:YES];
+    
+}
 
 #pragma mark -- 弹窗点击方法
 // 弹窗头像
@@ -563,15 +677,15 @@
     
     BMMicroblogVC *microblogVC = [[BMMicroblogVC alloc] init];
     
+    
     microblogVC.uid = _tempModel.uid;
-    self.navigationController.navigationBar.hidden = NO;
-    self.navigationController.tabBarController.tabBar.hidden = YES;
+   
     
     [self.navigationController pushViewController:microblogVC animated:YES];
 
 }
 
-// 关闭按钮
+#pragma mark -- 弹窗关闭按钮
 - (void)closeButtonAction:(UIButton *)sender
 {
     [UIView animateWithDuration:.5 animations:^{
@@ -583,6 +697,16 @@
         _tableView.userInteractionEnabled = YES;
         
     }];
+}
+
+#pragma mark -- 跳转播放界面
+- (void)transmitWithID:(NSString *)ID
+{
+    BMVideoShowViewController *VideoVC = [[BMVideoShowViewController alloc] init];
+    VideoVC.source_id = ID;
+    
+    [self.navigationController pushViewController:VideoVC animated:YES];
+    
 }
 
 

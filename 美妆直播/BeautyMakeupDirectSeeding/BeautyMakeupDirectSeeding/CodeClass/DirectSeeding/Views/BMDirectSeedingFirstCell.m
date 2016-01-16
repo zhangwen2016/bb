@@ -79,7 +79,22 @@
     
     _timeLabel.text = [NSString stringWithFormat:@"%@开播",str];
     
-    
+    if ([model.status isEqualToString:@"10"]) {
+        
+        _watchNumberLabel.text = [NSString stringWithFormat:@"%@人/目前%@人",model.view_count,model.online_count];
+        
+        CGRect timeFrame = _timeLabel.frame;
+        timeFrame.size.width =  40;
+        _timeLabel.frame = timeFrame;
+         _timeLabel.text = @"直播中";
+        
+        CGRect watchNumberFrame = _watchNumberLabel.frame;
+        watchNumberFrame.size.width = 120;
+        watchNumberFrame.origin.x = kScreenWidth - 130;
+        _watchNumberLabel.frame = watchNumberFrame;
+        
+        
+    }
     
     
 }

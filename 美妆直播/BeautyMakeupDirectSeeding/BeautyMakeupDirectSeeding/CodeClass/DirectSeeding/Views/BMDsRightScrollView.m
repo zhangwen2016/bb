@@ -90,11 +90,13 @@
         _nicknameLabel8 = (UILabel *)[self viewWithTag:27];
 
         // 关注按钮
+        
         _attentionButton = [UIButton buttonWithType:(UIButtonTypeCustom)];
         
         _attentionButton.frame = CGRectMake(60, _nicknameLabel8.bottom + 70, width - 120, 50);
         [_attentionButton setTitle:@"关注" forState:(UIControlStateNormal)];
         _attentionButton.backgroundColor = [UIColor grayColor];
+        _attentionButton.layer.cornerRadius = 25;
         _attentionButton.alpha = 0.3;
         [self addSubview:_attentionButton];
         

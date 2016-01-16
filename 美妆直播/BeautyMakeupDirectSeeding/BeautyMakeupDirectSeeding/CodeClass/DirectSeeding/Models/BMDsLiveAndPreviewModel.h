@@ -28,6 +28,7 @@
 @property (nonatomic,strong) NSString *subscribe_status;
 @property (nonatomic,strong) NSString *ID;
 @property (nonatomic,strong) NSString *uid;
+@property (nonatomic,strong) NSString *image_url;
 
 // 微博
 @property (nonatomic,strong) NSString *add_time;
@@ -38,5 +39,8 @@
 @property (nonatomic,strong) NSString *is_praise;
 @property (nonatomic,strong) NSString *title;
 @property (nonatomic,strong) NSString *video_time;
+@property (nonatomic,strong) NSString *source_id;
+
+
 
 @end

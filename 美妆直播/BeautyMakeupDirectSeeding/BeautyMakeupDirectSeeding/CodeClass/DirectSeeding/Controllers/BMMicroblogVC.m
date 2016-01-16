@@ -12,7 +12,9 @@
 #import "BMDirectSeedingFirstCell.h"
 #import "BMMicroblogModel.h"
 #import "BMMicroblogRightVC.h"
-#import "BMMicroblogLeftVC.h"
+#import "BMVideoShowViewController.h"
+#import "BMToBeginPlayTimeView.h"
+
 
 #import "UINavigationBar+Awesome.h"
 #define NAVBAR_CHANGE_POINT (-190)
@@ -24,16 +26,24 @@
 @property (nonatomic,strong) NSMutableArray *dataArray;
 @property (nonatomic,strong) NSMutableArray *rightVdataArray;
 
-@property (nonatomic,strong) BMMicroblogSectionHeaderView *headerView;
+@property (nonatomic,strong) BMMicroblogSectionHeaderView *headerView;//表头视图
 
-@property (nonatomic,strong) UIView *tempView;
-@property (nonatomic,strong) UIImageView *tempOneImage;
-@property (nonatomic,strong) UIImageView *tempTwoImage;
+@property (nonatomic,strong) UIView *tempView;//滑动的线
 
-@property (nonatomic,strong) BMMicroblogRightVC *RightVC;
-@property (nonatomic,strong) BMMicroblogLeftVC *leftVC;
+@property (nonatomic,strong) UIImageView *tempOneImage;//左边按钮图片
+@property (nonatomic,strong) UIImageView *tempTwoImage;//右边边按钮图片
 
-@property (nonatomic,assign) CGFloat rowHeight;
+
+@property (nonatomic,strong) BMMicroblogRightVC *RightVC;//右边视图
+
+@property (nonatomic,assign) CGFloat rowHeight;// cell的高度
+
+@property (nonatomic,strong) BMToBeginPlayTimeView *timeView;// 弹窗视图
+
+@property (nonatomic,strong) BMDsLiveAndPreviewModel *tempModel;
+
+@property (nonatomic,strong) UIBarButtonItem *leftButton;//返回按钮
+@property (nonatomic,strong) UIBarButtonItem *rightButton;//分享按钮牛
 
 @end
 
@@ -42,11 +52,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    UIBarButtonItem *leftButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"all_topback@2x"] style:(UIBarButtonItemStylePlain) target:self action:@selector(leftButtonAction:)];
-    self.navigationItem.leftBarButtonItem = leftButton;
     
-    UIBarButtonItem *rightButton = [[UIBarButtonItem alloc] initWithTitle:@"分享" style:(UIBarButtonItemStylePlain) target:self action:@selector(rightButtonAction:)];
-    self.navigationItem.rightBarButtonItem = rightButton;
+    _leftButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"all_topback"] style:(UIBarButtonItemStylePlain) target:self action:@selector(leftButtonAction:)];
+    self.navigationItem.leftBarButtonItem = _leftButton;
+    _rightButton = [[UIBarButtonItem alloc] initWithTitle:@"分享" style:(UIBarButtonItemStylePlain) target:self action:@selector(rightButtonAction:)];
+    self.navigationItem.rightBarButtonItem = _rightButton;
 //    self.navigationController.navigationBar.translucent = YES;
     _rowHeight = 280;
     
@@ -149,13 +159,12 @@
     _RightVC = [[BMMicroblogRightVC alloc] init];
     
     _RightVC.view.frame = CGRectMake(0,47, kScreenWidth, _tableView.height - 304);
+    
     _RightVC.view.backgroundColor = [UIColor redColor];
     
     [_tableView addSubview:_RightVC.view];
     [_tableView sendSubviewToBack:_RightVC.view];
     [self.view addSubview:_tableView];
-    
-    
 }
 
 
@@ -165,26 +174,39 @@
 {
     //    UIColor * color = [UIColor colorWithRed:0/255.0 green:175/255.0 blue:240/255.0 alpha:1];
     
-    UIColor * color = [UIColor magentaColor];
+    UIColor * color = [UIColor whiteColor];
     CGFloat offsetY = scrollView.contentOffset.y;
     
     if (offsetY > NAVBAR_CHANGE_POINT) {
         CGFloat alpha = MIN(1, 1 - ((NAVBAR_CHANGE_POINT + 64 - offsetY) / 64));
         [self.navigationController.navigationBar lt_setBackgroundColor:[color colorWithAlphaComponent:alpha]];
         
+        //改变navigationBar.titie的字体颜色
+        [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor magentaColor]}];
+        
+        // 改变两个UIBarButtonItem的字体颜色
+        _leftButton.tintColor = kPinkColor;
+        _rightButton.tintColor = kPinkColor;
+        
     } else {
+        // 改变导航条的透明度
         [self.navigationController.navigationBar lt_setBackgroundColor:[color colorWithAlphaComponent:0]];
+        
+        //改变navigationBar.titie的字体颜色
+        [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
+        // 改变两个UIBarButtonItem的字体颜色
+
+        _leftButton.tintColor = [UIColor whiteColor];
+        _rightButton.tintColor = [UIColor whiteColor];
+        
     }
     
-    
-    
-
 
     CGRect f = _headerView.background_imageView.frame;
     
     CGFloat yOffset  = scrollView.contentOffset.y;
     CGFloat s = -(240 + yOffset + 64);
-    NSLog(@"%f",s);
+    //NSLog(@"%f",s);
     
     if (s > 0) {
         f.origin.y = 0 - s;
@@ -206,21 +228,32 @@
     
 }
 
+// 视图将要出现
 - (void)viewWillAppear:(BOOL)animated
 {
-    
+ 
     [super viewWillAppear:animated];
-    _imageView.frame =CGRectMake(0, -240,self.tableView.frame.size.width,240);
+    
+    self.navigationController.navigationBar.hidden = NO;
+    self.navigationController.tabBarController.tabBar.hidden = YES;
+    self.navigationController.navigationBarHidden = NO;
+
+    _headerView.frame = CGRectMake(0, -240,self.tableView.frame.size.width,240);
     
     [super viewWillAppear:YES];
+    
     self.tableView.delegate = self;
+    self.tableView.dataSource = self;
     [self scrollViewDidScroll:self.tableView];
+    
     [self.navigationController.navigationBar setShadowImage:[UIImage new]];
+   
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
+    self.tableView.dataSource = nil;
     self.tableView.delegate = nil;
     [self.navigationController.navigationBar lt_reset];
 }
@@ -320,7 +353,7 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.row == 0) {
-        return 45;
+        return 48;
     }
     
     
@@ -333,16 +366,16 @@
 - (void)rightButtonAction:(UIBarButtonItem *)rightButton
 {
     
+    
+    
 }
 
 #pragma mark ---- 返回按钮
 
 - (void)leftButtonAction:(UIBarButtonItem *)leftButton
 {
-    self.navigationController.navigationBar.hidden = YES;
-    self.navigationController.tabBarController.tabBar.hidden = NO;
-    [self.navigationController popViewControllerAnimated:YES];
     
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 
@@ -351,6 +384,88 @@
 {
     return 0.000001;
 }
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath.row == 0) {
+        return;
+    }
+    
+    BMDsLiveAndPreviewModel *model = _dataArray[indexPath.row - 1];
+
+    
+    if ([model.status isEqualToString:@"20"]||[model.status isEqualToString:@"1"]) {
+        
+        BMVideoShowViewController *VideoVC = [[BMVideoShowViewController alloc] init];
+        VideoVC.source_id = model.source_id;
+        
+        [self.navigationController pushViewController:VideoVC animated:YES];
+        
+    }else if ([model.status isEqualToString:@"3"]){
+        
+        _tempModel = model;
+        
+        _timeView = [[BMToBeginPlayTimeView alloc] initWithFrame:CGRectMake(60, kScreenHeight, kScreenWidth - 120,kScreenHeight/2)];
+        
+        _timeView.autoresizesSubviews = YES;
+        _timeView.backgroundColor = [UIColor whiteColor];
+        _timeView.model = model;
+        
+        [_timeView.closeButton addTarget:self action:@selector(closeButtonAction:) forControlEvents:(UIControlEventTouchUpInside)];
+        
+        // 添加弹窗头像点击方法
+        [_timeView.avatarButton addTarget:self action:@selector(timeViewToavatr:) forControlEvents:(UIControlEventTouchUpInside)];
+        
+        [self.view addSubview:_timeView];
+        
+        // 添加弹窗动画
+        [UIView animateWithDuration:.5 animations:^{
+            
+            CGRect newFrame = _timeView.frame;
+            newFrame.origin.y = 80;
+            _timeView.frame = newFrame;
+            _tableView.userInteractionEnabled = NO;
+            
+        }];
+        
+    }
+    
+}
+
+#pragma mark -- 弹窗点击方法
+// 弹窗头像
+- (void)timeViewToavatr:(UIButton *)sender
+{
+    CGRect newFrame = _timeView.frame;
+    newFrame.origin.y = kScreenHeight;
+    _timeView.frame = newFrame;
+    _timeView = nil;
+    _tableView.userInteractionEnabled = YES;
+    
+    BMMicroblogVC *microblogVC = [[BMMicroblogVC alloc] init];
+    
+    microblogVC.uid = _tempModel.uid;
+    
+    
+    [self.navigationController pushViewController:microblogVC animated:YES];
+    
+}
+
+#pragma mark -- 弹窗关闭按钮
+- (void)closeButtonAction:(UIButton *)sender
+{
+    [UIView animateWithDuration:.5 animations:^{
+        
+        CGRect newFrame = _timeView.frame;
+        newFrame.origin.y = kScreenHeight;
+        _timeView.frame = newFrame;
+        _timeView = nil;
+        _tableView.userInteractionEnabled = YES;
+        
+    }];
+}
+
+
 
 
 - (void)didReceiveMemoryWarning {

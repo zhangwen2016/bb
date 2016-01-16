@@ -7,7 +7,7 @@
 //
 
 #import "BMteacherRecommendTableViewCell.h"
-
+#import "BMMicroblogVC.h"
 @implementation BMteacherRecommendTableViewCell
 
 - (void)setTeacherArray:(NSArray *)teacherArray{
@@ -39,7 +39,14 @@
 
 
 - (void)upButtonClick:(UIButton *)button{
-    NSLog(@"%ld", (long)button.tag);
+  //  NSLog(@"%ld", (long)button.tag);
+    
+    
+    BMRecommendTeacherModel *model = _teacherArray[button.tag - 200];
+    if ([_delegate respondsToSelector:@selector(sendButtonModel:)]) {
+        [_delegate sendButtonModel:model];
+    }
+   
 }
 
 - (void)awakeFromNib {

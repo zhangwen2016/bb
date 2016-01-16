@@ -25,8 +25,8 @@
         
         // 关闭按钮
         _closeButton = [UIButton buttonWithType:(UIButtonTypeCustom)];
-        _closeButton.frame = CGRectMake(_headerView.width - (_headerView.height/2), 10, _headerView.height/3, _headerView.height/6);
-        [_closeButton setTitle:@"X" forState:(UIControlStateNormal)];
+        _closeButton.frame = CGRectMake(_headerView.width - (_headerView.height/2), 10, _headerView.height/3, _headerView.height/3);
+        [_closeButton setBackgroundImage:[UIImage imageNamed:@"guanbi"] forState:(UIControlStateNormal)];
         [self addSubview:_closeButton];
         
         // 离开播
@@ -62,17 +62,26 @@
         [self addSubview:_nicknameLabel];
         
         // 一键提醒
+        
         _remindButton = [UIButton buttonWithType:(UIButtonTypeCustom)];
-        _remindButton.frame = CGRectMake((width - (width - 40))/2, height/5*3 + 10 , width - 40, height /6);
+        _remindButton.frame = CGRectMake((width - (width - 40))/2, height/5*3 + 10 , width - 40, height /8);
         [_remindButton setTitle:@"一键提醒" forState:(UIControlStateNormal)];
-         [_remindButton setTitleColor:[UIColor blackColor] forState:(UIControlStateNormal)];
+        _remindButton.layer.borderWidth = 0.7;
+        _remindButton.layer.borderColor =  kPinkColor.CGColor;
+        _remindButton.layer.cornerRadius = _remindButton.height/2;
+         [_remindButton setTitleColor:kPinkColor forState:(UIControlStateNormal)];
         [self addSubview:_remindButton];
         
         // 分享
         _shareButton = [UIButton buttonWithType:(UIButtonTypeCustom)];
         _shareButton.frame = CGRectMake(_remindButton.left,height/5*4, _remindButton.width, _remindButton.height);
         [_shareButton setTitle:@"分享" forState:(UIControlStateNormal)];
-        [_shareButton setTitleColor:[UIColor blackColor] forState:(UIControlStateNormal)];
+        
+        _shareButton.layer.borderWidth = 0.7;
+        _shareButton.layer.borderColor =  kPinkColor.CGColor;
+        _shareButton.layer.cornerRadius = _remindButton.height/2;
+        
+        [_shareButton setTitleColor:kPinkColor forState:(UIControlStateNormal)];
         [self addSubview:_shareButton];
         
         

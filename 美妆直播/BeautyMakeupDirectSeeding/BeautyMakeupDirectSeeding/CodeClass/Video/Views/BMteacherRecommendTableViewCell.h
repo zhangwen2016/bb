@@ -9,8 +9,18 @@
 #import <UIKit/UIKit.h>
 #import "BMButtonLabel.h"
 #import "BMRecommendTeacherModel.h"
+
+@protocol BMRecommendTeacherDelegate <NSObject>
+
+- (void)sendButtonModel:(BMRecommendTeacherModel *)model;
+
+@end
+
+
 @interface BMteacherRecommendTableViewCell : UITableViewCell
 @property (nonatomic, strong) NSArray *teacherArray;
 @property (nonatomic, strong) UIScrollView *bgScrollView;
+@property (nonatomic, assign) id<BMRecommendTeacherDelegate> delegate;
+
 
 @end

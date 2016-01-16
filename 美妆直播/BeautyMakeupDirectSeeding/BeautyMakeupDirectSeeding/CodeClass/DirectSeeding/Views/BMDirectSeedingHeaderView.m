@@ -9,7 +9,7 @@
 #import "BMDirectSeedingHeaderView.h"
 #import "UIButton+WebCache.h"
 #define IMAGEVIEW_TAG 2000
-
+#import "BMDsLiveAndPreviewModel.h"
 @interface BMDirectSeedingHeaderView ()<UIScrollViewDelegate>
 
 
@@ -56,15 +56,20 @@
         imageButton.frame = CGRectMake(0, 0, kScreenWidth, self.frame.size.height);
         
         imageButton.tag = 200 + i;
+        [imageButton addTarget:self action:@selector(imageButton:) forControlEvents:(UIControlEventTouchUpInside)];
         
         if (i == 0) {
+            
             NSInteger x = _ImageUrlArray.count - 1;
             
-            [imageButton sd_setBackgroundImageWithURL:[NSURL URLWithString:_ImageUrlArray[x]] forState:(UIControlStateNormal)];
+            BMDsLiveAndPreviewModel *model = _ImageUrlArray[x];
+            
+            [imageButton sd_setBackgroundImageWithURL:[NSURL URLWithString:model.image_url] forState:(UIControlStateNormal)];
             
         }else{
             NSInteger y = i - 1;
-            [imageButton sd_setBackgroundImageWithURL:[NSURL URLWithString:_ImageUrlArray[y]] forState:(UIControlStateNormal)];
+            BMDsLiveAndPreviewModel *model = _ImageUrlArray[y];
+            [imageButton sd_setBackgroundImageWithURL:[NSURL URLWithString:model.image_url] forState:(UIControlStateNormal)];
         }
         
         [smallScrollView addSubview:imageButton];
@@ -82,6 +87,27 @@
     [self addSubview:_pageControl];
     
     [self makeTimer];
+}
+
+- (void)imageButton:(UIButton *)sender
+{
+    if (sender.tag == 200) {
+        BMDsLiveAndPreviewModel *model = _ImageUrlArray[_ImageUrlArray.count - 1];
+        
+        if (_delegate && [_delegate respondsToSelector:@selector(transmitWithID:)]) {
+            [_delegate transmitWithID:model.ID];
+        }
+        return;
+        
+    }
+    
+    BMDsLiveAndPreviewModel *model = _ImageUrlArray[sender.tag - 201];
+    
+    if (_delegate && [_delegate respondsToSelector:@selector(transmitWithID:)]) {
+        [_delegate transmitWithID:model.ID];
+    }
+    
+    
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView

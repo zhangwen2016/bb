@@ -11,7 +11,7 @@
 
 @interface BMMicroblogRightVC ()<UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout>
 
-@property (nonatomic,strong) UICollectionView *collectionView;
+
 
 @end
 
@@ -89,11 +89,25 @@
     // 取出对应的model
     girlCell.model = _dataArray[indexPath.row];
     
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapAction:)];
+    [girlCell addGestureRecognizer:tap];
+    
     return girlCell;
     
 }
 
+- (void)tapAction:(UITapGestureRecognizer *)tap
+{
+    NSLog(@"haha");
+}
 
+
+//- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+//{
+//    
+//    NSLog(@"haha");
+//    
+//}
 
 
 - (void)didReceiveMemoryWarning {

@@ -11,6 +11,6 @@
 @interface BMMicroblogRightVC : UIViewController
 
 @property (nonatomic,strong) NSArray *dataArray;
-
+@property (nonatomic,strong) UICollectionView *collectionView;
 
 @end

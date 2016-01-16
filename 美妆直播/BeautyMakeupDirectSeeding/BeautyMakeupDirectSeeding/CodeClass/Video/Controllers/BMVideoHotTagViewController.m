@@ -8,6 +8,7 @@
 
 #import "BMVideoHotTagViewController.h"
 #import "BMVideoShowViewController.h"
+#import "MJRefresh.h"
 @interface BMVideoHotTagViewController ()<UITableViewDataSource, UITableViewDelegate>
 @property (nonatomic, strong) NSMutableArray *dataSourceArray;
 @property (nonatomic, strong) UITableView *listTableView;
@@ -52,7 +53,7 @@
 
 #pragma mark ---- 加载数据得到的接口
 - (void)JsonData{
-    _dataSourceArray = [NSMutableArray array];
+    
     
      NSString *hotTagApi = [@"http://app.meilihuli.com/api/videodemand/taglist/tag_id/"stringByAppendingString:[NSString stringWithFormat:@"%@?lang=zh-cn&version=ios2.0.0&cid=asXoHoWV7R9iVVx6r8CwK8",_hotTagModel.tag_id]];
     
@@ -64,6 +65,7 @@
             [model setValuesForKeysWithDictionary:oneDic];
             [_dataSourceArray addObject:model];
         }
+        [_listTableView.mj_footer endRefreshing];
         [_listTableView reloadData];
         
     } erro:^(NSError *erro) {
@@ -81,6 +83,10 @@
     _listTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [_listTableView registerClass:[BMVideoMainTableViewCell class] forCellReuseIdentifier:@"BMVideoMainTableViewCell"];
     [self.view addSubview:_listTableView];
+    _dataSourceArray = [NSMutableArray array];
+    _listTableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
+        [self JsonData];
+    }];
 }
 
 #pragma mark --- 实现tableView 的代理方法

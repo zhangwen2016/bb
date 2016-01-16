@@ -15,6 +15,8 @@
 #import "BMVideoLinkUserListViewController.h"
 #import "BMSearchViewController.h"
 #import "BMVideoShowViewController.h"
+#import "MJRefresh.h"
+#import "BMMicroblogVC.h"
 #define kSearchTeacherAPI @"http://app.meilihuli.com/api/search/index/?lang=zh-cn&version=ios2.0.0&cid=asXoHoWV7R9iVVx6r8CwK8"
 #define kPost @"course_count=5&keyword=a&teacher_count=5"
 @interface BMSearchTeacherViewController ()<UITableViewDataSource, UITableViewDelegate>
@@ -22,6 +24,7 @@
 @property (nonatomic, strong) NSMutableArray *teacherArray;
 @property (nonatomic, strong) NSMutableArray *liveArray;
 @property (nonatomic, strong) NSMutableArray *courseArray;
+@property (nonatomic, assign) NSInteger page;
 
 @end
 
@@ -36,14 +39,12 @@
 
 // 提供relodata的借口 防止keyString没有数据
 - (void)reloadData{
-    [self JsonData];
     [self loadTableView];
-    
+    [self JsonData];
 }
+
 - (void)JsonData{
-    _teacherArray = [NSMutableArray array];
-    _liveArray = [NSMutableArray array];
-    _courseArray = [NSMutableArray array];
+   
     NSMutableDictionary *parDic = [NSMutableDictionary dictionary];
     parDic[@"course_count"] = @"5";
     parDic[@"keyword"] = _keyWordString;
@@ -52,7 +53,6 @@
 //    NSLog(@"%@", parDic);
     [BMRequestManager requsetWithUrlString:kSearchTeacherAPI parDic:parDic Method:POST finish:^(NSData *data) {
         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
-        
         
         NSArray *teacherArray = dic[@"data"][@"teacher"];
         for (NSDictionary *oneDic in teacherArray) {
@@ -81,6 +81,7 @@
             [self.view addSubview:imageView];
             return;
         }
+        
         [_listTableView reloadData];
     } erro:^(NSError *erro) {
         [BMCommonMethod NoNetWorkInVC:self];
@@ -97,12 +98,38 @@
     [_listTableView registerClass:[BMVideoMainTableViewCell class] forCellReuseIdentifier:@"BMVideoMainTableViewCell"];
     [_listTableView registerClass:[BMVideoLiveTableViewCell class] forCellReuseIdentifier:@"BMVideoLiveTableViewCell"];
      [_listTableView registerClass:[BMVideoTeacherListTableViewCell class] forCellReuseIdentifier:@"BMVideoTeacherListTableViewCell"];
+    _teacherArray = [NSMutableArray array];
+    _liveArray = [NSMutableArray array];
+    _courseArray = [NSMutableArray array];
+    _page = 1;
     [self.view addSubview:_listTableView];
-    
+    _listTableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
+        _page += 1;
+        [self JsonRefreshData];
+        
+    }];
+
 }
 
-
-
+- (void)JsonRefreshData{
+    NSMutableDictionary *parDic = [NSMutableDictionary dictionary];
+    parDic[@"count"] = @"5";
+    parDic[@"keyword"] = _keyWordString;
+    parDic[@"page"] = [NSString stringWithFormat:@"%ld", _page];
+    [BMRequestManager requsetWithUrlString:@"http://app.meilihuli.com/api/search/course/?lang=zhcn&version=ios2.0.0&cid=asXoHoWV7R9iVVx6r8CwK8" parDic:parDic Method:POST finish:^(NSData *data) {
+         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+        NSArray *courseArray = dic[@"data"];
+        for (NSDictionary *oneDic in courseArray) {
+            BMVideoMainModel *model = [[BMVideoMainModel alloc] init];
+            [model setValuesForKeysWithDictionary:oneDic];
+            [_courseArray addObject:model];
+        }
+        [_listTableView.mj_footer endRefreshing];
+        [_listTableView reloadData];
+    } erro:^(NSError *erro) {
+        nil;
+    }];
+}
 
 #pragma mark --- 实现tableVide 的代理方法
 
@@ -240,7 +267,13 @@
     
     
     if (indexPath.section == 0) {
-        NSLog(@"indexPath.section == 0");
+      //  NSLog(@"%ld", (long)indexPath.row);
+        BMMicroblogVC *blogVC = [[BMMicroblogVC alloc] init];
+        BMSearchTeacherModel *teacherModel = _teacherArray[indexPath.row];
+        blogVC.uid = teacherModel.uid;
+        [self.navigationController pushViewController:blogVC animated:YES];
+        
+        
     }else if(indexPath.section == 1){
         
         
