@@ -75,8 +75,9 @@
 - (void)backBtnClick:(UIButton *)button{
     [_videoController dismiss];
     [self.navigationController popViewControllerAnimated:YES];
-    
 }
+
+
 
 - (void)shareBtnClick:(UIButton *)button{
     NSLog(@"111");
@@ -437,6 +438,7 @@
 //    teacherCell.teacherArray = _teacherRecommendArray;
     
 }
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

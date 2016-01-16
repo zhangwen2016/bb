@@ -9,15 +9,32 @@
 #import "BMAnchorRankMainViewController.h"
 #import "BMAnchorRankChildViewController.h"
 
+////  月人气排行API
+//#define kSubscribe_monthAPI @"http://app.meilihuli.com/api/discover/teacherranklist/count/30/order/subscribe_month/page/1/?lang=zh-cn&version=ios2.0.0&cid=asXoHoWV7R9iVVx6r8CwK8"
+
 //  月人气排行API
-#define kSubscribe_monthAPI @"http://app.meilihuli.com/api/discover/teacherranklist/count/30/order/subscribe_month/page/1/?lang=zh-cn&version=ios2.0.0&cid=asXoHoWV7R9iVVx6r8CwK8"
-//  总人气排行API
-#define kSubscribe @"http://app.meilihuli.com/api/discover/teacherranklist/count/30/order/subscribe/page/1/?lang=zh-cn&version=ios2.0.0&cid=asXoHoWV7R9iVVx6r8CwK8"
+#define kSubscribe_monthAPIPart1 @"http://app.meilihuli.com/api/discover/teacherranklist/count/"
+//  月人气排行API
+#define kSubscribe_monthAPIPart2 @"/order/subscribe_month/page/1/?lang=zh-cn&version=ios2.0.0&cid=asXoHoWV7R9iVVx6r8CwK8"
+////  总人气排行API
+//#define kSubscribe @"http://app.meilihuli.com/api/discover/teacherranklist/count/30/order/subscribe/page/1/?lang=zh-cn&version=ios2.0.0&cid=asXoHoWV7R9iVVx6r8CwK8"
+#define kSubscribePart1 @"http://app.meilihuli.com/api/discover/teacherranklist/count/"
+#define kSubscribePar2 @"/order/subscribe/page/1/?lang=zh-cn&version=ios2.0.0&cid=asXoHoWV7R9iVVx6r8CwK8"
+
+////  月收益API
+//#define kWallet_month @"http://app.meilihuli.com/api/discover/teacherranklist/count/30/order/wallet_month/page/1/?lang=zh-cn&version=ios2.0.0&cid=asXoHoWV7R9iVVx6r8CwK8"
 
 //  月收益API
-#define kWallet_month @"http://app.meilihuli.com/api/discover/teacherranklist/count/30/order/wallet_month/page/1/?lang=zh-cn&version=ios2.0.0&cid=asXoHoWV7R9iVVx6r8CwK8"
+#define kWallet_monthPart1 @"http://app.meilihuli.com/api/discover/teacherranklist/count/"
+//  月收益API
+#define kWallet_monthPart2 @"/order/wallet_month/page/1/?lang=zh-cn&version=ios2.0.0&cid=asXoHoWV7R9iVVx6r8CwK8"
+
+////  总收益API
+//#define kWallet @"http://app.meilihuli.com/api/discover/teacherranklist/count/30/order/wallet/page/1/?lang=zh-cn&version=ios2.0.0&cid=asXoHoWV7R9iVVx6r8CwK8"
 //  总收益API
-#define kWallet @"http://app.meilihuli.com/api/discover/teacherranklist/count/30/order/wallet/page/1/?lang=zh-cn&version=ios2.0.0&cid=asXoHoWV7R9iVVx6r8CwK8"
+#define kWalletPart1 @"http://app.meilihuli.com/api/discover/teacherranklist/count/"
+//  总收益API
+#define kWalletPart2 @"/order/wallet/page/1/?lang=zh-cn&version=ios2.0.0&cid=asXoHoWV7R9iVVx6r8CwK8"
 
 #define kTitleTag 1000
 
@@ -112,10 +129,12 @@
     _monthRank = [[BMAnchorRankChildViewController alloc] init];
     _monthRank.view.frame = CGRectMake(0, 200, kScreenWidth, kScreenHeight - 100);
     if (_isSubscribe == YES) {
-        _monthRank.rankAPI = kSubscribe_monthAPI;
+        _monthRank.rankAPIPart1 = kSubscribe_monthAPIPart1;
+        _monthRank.rankAPIPart2 = kSubscribe_monthAPIPart2;
     }else
     {
-        _monthRank.rankAPI = kWallet_month;
+        _monthRank.rankAPIPart1 = kWallet_monthPart1;
+        _monthRank.rankAPIPart2 = kWallet_monthPart2;
     }
     [_mainScrollView addSubview:_monthRank.view];
     [self addChildViewController:_monthRank];
@@ -123,10 +142,14 @@
     _totalRank = [[BMAnchorRankChildViewController alloc] init];
     _totalRank.view.frame = CGRectMake(kScreenWidth, 200, kScreenWidth, kScreenHeight);
     if (_isSubscribe == YES) {
-        _totalRank.rankAPI = kSubscribe;
+        _totalRank.rankAPIPart1 = kSubscribePart1;
+        _totalRank.rankAPIPart2 = kSubscribePar2;
+
     }else
     {
-        _totalRank.rankAPI = kWallet;
+        _totalRank.rankAPIPart1 = kWalletPart1;
+        _totalRank.rankAPIPart2 = kWalletPart2;
+
     }
     [_mainScrollView addSubview:_totalRank.view];
     [self addChildViewController:_totalRank];

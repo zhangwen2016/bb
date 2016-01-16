@@ -10,10 +10,14 @@
 #import "BMRequestManager.h"
 #import "BMAnchorRecommendModel.h"
 #import "BMAnchorRankTableViewCell.h"
+#import "BMMicroblogVC.h"
+#import "MJRefresh.h"//  下啦刷新的头文件
 
 @interface BMAnchorRankChildViewController ()<UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic, strong) NSMutableArray *rankDataArr;
+
+@property (nonatomic, assign) NSInteger requireIndex;//  要加载多少数据
 
 
 @end
@@ -23,43 +27,83 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-   
+    _rankDataArr = [NSMutableArray array];
+
+    _requireIndex = 30;
+
 }
 
-- (void)setRankAPI:(NSString *)rankAPI
+- (void)setRankAPIPart2:(NSString *)rankAPIPart2
 {
-    _rankAPI = rankAPI;
+    _rankAPIPart2 = rankAPIPart2;
     [self loadData];
     [self setUpTableView];
+    
+    //  下啦刷新
+    self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        // 进入刷新状态后会自动调用这个block
+        //  刷新的时候有了新数据 要把老数据清空 否则会造成数据重复
+        //[_rankDataArr removeAllObjects];
+        [self.tableView reloadData];
+        [self.tableView.mj_header endRefreshing];
+    }];
+    
+    //  上拉刷新
+    self.tableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
+        // 进入刷新状态后会自动调用这个block
+        
+        _requireIndex = _requireIndex + 30;
+//        if (_requireIndex > 100) {
+//            [self.tableView.mj_footer endRefreshing];
+//        }
+        [self loadData];
+    }];
+    
 }
 
 - (void)loadData
 {
-    _rankDataArr = [NSMutableArray array];
+    if (_requireIndex == 0) {
+        [_rankDataArr removeAllObjects];
+        _requireIndex = 30;
+    }
+    
+    NSString *rankApi = [NSString stringWithFormat:@"%@%ld%@", _rankAPIPart1, _requireIndex,_rankAPIPart2];
+    
     
     //  获取荣誉榜和人气主播的信息
-    [BMRequestManager requsetWithUrlString:_rankAPI parDic:nil Method:GET finish:^(NSData *data) {
+    [BMRequestManager requsetWithUrlString:rankApi parDic:nil Method:GET finish:^(NSData *data) {
         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
         NSArray *dataArr = dic[@"data"];
 
-        [self provideInforToDataSorce:_rankDataArr WithArray:dataArr];
+        if (_requireIndex > 0) {
         
-        [self.tableView reloadData];
+        for (int i = (int)(_requireIndex - 30); i < _requireIndex; i++) {
+            BMAnchorRecommendModel *model = [[BMAnchorRecommendModel alloc] init];
+            [model setValuesForKeysWithDictionary:dataArr[i]];
+            [_rankDataArr addObject:model];
+        }
+            [self.tableView reloadData];
+        }
         
     } erro:^(NSError *erro) {
         NSLog(@"erro");
     }];
-
+    
+  
+    
+    [self.tableView.mj_footer endRefreshing];
+    [self.tableView.mj_header endRefreshing];
 }
 
-- (void)provideInforToDataSorce:(NSMutableArray *)dataArr WithArray:(NSArray *)array
-{
-    for (NSDictionary *subDic in array) {
-        BMAnchorRecommendModel *model = [[BMAnchorRecommendModel alloc] init];
-        [model setValuesForKeysWithDictionary:subDic];
-        [dataArr addObject:model];
-    }
-}
+//- (void)provideInforToDataSorce:(NSMutableArray *)dataArr WithArray:(NSArray *)array
+//{
+//    for (NSDictionary *subDic in array) {
+//        BMAnchorRecommendModel *model = [[BMAnchorRecommendModel alloc] init];
+//        [model setValuesForKeysWithDictionary:subDic];
+//        [dataArr addObject:model];
+//    }
+//}
 
 #pragma mark  设置tableView
 - (void)setUpTableView
@@ -90,6 +134,14 @@
     cell.model = _rankDataArr[indexPath.row];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    BMMicroblogVC *microblogVC = [[BMMicroblogVC alloc] init];
+    BMAnchorRecommendModel *model = _rankDataArr[indexPath.row];
+    microblogVC.uid = model.uid;
+    [self.navigationController pushViewController:microblogVC animated:YES];
 }
 
 - (void)didReceiveMemoryWarning {

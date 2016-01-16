@@ -25,7 +25,7 @@
     
     //  排名
     _rankNumberBtn = [UIButton buttonWithType:(UIButtonTypeCustom)];
-    _rankNumberBtn.frame = CGRectMake(10, 10, 50, self.contentView.height - 20);
+    _rankNumberBtn.frame = CGRectMake(10, 10, 80, self.contentView.height - 20);
     [self.contentView addSubview:_rankNumberBtn];
     
     // 头像

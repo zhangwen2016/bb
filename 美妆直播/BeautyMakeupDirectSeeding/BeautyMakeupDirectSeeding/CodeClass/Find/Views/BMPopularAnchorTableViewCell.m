@@ -58,6 +58,12 @@
 }
 
 
+- (void)setDataArr:(NSArray *)dataArr
+{
+    _dataArr = dataArr;
+    [_collectionV reloadData];
+}
+
 #pragma mark  实现collectionV的代理方法
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
@@ -68,13 +74,24 @@
 {
     BMAnchorPopularAnchorCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"BMAnchorPopularAnchorCollectionViewCell" forIndexPath:indexPath];
     cell.model = _dataArr[indexPath.row];
+    cell.avatarBtn.tag = indexPath.row + 10200;
+    [cell.avatarBtn addTarget:self action:@selector(didSelectAvBtn:) forControlEvents:UIControlEventTouchUpInside];
     return cell;
 }
 
-#pragma mark  点击了我想当主播 所触发的方法
-- (void)applyTobeAnchorAction:(UIButton *)sender
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSLog(@"想要当主播");
+    
+}
+
+#pragma mark  点击了我想当主播 所触发的方法
+- (void)didSelectAvBtn:(UIButton *)sender
+{
+    BMAnchorRecommendModel *model = _dataArr[sender.tag - 10200];
+    
+    if (_delegate != nil && [_delegate respondsToSelector:@selector(popularAnchorTableViewCellBringModel:)]) {
+        [_delegate popularAnchorTableViewCellBringModel:model];
+    }
 }
 
 

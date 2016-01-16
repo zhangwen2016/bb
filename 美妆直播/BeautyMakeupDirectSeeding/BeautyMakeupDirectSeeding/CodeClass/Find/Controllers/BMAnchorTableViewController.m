@@ -16,6 +16,10 @@
 
 #import "BMApplyToAnchorViewController.h"
 #import "BMAnchorRankMainViewController.h"
+#import "BMMicroblogVC.h"
+
+#import "MJRefresh.h"//  下啦刷新的头文件
+
 
 
 //  获取荣誉榜和人气主播栏信息
@@ -23,14 +27,19 @@
 
 //  获取第三个分组 发现的内容
 #define kFindFindUrl @"http://app.meilihuli.com/api/discover/imglist/count/20/page/1/?lang=zh-cn&version=ios2.0.0&cid=asXoHoWV7R9iVVx6r8CwK8"
+#define kFindFindUrlPart1 @"http://app.meilihuli.com/api/discover/imglist/count/20/page/"
+#define kFindFindUrlPart2 @"/?lang=zh-cn&version=ios2.0.0&cid=asXoHoWV7R9iVVx6r8CwK8"
 
 
-
-@interface BMAnchorTableViewController ()
+@interface BMAnchorTableViewController ()<BMPopularAnchorTableViewCellDelegate, AnchorFindTableViewCellDelegate>
 
 @property (nonatomic, strong)NSMutableArray *honerListArr;//  有两个成员  一个是subscribe 一个是wallet 每个成员是一个arr
 @property (nonatomic, strong)NSMutableArray *popularAnchor;//  放第二个分组数据(人气主播拦)数据
 @property (nonatomic, strong)NSMutableArray *findArr;//  放发现分组的信息
+
+@property (nonatomic, assign)NSInteger requireIndex;//  刷新需要的数据
+
+
 
 @end
 
@@ -47,9 +56,34 @@
     
     //  设置tableView
     [self setUpTableView];
-    
+    _requireIndex = 18;
     //  初始化数据
     [self loadData];
+    
+    
+    
+        //  下啦刷新
+        self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+            // 进入刷新状态后会自动调用这个block
+            //  刷新的时候有了新数据 要把老数据清空 否则会造成数据重复
+            _requireIndex = 18;
+            [self loadData];
+        }];
+    
+    
+//        //  上拉刷新  只响应一次 所以写下面
+        self.tableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
+            // 进入刷新状态后会自动调用这个block
+           
+            _requireIndex = _requireIndex + 18;
+ //           if (_requireIndex > 36) {
+   //             _requireIndex = 36;
+                [self.tableView.mj_footer endRefreshing];
+  //              return ;
+ //           }
+//            [self getFindInfor];
+        }];
+    
 }
 
 #pragma mark  初始化数据
@@ -63,6 +97,9 @@
     [self getPopularAnchorAndHonerListInfor];
     //  获取发现的信息
     [self getFindInfor];
+    
+    //  上拉停止刷新
+    [self.tableView.mj_header endRefreshing];
 }
 
 //  获取荣誉榜和人气主播的信息
@@ -95,20 +132,44 @@
 //  获取发现的信息
 - (void)getFindInfor
 {
-    [BMRequestManager requsetWithUrlString:kFindFindUrl parDic:nil Method:GET finish:^(NSData *data)  {
+    NSString *urlStr = [NSString stringWithFormat:@"http://app.meilihuli.com/api/discover/imglist/count/%ld/page/1/?lang=zh-cn&version=ios2.0.0&cid=asXoHoWV7R9iVVx6r8CwK8",_requireIndex];
+    [BMRequestManager requsetWithUrlString:urlStr parDic:nil Method:GET finish:^(NSData *data)  {
         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
         NSArray *dataArr = dic[@"data"];
         //  解析数据
-        for (NSDictionary *subDic in dataArr) {
+//        for (NSDictionary *subDic in dataArr) {
+//            BMAnchorFindModel *model = [[BMAnchorFindModel alloc] init];
+//            [model setValuesForKeysWithDictionary:subDic];
+//            [_findArr addObject:model];
+//        }
+        
+        
+        for (int i = (int)_findArr.count; i < _requireIndex; i++) {
+            NSDictionary *subDic = dataArr[i];
             BMAnchorFindModel *model = [[BMAnchorFindModel alloc] init];
             [model setValuesForKeysWithDictionary:subDic];
             [_findArr addObject:model];
         }
-        NSLog(@"%@", _findArr);
-        [self.tableView reloadData];
+        if (_requireIndex == 18) {
+            [self.tableView reloadData];
+        }else{
+        
+        NSIndexSet *indexSet=[[NSIndexSet alloc]initWithIndex:2];
+        [self.tableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
+        }
     } erro:^(NSError *erro) {
         NSLog(@"erro");
     }];
+    
+//    //  上拉刷新
+//    self.tableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
+//        // 进入刷新状态后会自动调用这个block
+//        _requireIndex = _requireIndex + 18;
+//        [self getFindInfor];
+//    }];
+    
+    [self.tableView.mj_footer endRefreshing];
+
 }
 
 - (void)provideInforToDataSorce:(NSMutableArray *)dataArr WithArray:(NSArray *)array
@@ -191,6 +252,7 @@
     if (indexPath.section == 1) {
         BMPopularAnchorTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"BMPopularAnchorTableViewCell" forIndexPath:indexPath];
         [cell.applyAnchor addTarget:self action:@selector(applyAnchorAction:) forControlEvents:UIControlEventTouchUpInside];
+        cell.delegate = self;
         cell.dataArr = _popularAnchor;
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         return cell;
@@ -199,6 +261,8 @@
     
     if (indexPath.section == 2) {
         BMAnchorFindTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"BMAnchorFindTableViewCell" forIndexPath:indexPath];
+        cell.delegate = self;
+        cell.index = _requireIndex;
         cell.dataArr = _findArr;
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         return cell;
@@ -242,7 +306,7 @@
         return 190;
     }
     
-    return (kScreenWidth - 10 * 2 - 10 * 2) / 3 * 7 + 10 * 8 + 20;
+    return ((kScreenWidth - 10 * 2 - 10 * 2) / 3 * (_requireIndex / 3)  + 10 * (_requireIndex / 3 + 1)) + 20;
 }
 
 #pragma mark  点击cell (只对第一个分组有效)
@@ -267,6 +331,23 @@
 {
     BMApplyToAnchorViewController *appltToAnchorVC = [[BMApplyToAnchorViewController alloc] init];
     [self.navigationController pushViewController:appltToAnchorVC animated:YES];
+}
+
+
+#pragma mark  实现自定义代理方法
+- (void)popularAnchorTableViewCellBringModel:(BMAnchorRecommendModel *)model
+{
+    BMMicroblogVC *microblogVC = [[BMMicroblogVC alloc] init];
+    microblogVC.uid = model.uid;
+    [self.navigationController pushViewController:microblogVC animated:YES];
+
+}
+
+- (void)anchorFindTableViewCellWithModel:(BMAnchorFindModel *)model
+{
+    BMMicroblogVC *microblogVC = [[BMMicroblogVC alloc] init];
+    microblogVC.uid = model.uid;
+    [self.navigationController pushViewController:microblogVC animated:YES];
 }
 
 

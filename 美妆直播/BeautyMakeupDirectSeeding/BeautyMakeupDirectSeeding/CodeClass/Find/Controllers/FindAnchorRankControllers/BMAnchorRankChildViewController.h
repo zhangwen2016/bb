@@ -10,7 +10,10 @@
 
 @interface BMAnchorRankChildViewController : UIViewController
 
-@property (nonatomic, strong) NSString *rankAPI;
+@property (nonatomic, strong) NSString *rankAPIPart1;
+@property (nonatomic, strong) NSString *rankAPIPart2;
+
+
 @property (nonatomic, strong) UITableView *tableView;
 
 @end

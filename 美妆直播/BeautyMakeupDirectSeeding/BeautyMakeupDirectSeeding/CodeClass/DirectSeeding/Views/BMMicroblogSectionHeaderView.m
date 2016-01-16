@@ -66,14 +66,14 @@
         _fansLabel.text = @"粉丝";
         _fansLabel.textAlignment = NSTextAlignmentCenter;
         _fansLabel.font = [UIFont systemFontOfSize:kSmallFont];
-        _fansLabel.alpha = 0.5;
+//        _fansLabel.alpha = 0.7;
         _fansLabel.textColor = [UIColor whiteColor];
         [self addSubview:_fansLabel];
         // 收益
         _moneyLabel = [[UILabel alloc] initWithFrame:CGRectMake(_View.left + 10, _avatarImageView.top, 50, 25)];
         _moneyLabel.text = @"收益";
         _moneyLabel.textAlignment = NSTextAlignmentCenter;
-        _moneyLabel.alpha = 0.5;
+//        _moneyLabel.alpha = 0.7;
 
         _moneyLabel.font = [UIFont systemFontOfSize:kSmallFont];
         _moneyLabel.textColor = [UIColor whiteColor];
@@ -83,7 +83,7 @@
         _fans_countLabel = [[UILabel alloc] initWithFrame:CGRectMake(_fansLabel.left, _fansLabel.bottom, _fansLabel.width, _fansLabel.height)];
         _fans_countLabel.textColor = [UIColor whiteColor];
         _fans_countLabel.text = @"3280人";
-        _fans_countLabel.alpha = 0.5;
+//        _fans_countLabel.alpha = 0.7;
 
         _fans_countLabel.textAlignment = NSTextAlignmentCenter;
         _fans_countLabel.font = [UIFont systemFontOfSize:kSmallFont];
@@ -95,14 +95,20 @@
         _money_countLabel.text = @"575元";
         _money_countLabel.textAlignment = NSTextAlignmentCenter;
         _money_countLabel.font = [UIFont systemFontOfSize:kSmallFont];
-        _money_countLabel.alpha = 0.5;
+//        _money_countLabel.alpha = 0.7;
         [self addSubview:_money_countLabel];
         
         // 关注按钮
-        _attentionButton = [UIButton buttonWithType:(UIButtonTypeCustom)];
+        
+        _attentionButton = [UIButton buttonWithType:(UIButtonTypeSystem)];
+        [_attentionButton setTitle:@"+ 关注" forState:(UIControlStateNormal)];
+        [_attentionButton setTitleColor:[UIColor whiteColor] forState:(UIControlStateNormal)];
+        
         _attentionButton.frame = CGRectMake(kScreenWidth - 100, _moneyLabel.top + 5, 90, 35);
-        _attentionButton.alpha = 0.5;
-        [_attentionButton setBackgroundImage:[UIImage imageNamed:@"guanzhu01"] forState:(UIControlStateNormal)];
+        _attentionButton.layer.borderWidth = 0.7;
+        _attentionButton.layer.borderColor = [UIColor whiteColor].CGColor;
+        _attentionButton.layer.cornerRadius = 17;
+        
         [self addSubview:_attentionButton];
         
         // 签约主播

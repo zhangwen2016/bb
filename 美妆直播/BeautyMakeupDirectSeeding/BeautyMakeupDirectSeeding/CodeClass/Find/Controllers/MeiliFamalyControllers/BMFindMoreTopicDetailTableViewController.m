@@ -10,6 +10,7 @@
 #import "BMVideoMainTableViewCell.h"
 #import "BMRequestManager.h"
 #import "BMCommonMethod.h"
+#import "BMVideoShowViewController.h"
 
 #define kTopicDetailAPI @"http://app.meilihuli.com/api/topic/detail/id/28/?lang=zh-cn&version=ios2.0.0&cid=asXoHoWV7R9iVVx6r8CwK8"
 
@@ -168,6 +169,15 @@
     
     return cell;
 }
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    BMVideoShowViewController *videoShowVC = [[BMVideoShowViewController alloc] init];
+    BMVideoMainModel *model = _dataArr[indexPath.row];
+    videoShowVC.source_id = model.source_id;
+    [self.navigationController pushViewController:videoShowVC animated:YES];
+}
+
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
