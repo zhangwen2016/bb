@@ -30,6 +30,11 @@
 
 @implementation BMSearchTeacherViewController
 
+- (void)viewWillAppear:(BOOL)animated{
+    self.navigationController.navigationBarHidden = YES;
+}
+
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
@@ -268,6 +273,8 @@
     
     if (indexPath.section == 0) {
       //  NSLog(@"%ld", (long)indexPath.row);
+        BMSearchViewController *searchVC = (BMSearchViewController *)[self parentViewController];
+        searchVC.searchController.searchBar.hidden = YES;
         BMMicroblogVC *blogVC = [[BMMicroblogVC alloc] init];
         BMSearchTeacherModel *teacherModel = _teacherArray[indexPath.row];
         blogVC.uid = teacherModel.uid;

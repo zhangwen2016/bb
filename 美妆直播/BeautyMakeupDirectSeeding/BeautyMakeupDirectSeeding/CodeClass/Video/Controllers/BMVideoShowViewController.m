@@ -38,6 +38,13 @@
 
 @implementation BMVideoShowViewController
 
+
+- (void)viewWillAppear:(BOOL)animated{
+    self.navigationController.navigationBarHidden = YES;
+}
+
+
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
@@ -329,6 +336,8 @@
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     if (indexPath.section == 1) {
         
+    }else{
+        
     }
 }
 
@@ -405,6 +414,7 @@
 
 // 推荐老师的代理方法
 - (void)sendButtonModel:(BMRecommendTeacherModel *)model{
+    [self.videoController pauseButtonClick];
     BMMicroblogVC *blogVC = [[BMMicroblogVC alloc] init];
     blogVC.uid = model.uid;
     [self.navigationController pushViewController:blogVC animated:YES];
@@ -430,12 +440,6 @@
     [_videoRecommendArray removeAllObjects];
     [_teacherRecommendArray removeAllObjects];
     [_commentListArray removeAllObjects];
-    
-    
-//    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:2];
-//   BMteacherRecommendTableViewCell *teacherCell = [_listTableView cellForRowAtIndexPath:indexPath];
-//    [teacherCell removeBgScrollView];
-//    teacherCell.teacherArray = _teacherRecommendArray;
     
 }
 
