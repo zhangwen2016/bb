@@ -37,6 +37,9 @@
     _bgScrollView.contentSize = CGSizeMake(20 + 90 * _teacherArray.count, self.contentView.height);
 }
 
+- (void)removeBgScrollView{
+    [self.bgScrollView removeFromSuperview];
+}
 
 - (void)upButtonClick:(UIButton *)button{
   //  NSLog(@"%ld", (long)button.tag);

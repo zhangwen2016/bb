@@ -14,4 +14,5 @@
 @property (nonatomic, strong) NSString *live_id; // 直播的时候传递
 
 - (void)reloadData;
+
 @end
