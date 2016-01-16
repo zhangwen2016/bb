@@ -26,20 +26,24 @@
 @property (nonatomic,strong) NSMutableArray *dataArray;
 @property (nonatomic,strong) NSMutableArray *rightVdataArray;
 
-@property (nonatomic,strong) BMMicroblogSectionHeaderView *headerView;
+@property (nonatomic,strong) BMMicroblogSectionHeaderView *headerView;//表头视图
 
-@property (nonatomic,strong) UIView *tempView;
-@property (nonatomic,strong) UIImageView *tempOneImage;
-@property (nonatomic,strong) UIImageView *tempTwoImage;
+@property (nonatomic,strong) UIView *tempView;//滑动的线
 
-@property (nonatomic,strong) BMMicroblogRightVC *RightVC;
+@property (nonatomic,strong) UIImageView *tempOneImage;//左边按钮图片
+@property (nonatomic,strong) UIImageView *tempTwoImage;//右边边按钮图片
 
-@property (nonatomic,assign) CGFloat rowHeight;
 
-// 弹窗视图
-@property (nonatomic,strong) BMToBeginPlayTimeView *timeView;
+@property (nonatomic,strong) BMMicroblogRightVC *RightVC;//右边视图
+
+@property (nonatomic,assign) CGFloat rowHeight;// cell的高度
+
+@property (nonatomic,strong) BMToBeginPlayTimeView *timeView;// 弹窗视图
 
 @property (nonatomic,strong) BMDsLiveAndPreviewModel *tempModel;
+
+@property (nonatomic,strong) UIBarButtonItem *leftButton;//返回按钮
+@property (nonatomic,strong) UIBarButtonItem *rightButton;//分享按钮牛
 
 @end
 
@@ -49,11 +53,10 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    UIBarButtonItem *leftButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"all_topback@2x"] style:(UIBarButtonItemStylePlain) target:self action:@selector(leftButtonAction:)];
-    self.navigationItem.leftBarButtonItem = leftButton;
-    
-    UIBarButtonItem *rightButton = [[UIBarButtonItem alloc] initWithTitle:@"分享" style:(UIBarButtonItemStylePlain) target:self action:@selector(rightButtonAction:)];
-    self.navigationItem.rightBarButtonItem = rightButton;
+    _leftButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"all_topback"] style:(UIBarButtonItemStylePlain) target:self action:@selector(leftButtonAction:)];
+    self.navigationItem.leftBarButtonItem = _leftButton;
+    _rightButton = [[UIBarButtonItem alloc] initWithTitle:@"分享" style:(UIBarButtonItemStylePlain) target:self action:@selector(rightButtonAction:)];
+    self.navigationItem.rightBarButtonItem = _rightButton;
 //    self.navigationController.navigationBar.translucent = YES;
     _rowHeight = 280;
     
@@ -156,13 +159,12 @@
     _RightVC = [[BMMicroblogRightVC alloc] init];
     
     _RightVC.view.frame = CGRectMake(0,47, kScreenWidth, _tableView.height - 304);
+    
     _RightVC.view.backgroundColor = [UIColor redColor];
     
     [_tableView addSubview:_RightVC.view];
     [_tableView sendSubviewToBack:_RightVC.view];
     [self.view addSubview:_tableView];
-    
-    
 }
 
 
@@ -172,15 +174,31 @@
 {
     //    UIColor * color = [UIColor colorWithRed:0/255.0 green:175/255.0 blue:240/255.0 alpha:1];
     
-    UIColor * color = [UIColor magentaColor];
+    UIColor * color = [UIColor whiteColor];
     CGFloat offsetY = scrollView.contentOffset.y;
     
     if (offsetY > NAVBAR_CHANGE_POINT) {
         CGFloat alpha = MIN(1, 1 - ((NAVBAR_CHANGE_POINT + 64 - offsetY) / 64));
         [self.navigationController.navigationBar lt_setBackgroundColor:[color colorWithAlphaComponent:alpha]];
         
+        //改变navigationBar.titie的字体颜色
+        [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor magentaColor]}];
+        
+        // 改变两个UIBarButtonItem的字体颜色
+        _leftButton.tintColor = kPinkColor;
+        _rightButton.tintColor = kPinkColor;
+        
     } else {
+        // 改变导航条的透明度
         [self.navigationController.navigationBar lt_setBackgroundColor:[color colorWithAlphaComponent:0]];
+        
+        //改变navigationBar.titie的字体颜色
+        [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
+        // 改变两个UIBarButtonItem的字体颜色
+
+        _leftButton.tintColor = [UIColor whiteColor];
+        _rightButton.tintColor = [UIColor whiteColor];
+        
     }
     
 
@@ -188,7 +206,7 @@
     
     CGFloat yOffset  = scrollView.contentOffset.y;
     CGFloat s = -(240 + yOffset + 64);
-    NSLog(@"%f",s);
+    //NSLog(@"%f",s);
     
     if (s > 0) {
         f.origin.y = 0 - s;
@@ -215,6 +233,7 @@
 {
  
     [super viewWillAppear:animated];
+    
     self.navigationController.navigationBar.hidden = NO;
     self.navigationController.tabBarController.tabBar.hidden = YES;
     self.navigationController.navigationBarHidden = NO;
@@ -445,6 +464,8 @@
         
     }];
 }
+
+
 
 
 - (void)didReceiveMemoryWarning {
