@@ -30,6 +30,12 @@
 }
 
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    self.navigationController.navigationBar.hidden = YES;
+    self.navigationController.navigationBarHidden = YES;
+}
+
 - (void)addChildVC
 {
     _anchorVC = [[BMAnchorTableViewController alloc] initWithStyle:UITableViewStyleGrouped];
