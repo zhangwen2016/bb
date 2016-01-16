@@ -58,6 +58,12 @@
 }
 
 
+- (void)setDataArr:(NSArray *)dataArr
+{
+    _dataArr = dataArr;
+    [_collectionV reloadData];
+}
+
 #pragma mark  实现collectionV的代理方法
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {

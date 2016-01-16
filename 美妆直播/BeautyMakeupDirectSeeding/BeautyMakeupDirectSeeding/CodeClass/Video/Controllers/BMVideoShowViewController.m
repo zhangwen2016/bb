@@ -430,6 +430,13 @@
     [_videoRecommendArray removeAllObjects];
     [_teacherRecommendArray removeAllObjects];
     [_commentListArray removeAllObjects];
+    
+    
+//    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:2];
+//   BMteacherRecommendTableViewCell *teacherCell = [_listTableView cellForRowAtIndexPath:indexPath];
+//    [teacherCell removeBgScrollView];
+//    teacherCell.teacherArray = _teacherRecommendArray;
+    
 }
 
 - (void)didReceiveMemoryWarning {
