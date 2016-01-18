@@ -162,7 +162,12 @@
         BMDirectSeedingHeaderView *headerView = [[BMDirectSeedingHeaderView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 150)];
         headerView.delegate = self;
         
-        headerView.ImageUrlArray = _imageUrlAarray;
+        if (_imageUrlAarray.count != 0) {
+            headerView.ImageUrlArray = _imageUrlAarray;
+
+        }
+        
+        
         _tableView.tableHeaderView = headerView;
         
         // 正在直播的
@@ -363,7 +368,10 @@
         if (indexPath.section == 0) {
             BMDirectSeedingFirstCell *cell = [tableView dequeueReusableCellWithIdentifier:@"BMDirectSeedingFirstCell"];
             
-            cell.model = _dsDataArray[indexPath.row -1];
+            if (_dsDataArray.count != 0) {
+                cell.model = _dsDataArray[indexPath.row -1];
+
+            }
             
             return cell;
             
@@ -371,15 +379,18 @@
             // 第二个分区
             BMDirectSeedingFirstCell *cell = [tableView dequeueReusableCellWithIdentifier:@"BMDirectSeedingFirstCell"];
             
-            cell.model = _todayDataArray[indexPath.row -1];
-            
-            
+            if (_todayDataArray.count != 0) {
+                cell.model = _todayDataArray[indexPath.row -1];
+
+            }
+        
             return cell;
         }else if (indexPath.section == 2){
             
             BMDirectSeedingSecondCell *cell = [tableView dequeueReusableCellWithIdentifier:@"BMDirectSeedingSecondCell"];
-            
-            cell.model = _attentionDataArray[indexPath.row - 1];
+            if (_attentionDataArray.count != 0) {
+                cell.model = _attentionDataArray[indexPath.row - 1];
+            }
             
             cell.avatarButton.tag = indexPath.row;
             [cell.avatarButton addTarget:self action:@selector(SecondavatarButtonAction:) forControlEvents:(UIControlEventTouchUpInside)];
@@ -392,7 +403,11 @@
             cell.delegate = self;
             cell.tag = 10;
             
-            cell.dataArray = _recentDataArray;
+            if (_recentDataArray.count != 0) {
+                
+                cell.dataArray = _recentDataArray;
+
+            }
             
             return cell;
         }
@@ -439,15 +454,22 @@
     if (indexPath.section == 0) {
         BMDirectSeedingFirstCell *cell = [tableView dequeueReusableCellWithIdentifier:@"BMDirectSeedingFirstCell"];
         
-        cell.model = _todayDataArray[indexPath.row -1];
+        if (_todayDataArray.count != 0) {
+            cell.model = _todayDataArray[indexPath.row -1];
+
+        }
+        
         
         return cell;
     }else if (indexPath.section == 1){
         
         BMDirectSeedingSecondCell *cell = [tableView dequeueReusableCellWithIdentifier:@"BMDirectSeedingSecondCell"];
         
-        cell.model = _attentionDataArray[indexPath.row - 1];
-        
+        if (_attentionDataArray.count != 0) {
+            cell.model = _attentionDataArray[indexPath.row - 1];
+
+        }
+    
         cell.avatarButton.tag = indexPath.row;
         [cell.avatarButton addTarget:self action:@selector(SecondavatarButtonAction:) forControlEvents:(UIControlEventTouchUpInside)];
         
@@ -459,8 +481,11 @@
         cell.delegate = self;
         
         cell.tag = 10;
+        if (_recentDataArray.count != 0) {
+            cell.dataArray = _recentDataArray;
+
+        }
         
-        cell.dataArray = _recentDataArray;
 
         return cell;
     }

@@ -59,7 +59,11 @@
             
         }
         
-        _rightVC.dataArray = _dataArray;
+        if (_dataArray.count != 0) {
+            
+            _rightVC.dataArray = _dataArray;
+
+        }
         
         
     } erro:^(NSError *erro) {

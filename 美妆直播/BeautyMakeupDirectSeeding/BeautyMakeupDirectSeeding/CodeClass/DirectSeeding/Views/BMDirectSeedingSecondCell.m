@@ -24,7 +24,6 @@
     
         _avatarButton.layer.masksToBounds = YES;
         _avatarButton.layer.cornerRadius = _avatarButton.width/2;
-        _avatarButton.backgroundColor = [UIColor redColor];
         [self.contentView addSubview:_avatarButton];
         
         //昵称
@@ -32,17 +31,15 @@
         _nicknameLabel = [[UILabel alloc] initWithFrame:CGRectMake(_avatarButton.right + 3, _avatarButton.top, 200, _avatarButton.height / 3 * 2)];
         
         _nicknameLabel.text = @"小Call";
-        _nicknameLabel.font = [UIFont systemFontOfSize:18];
+        _nicknameLabel.font = [UIFont systemFontOfSize:kLargeFont];
         [self.contentView addSubview:_nicknameLabel];
         
         //关注人数
         _subscribe_countLabel = [[UILabel alloc] initWithFrame:CGRectMake(_nicknameLabel.left, _nicknameLabel.bottom, _nicknameLabel.width, _avatarButton.height/3)];
-        _subscribe_countLabel.font = [UIFont systemFontOfSize:12];
+        _subscribe_countLabel.font = [UIFont systemFontOfSize:kSmallFont];
         _subscribe_countLabel.text = @"14444人关注";
         _subscribe_countLabel.alpha = 0.5;
         [self.contentView addSubview:_subscribe_countLabel];
-        
-        // 关注按钮
         
         // 关注按钮
         
@@ -55,7 +52,6 @@
         _attentionButton.layer.borderColor =  kPinkColor.CGColor;
         _attentionButton.layer.cornerRadius = 12;
         
-        [self addSubview:_attentionButton];
         
         [self.contentView addSubview:_attentionButton];
         
@@ -69,8 +65,7 @@
 {
     _model = model;
     
-    [_avatarButton sd_setBackgroundImageWithURL:[NSURL URLWithString:model.avatar] forState:(UIControlStateNormal)];
-    
+    [BMRequestManager downLoadButton:_avatarButton UrlString:model.avatar];
     
     _nicknameLabel.text = model.nickname;
     _subscribe_countLabel.text = [NSString stringWithFormat:@"%@人关注",model.subscribe_count];

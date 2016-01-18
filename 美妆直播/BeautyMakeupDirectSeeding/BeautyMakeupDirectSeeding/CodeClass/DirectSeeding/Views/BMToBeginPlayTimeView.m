@@ -20,7 +20,7 @@
         
         // 离开播时间的背景
         _headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, width, height / 5)];
-        _headerView.backgroundColor = [UIColor magentaColor];
+        _headerView.backgroundColor = kPinkColor;
         [self addSubview:_headerView];
         
         // 关闭按钮
@@ -51,7 +51,7 @@
         _avatarButton.frame = CGRectMake((width - (height/5))/2,height/5 + 5 , height/5, height/5);
         _avatarButton.layer.masksToBounds = YES;
         _avatarButton.layer.cornerRadius = _avatarButton.width/2;
-        _avatarButton.backgroundColor = [UIColor magentaColor];
+        _avatarButton.backgroundColor = kPinkColor;
         [self addSubview:_avatarButton];
         
         
@@ -84,25 +84,6 @@
         [_shareButton setTitleColor:kPinkColor forState:(UIControlStateNormal)];
         [self addSubview:_shareButton];
         
-        
-//        _shareButton.backgroundColor = [UIColor magentaColor];
-//        _remindButton.backgroundColor = [UIColor magentaColor];
-//        _nicknameLabel.backgroundColor = [UIColor magentaColor];
-//        self.autoresizesSubviews = YES;
-//        
-//        _headerView.autoresizingMask=UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleTopMargin|UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
-//        _closeButton.autoresizingMask=UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleTopMargin|UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
-//        _playLabel.autoresizingMask=UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleTopMargin|UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
-//        _timeLabel.autoresizingMask=UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleTopMargin|UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
-//        _avatarButton.autoresizingMask=UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleTopMargin|UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
-//        _nicknameLabel.autoresizingMask=UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleTopMargin|UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
-//         _remindButton.autoresizingMask=UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleTopMargin|UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
-//        
-//         _shareButton.autoresizingMask=UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleTopMargin|UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
-        
-        
-        
-        
     }
     return self;
 }
@@ -112,7 +93,8 @@
 {
     _model = model;
     
-    [_avatarButton sd_setBackgroundImageWithURL:[NSURL URLWithString:model.avatar] forState:(UIControlStateNormal)];
+    [BMRequestManager downLoadButton:_avatarButton UrlString:model.avatar];
+    
     _nicknameLabel.text = model.nickname;
     
     

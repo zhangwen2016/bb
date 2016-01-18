@@ -21,6 +21,6 @@
 @property (nonatomic, strong) NSArray *teacherArray;
 @property (nonatomic, strong) UIScrollView *bgScrollView;
 @property (nonatomic, assign) id<BMRecommendTeacherDelegate> delegate;
-
+- (void)removeBgScrollView;
 
 @end
