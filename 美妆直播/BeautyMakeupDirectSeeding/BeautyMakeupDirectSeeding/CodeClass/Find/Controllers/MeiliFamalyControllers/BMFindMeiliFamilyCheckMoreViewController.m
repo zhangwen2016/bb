@@ -34,6 +34,7 @@
     // Do any additional setup after loading the view.
     [self addTableView];
     _requireIndex = 10;
+    _dataArr = [NSMutableArray array];
     [self loadData];
     [self loadNavView];
     self.view.backgroundColor = [UIColor whiteColor];
@@ -97,7 +98,10 @@
 
 - (void) loadData
 {
-    _dataArr = [NSMutableArray array];
+
+    if (_requireIndex >= 10) {
+        [_dataArr removeAllObjects];
+    }
     NSString *checkMoreAPI = [NSString stringWithFormat:@"http://app.meilihuli.com/api/topic/getlist/count/%ld/page/1/?lang=zh-cn&version=ios2.0.0&cid=asXoHoWV7R9iVVx6r8CwK8",_requireIndex];
     [BMRequestManager requsetWithUrlString:checkMoreAPI parDic:nil Method:GET finish:^(NSData *data)  {
         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
@@ -108,13 +112,14 @@
             [model setValuesForKeysWithDictionary:subDic];
             [_dataArr addObject:model];
         }
+        [self.tableView.mj_header endRefreshing];
+        [self.tableView.mj_footer endRefreshing];
         [self.tableView reloadData];
     } erro:^(NSError *erro) {
         NSLog(@"erro");
     }];
     
-    [self.tableView.mj_header endRefreshing];
-    [self.tableView.mj_footer endRefreshing];
+
 }
 
 #pragma mark  tableView的代理方法

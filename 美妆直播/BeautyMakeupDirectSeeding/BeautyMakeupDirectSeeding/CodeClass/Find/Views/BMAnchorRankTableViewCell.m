@@ -60,8 +60,14 @@
     // 关注按钮
     _attentionButton = [UIButton buttonWithType:(UIButtonTypeCustom)];
     _attentionButton.frame = CGRectMake(kScreenWidth - 100,self.contentView.height/2 - 15,65, 22);
-    [_attentionButton setBackgroundImage:[UIImage imageNamed:@"guanzhu"] forState:(UIControlStateNormal)];
-    [_attentionButton setTitleColor:[UIColor blackColor] forState:(UIControlStateNormal)];
+//    [_attentionButton setBackgroundImage:[UIImage imageNamed:@"guanzhu"] forState:(UIControlStateNormal)];
+    [_attentionButton setTitleColor:[UIColor magentaColor] forState:(UIControlStateNormal)];
+    _attentionButton.layer.cornerRadius = 11;
+    _attentionButton.layer.borderWidth = 1;
+    [_attentionButton setTitle:@"关注" forState:UIControlStateNormal];
+    _attentionButton.layer.borderColor = [UIColor magentaColor].CGColor;
+    [_attentionButton setTitleColor:[UIColor magentaColor] forState:UIControlStateNormal];
+//    [_attentionButton setTitleColor:[UIColor blackColor] forState:(UIControlStateNormal)];
     [self.contentView addSubview:_attentionButton];
 }
 

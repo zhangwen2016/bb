@@ -172,7 +172,7 @@
     NSString *height = imgDic[@"height"];
     UILabel *lastNotelabel = (UILabel *)_labelArr[index - 1];
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
-    btn.frame = CGRectMake(10, lastNotelabel.bottom + 10, kScreenWidth - 20, (kScreenWidth - 20) * width.floatValue / height.floatValue);
+    btn.frame = CGRectMake(10, lastNotelabel.bottom + 10, kScreenWidth - 20, (kScreenWidth - 20) * height.floatValue / width.floatValue);
     NSString *urlStr = imgDic[@"url"];
     [BMRequestManager downLoadButton:btn UrlString:urlStr];
     

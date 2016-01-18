@@ -28,8 +28,9 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     _rankDataArr = [NSMutableArray array];
-
     _requireIndex = 30;
+    [self loadData];
+    [self setUpTableView];
 
 }
 
@@ -44,6 +45,7 @@
         // 进入刷新状态后会自动调用这个block
         //  刷新的时候有了新数据 要把老数据清空 否则会造成数据重复
         //[_rankDataArr removeAllObjects];
+        _requireIndex = 30;
         [self.tableView reloadData];
         [self.tableView.mj_header endRefreshing];
     }];
@@ -63,9 +65,8 @@
 
 - (void)loadData
 {
-    if (_requireIndex == 0) {
+    if (_requireIndex >= 30) {
         [_rankDataArr removeAllObjects];
-        _requireIndex = 30;
     }
     
     NSString *rankApi = [NSString stringWithFormat:@"%@%ld%@", _rankAPIPart1, _requireIndex,_rankAPIPart2];
@@ -78,22 +79,31 @@
 
         if (_requireIndex > 0) {
         
-        for (int i = (int)(_requireIndex - 30); i < _requireIndex; i++) {
+        for (NSDictionary *subDic in dataArr) {
             BMAnchorRecommendModel *model = [[BMAnchorRecommendModel alloc] init];
-            [model setValuesForKeysWithDictionary:dataArr[i]];
+            [model setValuesForKeysWithDictionary:subDic];
             [_rankDataArr addObject:model];
+
         }
             [self.tableView reloadData];
-        }
+            [self.tableView.mj_footer endRefreshing];
+            [self.tableView.mj_header endRefreshing];
         
+//        for (int i = (int)(_requireIndex - 30); i < _requireIndex; i++) {
+//            BMAnchorRecommendModel *model = [[BMAnchorRecommendModel alloc] init];
+//            [model setValuesForKeysWithDictionary:dataArr[i]];
+//            [_rankDataArr addObject:model];
+//        }
+//            [self.tableView reloadData];
+        }
+  
     } erro:^(NSError *erro) {
         NSLog(@"erro");
     }];
     
   
     
-    [self.tableView.mj_footer endRefreshing];
-    [self.tableView.mj_header endRefreshing];
+   
 }
 
 //- (void)provideInforToDataSorce:(NSMutableArray *)dataArr WithArray:(NSArray *)array

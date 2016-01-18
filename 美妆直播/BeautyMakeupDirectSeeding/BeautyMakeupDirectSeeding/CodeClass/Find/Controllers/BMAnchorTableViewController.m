@@ -67,7 +67,9 @@
             // 进入刷新状态后会自动调用这个block
             //  刷新的时候有了新数据 要把老数据清空 否则会造成数据重复
             _requireIndex = 18;
-            [self loadData];
+           // [self loadData];
+       //     [self.tableView.mj_footer endRefreshing];
+          [self.tableView.mj_header endRefreshing];
         }];
     
     
@@ -98,8 +100,8 @@
     //  获取发现的信息
     [self getFindInfor];
     
-    //  上拉停止刷新
-    [self.tableView.mj_header endRefreshing];
+//    //  上拉停止刷新
+//    [self.tableView.mj_header endRefreshing];
 }
 
 //  获取荣誉榜和人气主播的信息
@@ -122,6 +124,9 @@
         [self provideInforToDataSorce:walletArray WithArray:walletArr];
         [_honerListArr addObject:walletArray];
         
+//            //  上拉停止刷新
+//            [self.tableView.mj_header endRefreshing];
+
         [self.tableView reloadData];
         
     } erro:^(NSError *erro) {
@@ -168,7 +173,6 @@
 //        [self getFindInfor];
 //    }];
     
-    [self.tableView.mj_footer endRefreshing];
 
 }
 
@@ -244,6 +248,7 @@
             NSString *walletImgPath = [[NSBundle mainBundle] pathForResource:@"walletImg" ofType:@"png"];
             cell.logoImg.image = [UIImage imageWithContentsOfFile:walletImgPath];
             cell.dataArr = _honerListArr[1];
+            
         }
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         return cell;
@@ -348,6 +353,11 @@
     BMMicroblogVC *microblogVC = [[BMMicroblogVC alloc] init];
     microblogVC.uid = model.uid;
     [self.navigationController pushViewController:microblogVC animated:YES];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    self.tabBarController.tabBar.hidden = NO;
 }
 
 

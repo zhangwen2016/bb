@@ -90,8 +90,9 @@
     _thirdImgV.top = _secondImgV.top;
     NSArray *imageArr = (NSArray *)model.img_url;
     [BMRequestManager downLoadImageView:_firstImgV UrlString:imageArr[0]];
-    [BMRequestManager downLoadImageView:_secondImgV UrlString:imageArr[1]];
-    [BMRequestManager downLoadImageView:_thirdImgV UrlString:imageArr[2]];
+//    [BMRequestManager downLoadImageView:_secondImgV UrlString:imageArr[1]];
+//    [BMRequestManager downLoadImageView:_thirdImgV UrlString:imageArr[2]];
+//    [NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(changeImgFrame) userInfo:nil repeats:NO];
     
     _addTimeLabel.top = _firstImgV.bottom + 10;
     _cmtLabel.text = model.cmt_count;
@@ -101,6 +102,49 @@
     _cmtImgV.top = _addTimeLabel.top;
     _viewCountImgV.top = _addTimeLabel.top;
     _viewCountLabel.top = _addTimeLabel.top;
+    NSString *path = [[NSBundle mainBundle]pathForResource:@"PlaceHoldingImage" ofType:@"png"];
+    [_firstImgV sd_setImageWithURL:imageArr[0] placeholderImage:[UIImage imageWithContentsOfFile:path] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+        [self cutImage:_firstImgV.image ForImgV:_firstImgV];
+    }];
+    [_secondImgV sd_setImageWithURL:imageArr[1] placeholderImage:[UIImage imageWithContentsOfFile:path] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+        [self cutImage:_secondImgV.image ForImgV:_secondImgV];
+    }];
+    [_thirdImgV sd_setImageWithURL:imageArr[2] placeholderImage:[UIImage imageWithContentsOfFile:path] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+        [self cutImage:_thirdImgV.image ForImgV:_thirdImgV];
+    }];
+    
+    //[self changeImgFrame];
+}
+
+- (void)changeImgFrame
+{
+    [self cutImage:_firstImgV.image ForImgV:_firstImgV];
+    [self cutImage:_secondImgV.image ForImgV:_secondImgV];
+    [self cutImage:_thirdImgV.image ForImgV:_thirdImgV];
+}
+
+//裁剪图片
+- (void)cutImage:(UIImage*)image ForImgV:(UIImageView *)imgV
+{
+    //压缩图片
+    CGSize newSize;
+    CGImageRef imageRef = nil;
+    
+    if ((image.size.width / image.size.height) < (_firstImgV.frame.size.width / _firstImgV.frame.size.height)) {
+        CGFloat size = imgV.frame.size.width / image.size.width;
+        
+        newSize.width = image.size.width;
+        newSize.height = image.size.width * _firstImgV.frame.size.height / _firstImgV.frame.size.width;
+        imageRef = CGImageCreateWithImageInRect([image CGImage], CGRectMake(0, fabs(image.size.height - newSize.height) / 2, newSize.width / size, newSize.height / size));
+        
+    } else {
+        newSize.height = image.size.height;
+        newSize.width = image.size.height * _firstImgV.frame.size.width / _firstImgV.frame.size.height;
+    
+        imageRef = CGImageCreateWithImageInRect([image CGImage], CGRectMake(fabs(image.size.width - newSize.width) / 2, 0, newSize.width, newSize.height));
+        
+    }
+    imgV.image = [UIImage imageWithCGImage:imageRef];
 }
 
 ////  调整图片大小

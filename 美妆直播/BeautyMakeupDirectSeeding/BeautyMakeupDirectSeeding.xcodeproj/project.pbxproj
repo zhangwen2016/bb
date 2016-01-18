@@ -73,6 +73,7 @@
 		7985EE941C44922700DCDFE5 /* BMFindAnchorHonerListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7985EE8A1C44922700DCDFE5 /* BMFindAnchorHonerListTableViewCell.m */; };
 		7985EE951C44922700DCDFE5 /* BMPopularAnchorTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7985EE8C1C44922700DCDFE5 /* BMPopularAnchorTableViewCell.m */; };
 		7985EE981C449B2800DCDFE5 /* BMAnchorFindTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7985EE971C449B2800DCDFE5 /* BMAnchorFindTableViewCell.m */; };
+		7989999A1C4A29C500782AD1 /* PlaceHoldingImage.png in Resources */ = {isa = PBXBuildFile; fileRef = 798999991C4A29C500782AD1 /* PlaceHoldingImage.png */; };
 		798B6F771C463B9A002A5FCE /* SmallCmtImg.png in Resources */ = {isa = PBXBuildFile; fileRef = 798B6F761C463B9A002A5FCE /* SmallCmtImg.png */; };
 		798B6F7A1C463D7F002A5FCE /* BMMeiliFamilyCmtModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 798B6F791C463D7F002A5FCE /* BMMeiliFamilyCmtModel.m */; };
 		798E1E451C44AA47001FB08B /* BMAnchorRankChildViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 798E1E441C44AA47001FB08B /* BMAnchorRankChildViewController.m */; };
@@ -122,6 +123,7 @@
 		C60651011C4752A9005726BF /* BMMicroblogModel.m in Sources */ = {isa = PBXBuildFile; fileRef = C60651001C4752A9005726BF /* BMMicroblogModel.m */; };
 		C60651071C47965E005726BF /* BMMicroblogRightVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C60651061C47965E005726BF /* BMMicroblogRightVC.m */; };
 		C606510A1C479D96005726BF /* BMMicroblogCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C60651091C479D96005726BF /* BMMicroblogCollectionCell.m */; };
+
 		C60908A61C4106D200DF0B8B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C60908A51C4106D200DF0B8B /* AppDelegate.m */; };
 		C60909481C410A3600DF0B8B /* all_topback.png in Resources */ = {isa = PBXBuildFile; fileRef = C60909211C410A3600DF0B8B /* all_topback.png */; };
 		C60909491C410A3600DF0B8B /* all_topback@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C60909221C410A3600DF0B8B /* all_topback@2x.png */; };
@@ -351,6 +353,7 @@
 		7985EE8C1C44922700DCDFE5 /* BMPopularAnchorTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BMPopularAnchorTableViewCell.m; sourceTree = "<group>"; };
 		7985EE961C449B2800DCDFE5 /* BMAnchorFindTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMAnchorFindTableViewCell.h; sourceTree = "<group>"; };
 		7985EE971C449B2800DCDFE5 /* BMAnchorFindTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BMAnchorFindTableViewCell.m; sourceTree = "<group>"; };
+		798999991C4A29C500782AD1 /* PlaceHoldingImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PlaceHoldingImage.png; sourceTree = "<group>"; };
 		798B6F761C463B9A002A5FCE /* SmallCmtImg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SmallCmtImg.png; sourceTree = "<group>"; };
 		798B6F781C463D7F002A5FCE /* BMMeiliFamilyCmtModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMMeiliFamilyCmtModel.h; sourceTree = "<group>"; };
 		798B6F791C463D7F002A5FCE /* BMMeiliFamilyCmtModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BMMeiliFamilyCmtModel.m; sourceTree = "<group>"; };
@@ -440,6 +443,7 @@
 		C60651061C47965E005726BF /* BMMicroblogRightVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BMMicroblogRightVC.m; sourceTree = "<group>"; };
 		C60651081C479D96005726BF /* BMMicroblogCollectionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMMicroblogCollectionCell.h; sourceTree = "<group>"; };
 		C60651091C479D96005726BF /* BMMicroblogCollectionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BMMicroblogCollectionCell.m; sourceTree = "<group>"; };
+
 		C60908A41C4106D200DF0B8B /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		C60908A51C4106D200DF0B8B /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		C60909211C410A3600DF0B8B /* all_topback.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = all_topback.png; sourceTree = "<group>"; };
@@ -1066,6 +1070,7 @@
 				C601EF201C492EE900D80B27 /* guanbi.png */,
 				C601EED81C4908B600D80B27 /* kanzhibo.png */,
 				C601EED91C4908B600D80B27 /* qita.png */,
+
 				797089B91C47330600CC198F /* back.png */,
 				799B60DC1C46984000958A43 /* popularImg.png */,
 				799B60DE1C46984A00958A43 /* walletImg.png */,
@@ -1168,6 +1173,7 @@
 		C64954951C40EF3C00A7F89E = {
 			isa = PBXGroup;
 			children = (
+				798999991C4A29C500782AD1 /* PlaceHoldingImage.png */,
 				797089B11C472D3F00CC198F /* AdSupport.framework */,
 				796364431C45E61200ABF7F9 /* MediaPlayer.framework */,
 				796364411C45E60B00ABF7F9 /* AVFoundation.framework */,
@@ -1388,6 +1394,7 @@
 				TargetAttributes = {
 					C649549D1C40EF3C00A7F89E = {
 						CreatedOnToolsVersion = 7.1;
+
 						DevelopmentTeam = K92V295JE6;
 					};
 					C64954B91C40EF3C00A7F89E = {
@@ -1435,6 +1442,7 @@
 				C609096E1C410A3600DF0B8B /* zbar-samples.png in Resources */,
 				796364351C45E5C700ABF7F9 /* kr-video-player-fullscreen@2x.png in Resources */,
 				C609094B1C410A3600DF0B8B /* all_topdelete.png in Resources */,
+
 				C60909611C410A3600DF0B8B /* LaunchImage-800-667h@2x.png in Resources */,
 				C600077D1C448A5A008AD3D8 /* ye.png in Resources */,
 				7963643B1C45E5C700ABF7F9 /* kr-video-player-point@2x.png in Resources */,
@@ -1801,6 +1809,7 @@
 				INFOPLIST_FILE = BeautyMakeupDirectSeeding/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+
 				PRODUCT_BUNDLE_IDENTIFIER = ZhuangJia;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -1819,6 +1828,7 @@
 				INFOPLIST_FILE = BeautyMakeupDirectSeeding/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+
 				PRODUCT_BUNDLE_IDENTIFIER = ZhuangJia;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";

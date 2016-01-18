@@ -50,8 +50,13 @@
     _applyAnchor.frame = CGRectMake(0.25 * kScreenWidth, _collectionV.bottom, 0.5 * kScreenWidth, 30);
     
     NSString *applyPath = [[NSBundle mainBundle] pathForResource:@"applyAnchor" ofType:@"png"];
-    [_applyAnchor setBackgroundImage:[UIImage imageWithContentsOfFile:applyPath] forState:UIControlStateNormal];
-
+//    [_applyAnchor setBackgroundImage:[UIImage imageWithContentsOfFile:applyPath] forState:UIControlStateNormal];
+    _applyAnchor.layer.cornerRadius = 30 / 2;
+    _applyAnchor.layer.masksToBounds = YES;
+    [_applyAnchor setTitle:@"申请成为主播" forState:UIControlStateNormal];
+    [_applyAnchor setTitleColor:[UIColor magentaColor] forState:UIControlStateNormal];
+    _applyAnchor.layer.borderColor = [UIColor magentaColor].CGColor;
+    _applyAnchor.layer.borderWidth = 1;
   //  [_applyAnchor addTarget:self action:@selector(applyTobeAnchorAction:) forControlEvents:UIControlEventTouchUpInside];
     [self.contentView addSubview:_applyAnchor];
     
