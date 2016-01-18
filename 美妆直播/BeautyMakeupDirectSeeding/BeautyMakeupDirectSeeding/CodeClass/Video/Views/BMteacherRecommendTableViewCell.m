@@ -10,18 +10,33 @@
 #import "BMMicroblogVC.h"
 @implementation BMteacherRecommendTableViewCell
 
-- (void)setTeacherArray:(NSArray *)teacherArray{
-    _teacherArray = teacherArray;
-    [self loadSubView];
+- (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier{
+    if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
+        _bgScrollView = [[UIScrollView alloc] initWithFrame:self.contentView.frame];
+        _bgScrollView.showsHorizontalScrollIndicator = NO;
+        _bgScrollView.bounces = YES;
+        [self.contentView addSubview:_bgScrollView];
+    }
+    return self;
 }
-- (void)loadSubView{
-    _bgScrollView = [[UIScrollView alloc] initWithFrame:self.contentView.frame];
-    _bgScrollView.showsHorizontalScrollIndicator = NO;
-    _bgScrollView.bounces = YES;
-    [self.contentView addSubview:_bgScrollView];
-    for (int i = 0; i < _teacherArray.count; i++) {
+
+
+
+
+- (void)setTeacherArray:(NSArray *)teacherArray{
+   
+    _teacherArray = teacherArray;
+    [self loadSubViewwithArray:teacherArray];
+}
+- (void)loadSubViewwithArray:(NSArray *)array{
+//    _bgScrollView = [[UIScrollView alloc] initWithFrame:self.contentView.frame];
+//    _bgScrollView.showsHorizontalScrollIndicator = NO;
+//    _bgScrollView.bounces = YES;
+//    [self.contentView addSubview:_bgScrollView];
+    _bgScrollView.frame = self.contentView.frame;
+    for (int i = 0; i < array.count; i++) {
         BMButtonLabel *BL = [[BMButtonLabel alloc] initWithFrame:CGRectMake(20 + 90 * i, 20, 70, 80)];
-        BMRecommendTeacherModel *model = _teacherArray[i];
+        BMRecommendTeacherModel *model = array[i];
         BL.upButton.frame = CGRectMake(0, 0, 70, 70);
         BL.upButton.layer.cornerRadius = 35;
         BL.upButton.layer.masksToBounds = YES;
@@ -34,7 +49,7 @@
         [_bgScrollView addSubview:BL];
     };
     
-    _bgScrollView.contentSize = CGSizeMake(20 + 90 * _teacherArray.count, self.contentView.height);
+    _bgScrollView.contentSize = CGSizeMake(20 + 90 * array.count, self.contentView.height);
 }
 
 - (void)removeBgScrollView{

@@ -30,6 +30,7 @@ typedef void(^smallScreenBlock)();
 - (instancetype)initWithFrame:(CGRect)frame;
 - (void)showInWindow;
 - (void)dismiss;
+- (void)pauseButtonClick;
 /**
  *  获取视频截图
  */
