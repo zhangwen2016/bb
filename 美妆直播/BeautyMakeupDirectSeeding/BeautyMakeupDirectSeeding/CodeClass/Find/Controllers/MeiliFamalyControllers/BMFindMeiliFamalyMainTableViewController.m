@@ -17,8 +17,8 @@
 
 
 //#define kCommunityAPI @"http://app.meilihuli.com/api/activity/getlist/count/10/page/1/?lang=zh-cn&version=ios2.0.0&cid=asXoHoWV7R9iVVx6r8CwK8"
-#define kCommunityAPIPart1 @"http://app.meilihuli.com/api/activity/getlist/count/"
-#define kCommunityAPIPart2 @"/page/1/?lang=zh-cn&version=ios2.0.0&cid=asXoHoWV7R9iVVx6r8CwK8"
+#define kCommunityAPIPart1 @"http://app.meilihuli.com/api/activity/getlist/count/20/page/"
+#define kCommunityAPIPart2 @"/?lang=zh-cn&version=ios2.0.0&cid=asXoHoWV7R9iVVx6r8CwK8"
 
 @interface BMFindMeiliFamalyMainTableViewController ()
 
@@ -41,24 +41,30 @@
     self.tableView.backgroundColor = [UIColor whiteColor];
     [self.tableView registerClass:[BMFindMeiliFamilyTypeOneTableViewCell class] forCellReuseIdentifier:@"BMFindMeiliFamilyTypeOneTableViewCell"];
     [self.tableView registerClass:[BMFindMeiliFamilyTypeTwoTableViewCell class] forCellReuseIdentifier:@"BMFindMeiliFamilyTypeTwoTableViewCell"];
-    _requireIndex = 10;
+    _requireIndex = 1;
+    //  初始化数组
+    _communityArr = [NSMutableArray array];
+
     [self loadData];
     self.tableView.tableHeaderView = [self headViewForTableView];
 
-    
+
     //  下啦刷新
     self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
         // 进入刷新状态后会自动调用这个block
         //  刷新的时候有了新数据 要把老数据清空 否则会造成数据重复
-        _requireIndex = 10;
-        [self loadData];
+//        _requireIndex = 1;
+//        [self loadData];
+        [self.tableView.mj_header endRefreshing];
+
+
     }];
     
     //  上拉刷新
     self.tableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
         // 进入刷新状态后会自动调用这个block
         
-        _requireIndex = _requireIndex + 10;
+        _requireIndex = _requireIndex + 1;
         //        if (_requireIndex > 100) {
         //            [self.tableView.mj_footer endRefreshing];
         //        }
@@ -70,7 +76,9 @@
 
 - (void)loadData
 {
-    _communityArr = [NSMutableArray array];
+    if (_requireIndex == 1) {
+        [_communityArr removeAllObjects];
+    }
     NSString *CommunityApi = [NSString stringWithFormat:@"%@%ld%@",kCommunityAPIPart1, _requireIndex, kCommunityAPIPart2];
     
     [BMRequestManager requsetWithUrlString:CommunityApi parDic:nil Method:GET finish:^(NSData *data)  {
@@ -82,15 +90,24 @@
             [model setValuesForKeysWithDictionary:subDic];
             [_communityArr addObject:model];
         }
-        NSLog(@"%@", _communityArr);
+        [self.tableView.mj_footer endRefreshing];
+//        if (_requireIndex >= 10) {
+//            for (int i = (int)_requireIndex - 10; i < _requireIndex; i++) {
+//            BMMeiliFamilyCommunityModel *model = [[BMMeiliFamilyCommunityModel alloc] init];
+//                [model setValuesForKeysWithDictionary:dataArr[i]];
+//                [_communityArr addObject:model];
+//            }
+//        }
+//        
+//        NSLog(@"%@", _communityArr);
+
         [self.tableView reloadData];
     } erro:^(NSError *erro) {
         NSLog(@"erro");
     }];
 
     
-    [self.tableView.mj_header endRefreshing];
-    [self.tableView.mj_footer endRefreshing];
+ 
 }
 
 
@@ -115,6 +132,13 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
+    
+    if (_communityArr.count == 0) {
+        return nil;
+    }
+//    if (_communityArr[indexPath.row] == nil) {
+//        return nil;
+//    }
     BMMeiliFamilyCommunityModel *model = _communityArr[indexPath.row];
     if ([model.list_show_type isEqualToString:@"1"]) {
         BMFindMeiliFamilyTypeOneTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"BMFindMeiliFamilyTypeOneTableViewCell" forIndexPath:indexPath];
@@ -132,6 +156,11 @@
     
     return nil;
 }
+
+
+
+
+
 
 - (CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
