@@ -64,12 +64,13 @@
             
             BMDsLiveAndPreviewModel *model = _ImageUrlArray[x];
             
-            [imageButton sd_setBackgroundImageWithURL:[NSURL URLWithString:model.image_url] forState:(UIControlStateNormal)];
+            [BMRequestManager downLoadButton:imageButton UrlString:model.image_url];
+
             
         }else{
             NSInteger y = i - 1;
             BMDsLiveAndPreviewModel *model = _ImageUrlArray[y];
-            [imageButton sd_setBackgroundImageWithURL:[NSURL URLWithString:model.image_url] forState:(UIControlStateNormal)];
+            [BMRequestManager downLoadButton:imageButton UrlString:model.image_url];
         }
         
         [smallScrollView addSubview:imageButton];

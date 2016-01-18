@@ -30,9 +30,9 @@
     _timeLabel.alpha = 0.5;
     _timeLabel.layer.cornerRadius = 10;
     _titleLabel.numberOfLines = -1;
-    _timeLabel.backgroundColor = [UIColor magentaColor];
+    _timeLabel.backgroundColor = kPinkColor;
     _timeLabel.textColor = [UIColor whiteColor];
-    _timeLabel.font = [UIFont systemFontOfSize:12];
+    _timeLabel.font = [UIFont systemFontOfSize:kSmallFont];
     [_coverImgView addSubview:_timeLabel];
     
     
@@ -45,17 +45,17 @@
     
     
     _nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(_headerImgView.right, _coverImgView.bottom + 5, 80, 20)];
-    _nameLabel.font = [UIFont systemFontOfSize:12];
+    _nameLabel.font = [UIFont systemFontOfSize:kSmallFont];
     [self.contentView addSubview:_nameLabel];
     
     
     _watchNumberLabel = [[UILabel alloc]initWithFrame:CGRectMake([UIScreen mainScreen].bounds.size.width - 100, _nameLabel.top, 90, 20)];
-    _watchNumberLabel.textColor = [UIColor colorWithRed:255/255.0 green:75 / 255.0 blue:124 / 255.0 alpha:1];
-    _watchNumberLabel.font = [UIFont systemFontOfSize:12];
+    _watchNumberLabel.textColor = kPinkColor;
+    _watchNumberLabel.font = [UIFont systemFontOfSize:kSmallFont];
     [self.contentView addSubview:_watchNumberLabel];
     
     _titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(_headerImgView.left, _nameLabel.bottom + 10, [UIScreen mainScreen].bounds.size.width, 25)];
-    _titleLabel.font = [UIFont systemFontOfSize:16];
+    _titleLabel.font = [UIFont systemFontOfSize:kLargeFont];
     [self.contentView addSubview:_titleLabel];
 }
 
@@ -102,18 +102,6 @@
 - (void)setMicroblogModel:(BMDsLiveAndPreviewModel *)microblogModel
 {
     _microblogModel = microblogModel;
-//    [BMRequestManager downLoadImageView:_coverImgView UrlString:microblogModel.cover_url];
-//    
-//    long long int date1 = (long long int)[microblogModel.start_time intValue];
-//    
-//    NSDate *date2 = [NSDate dateWithTimeIntervalSince1970:date1];
-//    
-//    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-//    [formatter setDateFormat:@"HH:mm"];
-//    NSString *str = [formatter stringFromDate:date2];
-//    
-//    _timeLabel.text = [NSString stringWithFormat:@"%@开播",str];
-//    
     
     [BMRequestManager downLoadImageView:_coverImgView UrlString:microblogModel.cover_url];
     [BMRequestManager downLoadImageView:_headerImgView UrlString:microblogModel.avatar];
@@ -121,12 +109,12 @@
     _titleLabel.text = microblogModel.title;
     _watchNumberLabel.text = [NSString stringWithFormat:@"%@人已观看",microblogModel.subscribe_count];
     //_watchNumberLabel自适应宽
-    [BMCommonMethod autoAdjustRightWidthLabel:_watchNumberLabel labelFontSize:12];
+    [BMCommonMethod autoAdjustRightWidthLabel:_watchNumberLabel labelFontSize:kSmallFont];
     
     
     // 更具model的status判断_timeLabel的显示的字是回放还是video_time
     if ([microblogModel.status isEqualToString:@"20"]) {
-        _timeLabel.backgroundColor = [UIColor colorWithRed:255/255.0 green:75 / 255.0 blue:124 / 255.0 alpha:1];
+        _timeLabel.backgroundColor = kPinkColor;
         _timeLabel.text = @"回放";
         _timeLabel.alpha = 1;
     }else if ([microblogModel.status isEqualToString:@"1"]){

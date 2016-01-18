@@ -98,7 +98,6 @@
 
         _collectionView.frame = newFrame;
         
-        
     }
     
 }

@@ -21,6 +21,7 @@
         [self addSubview:_imageView];
         
         _label = [[UILabel alloc] initWithFrame:CGRectMake(_imageView.right + 3, 0, width - _imageView.width - 3, height)];
+        _label.font = [UIFont systemFontOfSize:kLargeFont];
         [self addSubview:_label];
         
     }

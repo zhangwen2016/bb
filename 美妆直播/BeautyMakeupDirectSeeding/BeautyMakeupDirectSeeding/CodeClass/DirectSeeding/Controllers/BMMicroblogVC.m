@@ -80,8 +80,11 @@
         NSDictionary *oneDic = dic[@"data"];
         BMMicroblogModel *model = [[BMMicroblogModel alloc] init];
         [model setValuesForKeysWithDictionary:oneDic];
-        _headerView.model = model;
-        self.navigationItem.title = model.nickname;
+        
+        if (model != nil) {
+            _headerView.model = model;
+            self.navigationItem.title = model.nickname;
+        }
 
         
     } erro:^(NSError *erro) {
@@ -130,7 +133,11 @@
             [_rightVdataArray addObject:model];
         }
         
-        _RightVC.dataArray = _rightVdataArray;
+        if (_rightVdataArray.count != 0) {
+            _RightVC.dataArray = _rightVdataArray;
+
+        }
+        
         
     } erro:^(NSError *erro) {
         NSLog(@"请求失败");
@@ -293,7 +300,12 @@
     }else{
         
         BMDirectSeedingFirstCell *cell = [tableView dequeueReusableCellWithIdentifier:@"BMDirectSeedingFirstCell"];
-        cell.microblogModel = _dataArray[indexPath.row - 1];
+        
+        if (_dataArray.count != 0) {
+            cell.microblogModel = _dataArray[indexPath.row - 1];
+        }
+        
+        
         return cell;
     }
     

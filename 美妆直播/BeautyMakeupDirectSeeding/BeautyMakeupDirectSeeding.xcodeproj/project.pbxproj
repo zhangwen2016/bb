@@ -215,9 +215,9 @@
 		C65944781C45E52700CEFECA /* BMDirectSeedingRightVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C65944771C45E52700CEFECA /* BMDirectSeedingRightVC.m */; };
 		C682BF361C49F6D7008A6071 /* guanzhu01.png in Resources */ = {isa = PBXBuildFile; fileRef = C682BF311C49F6D7008A6071 /* guanzhu01.png */; };
 		C682BF371C49F6D7008A6071 /* kanzhibo01.png in Resources */ = {isa = PBXBuildFile; fileRef = C682BF321C49F6D7008A6071 /* kanzhibo01.png */; };
-		C682BF381C49F6D7008A6071 /* PlaceHoldingImage.png in Resources */ = {isa = PBXBuildFile; fileRef = C682BF331C49F6D7008A6071 /* PlaceHoldingImage.png */; };
 		C682BF391C49F6D7008A6071 /* qita01.png in Resources */ = {isa = PBXBuildFile; fileRef = C682BF341C49F6D7008A6071 /* qita01.png */; };
 		C682BF3A1C49F6D7008A6071 /* zhanweitu.jpg in Resources */ = {isa = PBXBuildFile; fileRef = C682BF351C49F6D7008A6071 /* zhanweitu.jpg */; };
+		C682BF421C4A1E61008A6071 /* PlaceHoldingImage.png in Resources */ = {isa = PBXBuildFile; fileRef = C682BF411C4A1E61008A6071 /* PlaceHoldingImage.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -577,9 +577,9 @@
 		C65944771C45E52700CEFECA /* BMDirectSeedingRightVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BMDirectSeedingRightVC.m; sourceTree = "<group>"; };
 		C682BF311C49F6D7008A6071 /* guanzhu01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = guanzhu01.png; sourceTree = "<group>"; };
 		C682BF321C49F6D7008A6071 /* kanzhibo01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = kanzhibo01.png; sourceTree = "<group>"; };
-		C682BF331C49F6D7008A6071 /* PlaceHoldingImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PlaceHoldingImage.png; sourceTree = "<group>"; };
 		C682BF341C49F6D7008A6071 /* qita01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = qita01.png; sourceTree = "<group>"; };
 		C682BF351C49F6D7008A6071 /* zhanweitu.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = zhanweitu.jpg; sourceTree = "<group>"; };
+		C682BF411C4A1E61008A6071 /* PlaceHoldingImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PlaceHoldingImage.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1058,9 +1058,9 @@
 		C60909201C410A3600DF0B8B /* Picture */ = {
 			isa = PBXGroup;
 			children = (
+				C682BF411C4A1E61008A6071 /* PlaceHoldingImage.png */,
 				C682BF311C49F6D7008A6071 /* guanzhu01.png */,
 				C682BF321C49F6D7008A6071 /* kanzhibo01.png */,
-				C682BF331C49F6D7008A6071 /* PlaceHoldingImage.png */,
 				C682BF341C49F6D7008A6071 /* qita01.png */,
 				C682BF351C49F6D7008A6071 /* zhanweitu.jpg */,
 				C601EF201C492EE900D80B27 /* guanbi.png */,
@@ -1388,6 +1388,7 @@
 				TargetAttributes = {
 					C649549D1C40EF3C00A7F89E = {
 						CreatedOnToolsVersion = 7.1;
+						DevelopmentTeam = K92V295JE6;
 					};
 					C64954B91C40EF3C00A7F89E = {
 						CreatedOnToolsVersion = 7.1;
@@ -1448,7 +1449,6 @@
 				7963643D1C45E5C700ABF7F9 /* kr-video-player-shrinkscreen@2x.png in Resources */,
 				79513DF51C45226700B3DA98 /* annualGoddnessMakeUp.png in Resources */,
 				796364381C45E5C700ABF7F9 /* kr-video-player-pause@3x.png in Resources */,
-				C682BF381C49F6D7008A6071 /* PlaceHoldingImage.png in Resources */,
 				C682BF391C49F6D7008A6071 /* qita01.png in Resources */,
 				C682BF371C49F6D7008A6071 /* kanzhibo01.png in Resources */,
 				C609094A1C410A3600DF0B8B /* all_topback@3x.png in Resources */,
@@ -1488,6 +1488,7 @@
 				797089BE1C47912800CC198F /* iconfont-paizhao.png in Resources */,
 				796364491C46287F00ABF7F9 /* zhaobudao.png in Resources */,
 				C60909581C410A3600DF0B8B /* error@2x.png in Resources */,
+				C682BF421C4A1E61008A6071 /* PlaceHoldingImage.png in Resources */,
 				C60909691C410A3600DF0B8B /* player-progress@2x.png in Resources */,
 				C609094E1C410A3600DF0B8B /* AppIcon29x29.png in Resources */,
 				C60909531C410A3600DF0B8B /* AppIcon60x60@2x.png in Resources */,
