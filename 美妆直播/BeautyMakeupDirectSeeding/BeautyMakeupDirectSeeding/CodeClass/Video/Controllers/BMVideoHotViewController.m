@@ -19,6 +19,8 @@
 @property (nonatomic, strong) NSMutableArray *dataSourceArray;
 
 @property (nonatomic, assign) NSInteger pageCount;
+
+@property (nonatomic, strong) UIActivityIndicatorView *indicatorView;
 @end
 
 @implementation BMVideoHotViewController
@@ -30,12 +32,32 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
-    
     [self loadTableView];
     [self JsonHeaderView];
     [self JsonData];
-    
+    [self loadJuHua];
 }
+
+
+- (void)loadJuHua{
+    _indicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+    _indicatorView.frame = CGRectMake(([UIScreen mainScreen].bounds.size.width - 150) / 2, 100, 150, 80);
+    _indicatorView.backgroundColor = kPinkColor;
+    _indicatorView.alpha = 0.5;
+    _indicatorView.layer.cornerRadius =10;
+    [self.view addSubview:_indicatorView];
+    [_indicatorView startAnimating];
+    
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(15, 65, 120, 10)];
+    label.text = @"正在加载";
+    label.textAlignment = NSTextAlignmentCenter;
+    label.textColor = [UIColor whiteColor];
+    [_indicatorView addSubview:label];
+}
+
+
+
+
 - (void)JsonHeaderView{
     _hotTagArray = [NSMutableArray array];
     [BMRequestManager requsetWithUrlString:kHotTagApi parDic:nil Method:GET finish:^(NSData *data) {
@@ -49,6 +71,7 @@
         _hotTagView.sourceArray = _hotTagArray;
         // 根据hotTagArray的count改变 headerView的高度
         _listTableView.tableHeaderView.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, _hotTagView.scrollView.contentSize.height + 20);
+        
         [_listTableView reloadData];
     } erro:^(NSError *erro) {
         nil;
@@ -69,6 +92,7 @@
             [_dataSourceArray addObject:model];
 
         }
+        [_indicatorView stopAnimating];
         [_listTableView.mj_header endRefreshing];
         [_listTableView.mj_footer endRefreshing];
         [_listTableView reloadData];
@@ -115,11 +139,13 @@
     _listTableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
         _pageCount = 1;
         [self JsonData];
+        [self loadJuHua];
     }];
     
     _listTableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
         _pageCount += 1;
         [self JsonData];
+        [self loadJuHua];
     }];
     
 }

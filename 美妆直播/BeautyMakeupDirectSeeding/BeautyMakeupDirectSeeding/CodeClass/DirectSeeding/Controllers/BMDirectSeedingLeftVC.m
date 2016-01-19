@@ -61,7 +61,6 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     _index = 2;
-    _threeHeight = 660;
     _isRefresh = NO;
     [self addTableView];
     
@@ -217,6 +216,19 @@
             
             [_recentDataArray addObject:model];
     
+        }
+        
+        // 动态改变今日预告的cell高度
+        if (_recentDataArray.count % 2 == 0) {
+            
+            _threeHeight = (_recentDataArray.count/2 * 150 ) + ((_recentDataArray.count/2 - 1) * 20);
+            
+        }
+        
+        if (_recentDataArray.count % 2 == 1) {
+            
+            _threeHeight = (_recentDataArray.count/2 * 150 ) + ((_recentDataArray.count/2 - 1) * 20) + 170;
+            
         }
         
         
