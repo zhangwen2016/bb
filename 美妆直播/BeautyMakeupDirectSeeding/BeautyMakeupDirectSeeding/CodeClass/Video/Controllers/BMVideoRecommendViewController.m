@@ -15,22 +15,41 @@
 @property (nonatomic, strong) UITableView *listTableView;
 @property (nonatomic, strong) NSMutableArray *dataSourceArray;
 @property (nonatomic, assign) NSInteger pageCount;
+
+@property (nonatomic, strong) UIActivityIndicatorView *indicatorView;
 @end
 
 @implementation BMVideoRecommendViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.view.backgroundColor = [UIColor whiteColor];
     [self loadTableView];
     [self JsonData];
     [self loadSearchBar];
+    [self loadJuHua];
+}
 
+- (void)loadJuHua{
+    _indicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+    _indicatorView.frame = CGRectMake(([UIScreen mainScreen].bounds.size.width - 150) / 2, 100, 150, 80);
+    _indicatorView.backgroundColor = kPinkColor;
+    _indicatorView.alpha = 0.5;
+    _indicatorView.layer.cornerRadius =10;
+    [self.view addSubview:_indicatorView];
+    [_indicatorView startAnimating];
+    
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(15, 65, 120, 10)];
+    label.text = @"正在加载";
+    label.textAlignment = NSTextAlignmentCenter;
+    label.textColor = [UIColor whiteColor];
+    [_indicatorView addSubview:label];
 }
 
 #pragma mark -- 加载tableView
 - (void)loadTableView{
     
-    _listTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0,[UIScreen mainScreen].bounds.size.width, self.view.frame.size.height - 70 - 44)];
+    _listTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0,[UIScreen mainScreen].bounds.size.width, self.view.frame.size.height - 44)];
     _listTableView.delegate = self;
     _listTableView.dataSource = self;
     _listTableView.rowHeight = 230;
@@ -43,11 +62,13 @@
     _listTableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
         _pageCount = 1;
         [self JsonData];
+        [self loadJuHua];
     }];
     
     _listTableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
         _pageCount += 1;
         [self JsonData];
+        [self loadJuHua];
     }];
 }
 
@@ -89,6 +110,8 @@
             [model setValuesForKeysWithDictionary:oneDic];
             [_dataSourceArray addObject:model];
         }
+        
+        [_indicatorView stopAnimating];
         [_listTableView.mj_header endRefreshing];
         [_listTableView.mj_footer endRefreshing];
         [_listTableView reloadData];
