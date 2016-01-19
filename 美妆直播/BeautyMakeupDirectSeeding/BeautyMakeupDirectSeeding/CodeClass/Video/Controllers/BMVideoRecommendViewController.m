@@ -141,7 +141,11 @@
     
     BMVideoShowViewController *showVC = [[BMVideoShowViewController alloc] init];
     BMVideoMainModel *model = _dataSourceArray[indexPath.row];
-    showVC.source_id = model.source_id;
+    if ([model.status isEqualToString:@"20"]) {
+        showVC.live_id = model.source_id;
+    }else{
+         showVC.source_id = model.source_id;
+    }
     [self.navigationController pushViewController:showVC animated:YES];
 }
 
