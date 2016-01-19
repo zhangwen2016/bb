@@ -13,28 +13,28 @@
 //#define kSubscribe_monthAPI @"http://app.meilihuli.com/api/discover/teacherranklist/count/30/order/subscribe_month/page/1/?lang=zh-cn&version=ios2.0.0&cid=asXoHoWV7R9iVVx6r8CwK8"
 
 //  月人气排行API
-#define kSubscribe_monthAPIPart1 @"http://app.meilihuli.com/api/discover/teacherranklist/count/"
+#define kSubscribe_monthAPIPart1 @"http://app.meilihuli.com/api/discover/teacherranklist/count/30/order/subscribe_month/page/"
 //  月人气排行API
-#define kSubscribe_monthAPIPart2 @"/order/subscribe_month/page/1/?lang=zh-cn&version=ios2.0.0&cid=asXoHoWV7R9iVVx6r8CwK8"
+#define kSubscribe_monthAPIPart2 @"/?lang=zh-cn&version=ios2.0.0&cid=asXoHoWV7R9iVVx6r8CwK8"
 ////  总人气排行API
 //#define kSubscribe @"http://app.meilihuli.com/api/discover/teacherranklist/count/30/order/subscribe/page/1/?lang=zh-cn&version=ios2.0.0&cid=asXoHoWV7R9iVVx6r8CwK8"
-#define kSubscribePart1 @"http://app.meilihuli.com/api/discover/teacherranklist/count/"
-#define kSubscribePar2 @"/order/subscribe/page/1/?lang=zh-cn&version=ios2.0.0&cid=asXoHoWV7R9iVVx6r8CwK8"
+#define kSubscribePart1 @"http://app.meilihuli.com/api/discover/teacherranklist/count/30/order/subscribe/page/"
+#define kSubscribePar2 @"/?lang=zh-cn&version=ios2.0.0&cid=asXoHoWV7R9iVVx6r8CwK8"
 
 ////  月收益API
 //#define kWallet_month @"http://app.meilihuli.com/api/discover/teacherranklist/count/30/order/wallet_month/page/1/?lang=zh-cn&version=ios2.0.0&cid=asXoHoWV7R9iVVx6r8CwK8"
 
 //  月收益API
-#define kWallet_monthPart1 @"http://app.meilihuli.com/api/discover/teacherranklist/count/"
+#define kWallet_monthPart1 @"http://app.meilihuli.com/api/discover/teacherranklist/count/30/order/wallet_month/page/"
 //  月收益API
-#define kWallet_monthPart2 @"/order/wallet_month/page/1/?lang=zh-cn&version=ios2.0.0&cid=asXoHoWV7R9iVVx6r8CwK8"
+#define kWallet_monthPart2 @"/?lang=zh-cn&version=ios2.0.0&cid=asXoHoWV7R9iVVx6r8CwK8"
 
 ////  总收益API
 //#define kWallet @"http://app.meilihuli.com/api/discover/teacherranklist/count/30/order/wallet/page/1/?lang=zh-cn&version=ios2.0.0&cid=asXoHoWV7R9iVVx6r8CwK8"
 //  总收益API
-#define kWalletPart1 @"http://app.meilihuli.com/api/discover/teacherranklist/count/"
+#define kWalletPart1 @"http://app.meilihuli.com/api/discover/teacherranklist/count/30/order/wallet/page/"
 //  总收益API
-#define kWalletPart2 @"/order/wallet/page/1/?lang=zh-cn&version=ios2.0.0&cid=asXoHoWV7R9iVVx6r8CwK8"
+#define kWalletPart2 @"/?lang=zh-cn&version=ios2.0.0&cid=asXoHoWV7R9iVVx6r8CwK8"
 
 #define kTitleTag 1000
 

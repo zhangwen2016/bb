@@ -10,6 +10,7 @@
 #import "BMDirectSedingMainVC.h"
 #import "BMFindMainVC.h"
 #import "BMVideoMainVC.h"
+#import "BMMineViewController.h"
 @interface BMBeautyMakeTabBarC ()
 
 @end
@@ -25,7 +26,7 @@
     [self addViewControllerClass:[BMDirectSedingMainVC class] title:@"直播" imageName:@"DirectSeeding"];
     [self addViewControllerClass:[BMVideoMainVC class] title:@"视频" imageName:@"video"];
     [self addViewControllerClass:[BMFindMainVC class] title:@"发现" imageName:@"find"];
- //   [self addViewControllerClass:[BMMineMainVC class] title:@"我的" imageName:@"mine"];
+    [self addViewControllerClass:[BMMineViewController class] title:@"我的" imageName:@"mine"];
     
 }
 

@@ -81,13 +81,23 @@
 //  点击发送
 -(void)talkBtnClick:(UITextView *)textViewGet
 {
+    NSMutableDictionary *parDic = [NSMutableDictionary dictionary];
+    parDic[@"comment_content"] = textViewGet.text;
+    parDic[@"source_id"]= _activity_id;
+    parDic[@"type"] = @"3";
+    [BMRequestManager requsetWithUrlString:@"http://app.meilihuli.com/api/comment/add/bucket/ms/?lang=zh-cn&version=ios2.0.0&cid=asXoHoWV7R9iVVx6r8CwK8" parDic:parDic Method:POST finish:^(NSData *data) {
+        NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+        NSLog(@"%@", dic[@"errmsg"]);
+    } erro:^(NSError *erro) {
+        nil;
+    }];
+    
     NSLog(@"%@",textViewGet.text);
 }
 
 - (void)loadData
 {
     NSString *api = [[kCommunityAPIPart1 stringByAppendingString:_activity_id] stringByAppendingString:kCommunityAPIPart2];
-    
     
     [BMRequestManager requsetWithUrlString:api parDic:nil Method:GET finish:^(NSData *data)  {
         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];

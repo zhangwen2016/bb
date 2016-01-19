@@ -14,8 +14,8 @@
 
 
 
-#define kCheckMoreAPIPart1 @"http://app.meilihuli.com/api/topic/getlist/count/"
-#define kCheckMoreAPIPart2 @"/page/1/?lang=zh-cn&version=ios2.0.0&cid=asXoHoWV7R9iVVx6r8CwK8"
+#define kCheckMoreAPIPart1 @"http://app.meilihuli.com/api/topic/getlist/count/10/page/"
+#define kCheckMoreAPIPart2 @"/?lang=zh-cn&version=ios2.0.0&cid=asXoHoWV7R9iVVx6r8CwK8"
 
 @interface BMFindMeiliFamilyCheckMoreViewController ()<UITableViewDataSource, UITableViewDelegate>
 
@@ -33,7 +33,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     [self addTableView];
-    _requireIndex = 10;
+    _requireIndex = 1;
     _dataArr = [NSMutableArray array];
     [self loadData];
     [self loadNavView];
@@ -45,7 +45,7 @@
     self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
         // 进入刷新状态后会自动调用这个block
         //  刷新的时候有了新数据 要把老数据清空 否则会造成数据重复
-        _requireIndex = 10;
+        _requireIndex = 1;
         [self loadData];
     }];
     
@@ -53,10 +53,7 @@
     self.tableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
         // 进入刷新状态后会自动调用这个block
         
-        _requireIndex = _requireIndex + 10;
-        //        if (_requireIndex > 100) {
-        //            [self.tableView.mj_footer endRefreshing];
-        //        }
+        _requireIndex = _requireIndex + 1;
         [self loadData];
     }];
 }
@@ -102,7 +99,7 @@
     if (_requireIndex >= 10) {
         [_dataArr removeAllObjects];
     }
-    NSString *checkMoreAPI = [NSString stringWithFormat:@"http://app.meilihuli.com/api/topic/getlist/count/%ld/page/1/?lang=zh-cn&version=ios2.0.0&cid=asXoHoWV7R9iVVx6r8CwK8",_requireIndex];
+    NSString *checkMoreAPI = [NSString stringWithFormat:@"http://app.meilihuli.com/api/topic/getlist/count/10/page/%ld/?lang=zh-cn&version=ios2.0.0&cid=asXoHoWV7R9iVVx6r8CwK8",_requireIndex];
     [BMRequestManager requsetWithUrlString:checkMoreAPI parDic:nil Method:GET finish:^(NSData *data)  {
         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
         NSArray *dataArr = dic[@"data"];

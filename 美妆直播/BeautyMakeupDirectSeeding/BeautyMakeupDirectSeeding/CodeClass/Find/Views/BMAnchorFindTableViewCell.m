@@ -54,7 +54,7 @@
     _dataArr = dataArr;
 
     //  记得改变frame
-    _collectionV.frame = CGRectMake(0, 0, kScreenWidth, ((kScreenWidth - 10 * 2 - 10 * 2) / 3 * _index / 3 + 10 * (_index / 3 + 1)));
+    _collectionV.frame = CGRectMake(0, 0, kScreenWidth, ((kScreenWidth - 10 * 2 - 10 * 2) / 3 * 1 * 6  + 10 * (1 * 6 + 1)));
     [_collectionV reloadData];
 }
 
