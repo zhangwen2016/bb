@@ -57,19 +57,21 @@
     //  设置tableView
     [self setUpTableView];
     _requireIndex = 18;
+    _findArr = [NSMutableArray array];
+
     //  初始化数据
     [self loadData];
     
-    
+
     
         //  下啦刷新
         self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
             // 进入刷新状态后会自动调用这个block
             //  刷新的时候有了新数据 要把老数据清空 否则会造成数据重复
-            _requireIndex = 18;
-           // [self loadData];
+            _requireIndex = 1;
+            [self loadData];
        //     [self.tableView.mj_footer endRefreshing];
-          [self.tableView.mj_header endRefreshing];
+//          [self.tableView.mj_header endRefreshing];
         }];
     
     
@@ -77,10 +79,11 @@
         self.tableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
             // 进入刷新状态后会自动调用这个block
            
-            _requireIndex = _requireIndex + 18;
+            _requireIndex = 1;
+            [self getFindInfor];
  //           if (_requireIndex > 36) {
    //             _requireIndex = 36;
-                [self.tableView.mj_footer endRefreshing];
+                //[self.tableView.mj_footer endRefreshing];
   //              return ;
  //           }
 //            [self getFindInfor];
@@ -93,7 +96,6 @@
 {
     _honerListArr = [NSMutableArray array];
     _popularAnchor = [NSMutableArray array];
-    _findArr = [NSMutableArray array];
     [self setUpTableView];
     //  获取荣誉榜和人气主播的信息
     [self getPopularAnchorAndHonerListInfor];
@@ -137,31 +139,42 @@
 //  获取发现的信息
 - (void)getFindInfor
 {
-    NSString *urlStr = [NSString stringWithFormat:@"http://app.meilihuli.com/api/discover/imglist/count/%ld/page/1/?lang=zh-cn&version=ios2.0.0&cid=asXoHoWV7R9iVVx6r8CwK8",_requireIndex];
+    
+    if (_requireIndex == 1) {
+        [_findArr removeAllObjects];
+    }
+    NSString *urlStr = [NSString stringWithFormat:@"http://app.meilihuli.com/api/discover/imglist/count/18/page/%ld/?lang=zh-cn&version=ios2.0.0&cid=asXoHoWV7R9iVVx6r8CwK8",_requireIndex];
     [BMRequestManager requsetWithUrlString:urlStr parDic:nil Method:GET finish:^(NSData *data)  {
         NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
         NSArray *dataArr = dic[@"data"];
         //  解析数据
-//        for (NSDictionary *subDic in dataArr) {
-//            BMAnchorFindModel *model = [[BMAnchorFindModel alloc] init];
-//            [model setValuesForKeysWithDictionary:subDic];
-//            [_findArr addObject:model];
-//        }
-        
-        
-        for (int i = (int)_findArr.count; i < _requireIndex; i++) {
-            NSDictionary *subDic = dataArr[i];
+        for (NSDictionary *subDic in dataArr) {
             BMAnchorFindModel *model = [[BMAnchorFindModel alloc] init];
             [model setValuesForKeysWithDictionary:subDic];
             [_findArr addObject:model];
         }
-        if (_requireIndex == 18) {
-            [self.tableView reloadData];
-        }else{
         
-        NSIndexSet *indexSet=[[NSIndexSet alloc]initWithIndex:2];
-        [self.tableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
-        }
+        
+//        for (int i = (int)_findArr.count; i < _requireIndex; i++) {
+//            NSDictionary *subDic = dataArr[i];
+//            BMAnchorFindModel *model = [[BMAnchorFindModel alloc] init];
+//            [model setValuesForKeysWithDictionary:subDic];
+//            [_findArr addObject:model];
+//        }
+//        if (_requireIndex == 18) {
+//            [self.tableView reloadData];
+//        }else{
+        [self.tableView.mj_footer endRefreshing];
+        [self.tableView.mj_header endRefreshing];
+
+            //  执行的任务 再整个程序运行期间 只执行一次
+            //  并且只允许 一个线程访问(自带 线程保护)
+            [self.tableView reloadData];
+
+       //[self.tableView.mj_header endRefreshing];
+//        NSIndexSet *indexSet=[[NSIndexSet alloc]initWithIndex:1];
+//        [self.tableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
+//        [self.tableView reloadData];
     } erro:^(NSError *erro) {
         NSLog(@"erro");
     }];
@@ -311,7 +324,7 @@
         return 190;
     }
     
-    return ((kScreenWidth - 10 * 2 - 10 * 2) / 3 * (_requireIndex / 3)  + 10 * (_requireIndex / 3 + 1)) + 20;
+    return ((kScreenWidth - 10 * 2 - 10 * 2) / 3 * (1 * 6)  + 10 * (1 * 6 + 1))  + 20;
 }
 
 #pragma mark  点击cell (只对第一个分组有效)

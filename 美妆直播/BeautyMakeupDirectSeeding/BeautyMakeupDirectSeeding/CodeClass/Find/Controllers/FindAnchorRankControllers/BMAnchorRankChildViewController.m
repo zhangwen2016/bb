@@ -28,7 +28,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     _rankDataArr = [NSMutableArray array];
-    _requireIndex = 30;
+    _requireIndex = 1;
     [self loadData];
     [self setUpTableView];
 
@@ -45,7 +45,7 @@
         // 进入刷新状态后会自动调用这个block
         //  刷新的时候有了新数据 要把老数据清空 否则会造成数据重复
         //[_rankDataArr removeAllObjects];
-        _requireIndex = 30;
+        _requireIndex = 1;
         [self.tableView reloadData];
         [self.tableView.mj_header endRefreshing];
     }];
@@ -54,7 +54,7 @@
     self.tableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
         // 进入刷新状态后会自动调用这个block
         
-        _requireIndex = _requireIndex + 30;
+        _requireIndex = _requireIndex + 1;
 //        if (_requireIndex > 100) {
 //            [self.tableView.mj_footer endRefreshing];
 //        }
@@ -65,7 +65,7 @@
 
 - (void)loadData
 {
-    if (_requireIndex >= 30) {
+    if (_requireIndex == 1) {
         [_rankDataArr removeAllObjects];
     }
     
@@ -79,6 +79,8 @@
 
         if (_requireIndex > 0) {
         
+         
+            
         for (NSDictionary *subDic in dataArr) {
             BMAnchorRecommendModel *model = [[BMAnchorRecommendModel alloc] init];
             [model setValuesForKeysWithDictionary:subDic];

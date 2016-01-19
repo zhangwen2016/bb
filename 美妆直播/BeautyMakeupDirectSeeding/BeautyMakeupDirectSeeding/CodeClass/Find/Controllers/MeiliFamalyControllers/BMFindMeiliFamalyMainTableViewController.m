@@ -53,10 +53,9 @@
     self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
         // 进入刷新状态后会自动调用这个block
         //  刷新的时候有了新数据 要把老数据清空 否则会造成数据重复
-//        _requireIndex = 1;
-//        [self loadData];
+        _requireIndex = 1;
+        [self loadData];
         [self.tableView.mj_header endRefreshing];
-
 
     }];
     
@@ -91,15 +90,6 @@
             [_communityArr addObject:model];
         }
         [self.tableView.mj_footer endRefreshing];
-//        if (_requireIndex >= 10) {
-//            for (int i = (int)_requireIndex - 10; i < _requireIndex; i++) {
-//            BMMeiliFamilyCommunityModel *model = [[BMMeiliFamilyCommunityModel alloc] init];
-//                [model setValuesForKeysWithDictionary:dataArr[i]];
-//                [_communityArr addObject:model];
-//            }
-//        }
-//        
-//        NSLog(@"%@", _communityArr);
 
         [self.tableView reloadData];
     } erro:^(NSError *erro) {
