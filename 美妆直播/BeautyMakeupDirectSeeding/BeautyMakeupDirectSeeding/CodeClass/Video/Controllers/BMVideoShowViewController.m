@@ -171,7 +171,7 @@
 }
 
 - (void)JsonData{
-    
+   
     NSString  *personGoodsApi = [@"http://app.meilihuli.com/api/live/video/live_id/" stringByAppendingString:[NSString stringWithFormat:@"%@/?lang=zh-cn&version=ios2.0.0&cid=asXoHoWV7R9iVVx6r8CwK8", _live_id]];
     if (_source_id.length != 0) {
         

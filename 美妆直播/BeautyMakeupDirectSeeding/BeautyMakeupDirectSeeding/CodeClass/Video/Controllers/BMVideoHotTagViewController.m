@@ -53,8 +53,9 @@
 
 #pragma mark ---- 加载数据得到的接口
 - (void)JsonData{
-    
-    
+
+                                                                                        
+                                                                                        
      NSString *hotTagApi = [@"http://app.meilihuli.com/api/videodemand/taglist/tag_id/"stringByAppendingString:[NSString stringWithFormat:@"%@?lang=zh-cn&version=ios2.0.0&cid=asXoHoWV7R9iVVx6r8CwK8",_hotTagModel.tag_id]];
     
     [BMRequestManager requsetWithUrlString:hotTagApi parDic:nil Method:GET finish:^(NSData *data) {
